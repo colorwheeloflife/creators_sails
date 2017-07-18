@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form-6';
 import Select from 'react-select';
 import MultiSelectField from '../form/multiselect';
+import WindowExplorer from './window_explorer';
+import WindowAddItem from './window_additem';
 
 const CATEGORIES = [
 	{ label: 'Visual Art', value: 'visual_art' },
@@ -41,13 +43,33 @@ const MATERIALS = [
 ];
 
 class InventoryGamepad extends Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			commander: 'nothing',
+			window_box: <WindowExplorer />
+		}
+
+		this.onAddItemClick = this.onAddItemClick.bind(this);
+		this.onExploreClick = this.onExploreClick.bind(this);
+	}
+
+	onAddItemClick() {
+		this.setState({ window_box: <WindowAddItem /> });
+	}
+
+	onExploreClick() {
+		this.setState({ window_box: <WindowExplorer /> });
+	}
+
   render() {
     return (
       <div id="inventory_gamepad">
         <div id="inventory_gamepad_header">
           <button id="inventory_gamepad_back_to_shop_btn" className="btn inventory_gamepad_header_btn">Back To Shop</button>
-          <button id="inventory_gamepad_explore_inventory_btn" className="btn btn-primary inventory_gamepad_header_btn">Explore Inventory</button>
-          <button id="inventory_gamepad_add_item_btn" className="btn btn-primary inventory_gamepad_header_btn">Add Item</button>
+          <button id="inventory_gamepad_explore_inventory_btn" className="btn btn-primary inventory_gamepad_header_btn" onClick={this.onExploreClick}> Explore Inventory </button>
+          <button id="inventory_gamepad_add_item_btn" className="btn btn-primary inventory_gamepad_header_btn" onClick={this.onAddItemClick}> Add Item </button>
         </div>
         <div id="inventory_gamepad_menu_bar">
           <div id="inventory_gamepad_menu_bar_title">Filter Content:</div>
@@ -95,7 +117,9 @@ class InventoryGamepad extends Component {
             <input id="inventory_gamepad_content_searchbar_input" placeholder="Search inventory here..."/>
             <button id="inventory_gamepad_content_searchbar_btn" className="btn btn-success">Go!</button>
           </div>
-          <div id="inventory_gamepad_content_window"></div>
+          <div id="inventory_gamepad_content_window">
+						{this.state.window_box}
+					</div>
         </div>
       </div>
     );
