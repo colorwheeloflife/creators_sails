@@ -7,14 +7,11 @@ import reduxThunk from 'redux-thunk';
 import Popup from 'react-popup';
 
 import App from './components/app';
-import StoreAddItem from './components/inventory/add_item/add_item_wizard_form';
-import StoreAddItemP1 from './components/inventory/add_item/new_item_p1';
-import StoreAddItemP2 from './components/inventory/add_item/new_item_p2';
-import StoreAddItemP3 from './components/inventory/add_item/new_item_p3';
+import BasicAddItem from './components/inventory/basic_add_item';
+import InventoryGamepad from './components/inventory/inventory_gamepad';
 import Feature from './components/feature';
 import Welcome from './components/welcome';
 import reducers from './reducers';
-import { AUTH_USER } from './actions/types';
 
 const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
 const store = createStoreWithMiddleware(reducers);
@@ -24,15 +21,13 @@ ReactDOM.render(
     <Router history={browserHistory}>
       <Route path="/" component={App}>
         <IndexRoute component={Welcome} />
-        <Route path="store_additem" component={StoreAddItem} />
-        <Route path="store_additem/p1" component={StoreAddItemP1} />
-        <Route path="store_additem/p2" component={StoreAddItemP2} />
-        <Route path="store_additem/p3" component={StoreAddItemP3} />
+        <Route path="additem" component={BasicAddItem} />
+        <Route path="inventory" component={InventoryGamepad} />
         <Route path="feature" component={Feature} />
       </Route>
     </Router>
   </Provider>
-  , document.querySelector('.app'));
+  , document.querySelector('#app'));
 
 ReactDOM.render(
   <Popup

@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import { reducer as form } from 'redux-form-6';
-import authReducer from './auth_reducer';
+import inventoryReducer from './inventory_reducer';
 
 const rootReducer = combineReducers({
   form,
-  auth: authReducer
+  inventory: inventoryReducer
 });
 
 export default rootReducer;

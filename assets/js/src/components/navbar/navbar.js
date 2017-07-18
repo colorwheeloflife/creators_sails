@@ -10,6 +10,11 @@ class Navbar extends Component {
     return (
       <nav className="navbar navbar-default" id="creators_navbar">
         <Link to="/" className="navbar-brand">West Coast Creator Collective</Link>
+
+        <button id="nav_inventory_btn" className="btn btn-primary nav-item">
+          <Link className="nav-link" to="/inventory">Inventory</Link>
+        </button>
+
       </nav>
     );
   }
