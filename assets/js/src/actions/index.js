@@ -7,23 +7,39 @@ import {
 const ROOT_URL = 'http://localhost:1337';
 
 export function basicAddItem(values, callback) {
-  console.log(values);
-  const request = axios.post('/item', {
-      name: values.name,
-      description: values.description,
-      price: values.price
-    })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
 
-  return {
-    type: BASIC_ADD_ITEM,
-    payload: request
+  console.log(values);
+
+  return function(dispatch) {
+    axios.post('/item', { name, description, price })
+      .then(response => {
+        console.log(response);
+        dispatch({ type: BASIC_ADD_ITEM });
+        browserHistory.push('/feature');
+      })
+      .catch(() => {
+        console.log(error);
+        dispatch(authError(response.data.error));
+      });
   }
+
+  // console.log(values);
+  // const request = axios.post('/item', {
+  //     name: values.name,
+  //     description: values.description,
+  //     price: values.price
+  //   })
+  //   .then(function (response) {
+  //     console.log(response);
+  //   })
+  //   .catch(function (error) {
+  //     console.log(error);
+  //   });
+  //
+  // return {
+  //   type: BASIC_ADD_ITEM,
+  //   payload: request
+  // }
 }
 
 export function fetchItems() {

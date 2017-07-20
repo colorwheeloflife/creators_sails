@@ -15,6 +15,10 @@ class Navbar extends Component {
           <Link className="nav-link" to="/inventory">Inventory</Link>
         </button>
 
+        <button id="nav_inventory_btn" className="btn btn-primary nav-item">
+          <Link className="nav-link" to="/additem">Add</Link>
+        </button>
+
       </nav>
     );
   }
