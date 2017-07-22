@@ -8,8 +8,9 @@ import AddItemForm from './AddItemForm';
 class AddItemPage extends React.Component {
 
   componentDidMount() {
+    console.log('state', this.props);
     var items = this.props.actions.fetchItems();
-    console.log(items);
+    console.log('items', items);
   }
 
   submit = (values) => {
@@ -24,7 +25,8 @@ class AddItemPage extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  items: state.items
+  items: state.items,
+  testing: state.testing
 })
 
 const mapDispatchToProps = dispatch => ({
