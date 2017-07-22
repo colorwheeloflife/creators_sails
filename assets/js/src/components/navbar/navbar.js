@@ -16,7 +16,7 @@ class Navbar extends Component {
         </button>
 
         <button id="nav_inventory_btn" className="btn btn-primary nav-item">
-          <Link className="nav-link" to="/additem">Add</Link>
+          <Link className="nav-link" to="/basicadditem">Add</Link>
         </button>
 
       </nav>

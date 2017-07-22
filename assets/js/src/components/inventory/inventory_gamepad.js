@@ -4,7 +4,7 @@ import { reduxForm } from 'redux-form-6';
 import Select from 'react-select';
 import MultiSelectField from '../form/multiselect';
 import WindowExplorer from './window_explorer';
-import WindowAddItem from './window_additem';
+import GamePadAddItemForm from './GamePadAddItemForm';
 
 const CATEGORIES = [
 	{ label: 'Visual Art', value: 'visual_art' },
@@ -56,7 +56,7 @@ class InventoryGamepad extends Component {
 	}
 
 	onAddItemClick() {
-		this.setState({ window_box: <WindowAddItem /> });
+		this.setState({ window_box: <GamePadAddItemForm /> });
 	}
 
 	onExploreClick() {

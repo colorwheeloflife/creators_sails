@@ -3,9 +3,9 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
-import AddItemForm from './AddItemForm';
+import BasicAddItemForm from './BasicAddItemForm';
 
-class AddItemPage extends React.Component {
+class BasicAddItemPage extends React.Component {
 
   componentDidMount() {
     console.log('state', this.props);
@@ -19,7 +19,7 @@ class AddItemPage extends React.Component {
 
   render() {
     return (
-      <AddItemForm onSubmit={this.submit} />
+      <BasicAddItemForm onSubmit={this.submit} />
     )
   }
 }
@@ -33,9 +33,9 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(actions, dispatch)
 })
 
-AddItemPage = connect(
+BasicAddItemPage = connect(
   mapStateToProps,
   mapDispatchToProps
-)(AddItemPage);
+)(BasicAddItemPage);
 
-export default AddItemPage;
+export default BasicAddItemPage;

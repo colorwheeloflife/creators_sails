@@ -1,7 +1,7 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 
-let AddItemForm = props => {
+let BasicAddItemForm = props => {
   const { handleSubmit } = props
   return (
     <div className='container'>
@@ -10,7 +10,7 @@ let AddItemForm = props => {
         <div className='col-md-8'>
           <form className="standard_form" onSubmit={ handleSubmit }>
 
-            <div className="form-group">
+            <div className="">
               <label htmlFor="name">Item Name</label>
               <Field className="form-control" name="name" component="input" type="text" />
             </div>
@@ -34,8 +34,8 @@ let AddItemForm = props => {
   )
 }
 
-AddItemForm = reduxForm({
+BasicAddItemForm = reduxForm({
   form: 'additem'
-})(AddItemForm)
+})(BasicAddItemForm)
 
-export default AddItemForm;
+export default BasicAddItemForm;
