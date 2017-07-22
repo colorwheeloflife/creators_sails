@@ -3,12 +3,14 @@ import {
   FETCH_ITEMS
 } from '../actions/types';
 
-export default function(state = {}, action) {
+export default function(state = {testing: '1234'}, action) {
   switch(action.type) {
     case BASIC_ADD_ITEM:
-      return { ...state, error: '', item: payload };
+      console.log('reducer');
+      console.log(action.payload);
+      return { ...state, error: '', item: action.payload };
     case FETCH_ITEMS:
-      return { ...state, error: '', items: payload };
+      return { ...state, error: '', items: action.payload };
   }
 
   return state;

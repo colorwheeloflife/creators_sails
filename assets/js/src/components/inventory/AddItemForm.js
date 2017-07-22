@@ -4,21 +4,33 @@ import { Field, reduxForm } from 'redux-form'
 let AddItemForm = props => {
   const { handleSubmit } = props
   return (
-    <form onSubmit={ handleSubmit }>
-      <div>
-        <label htmlFor="itemName">Item Name</label>
-        <Field name="itemName" component="input" type="text" />
+    <div className='container'>
+      <div className='row'>
+        <div className='col-md-2'></div>
+        <div className='col-md-8'>
+          <form className="standard_form" onSubmit={ handleSubmit }>
+
+            <div className="form-group">
+              <label htmlFor="name">Item Name</label>
+              <Field className="form-control" name="name" component="input" type="text" />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="description">Item Description</label>
+              <Field className="form-control" name="description" component="input" type="text" />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="price">Price</label>
+              <Field className="form-control" name="price" component="input" type="text" />
+            </div>
+
+            <button type="submit" className="btn btn-primary"> Submit </button>
+          </form>
+        </div>
+        <div className='col-md-2'></div>
       </div>
-      <div>
-        <label htmlFor="itemDescription">Item Description</label>
-        <Field name="itemDescription" component="input" type="text" />
-      </div>
-      <div>
-        <label htmlFor="itemPrice">Price</label>
-        <Field name="itemPrice" component="input" type="text" />
-      </div>
-      <button type="submit">Submit</button>
-    </form>
+    </div>
   )
 }
 
