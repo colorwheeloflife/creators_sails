@@ -9,7 +9,7 @@ import Popup from 'react-popup';
 import App from './components/app';
 import BasicAddItem from './components/inventory/basic_add_item';
 import BasicAddItemPage from './components/inventory/BasicAddItemPage';
-import InventoryGamepad from './components/inventory/inventory_gamepad';
+import InventoryGamepad from './components/inventory/InventoryGamepad';
 import Feature from './components/feature';
 import Welcome from './components/welcome';
 import reducers from './reducers';

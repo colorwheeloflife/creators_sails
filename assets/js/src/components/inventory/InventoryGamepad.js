@@ -52,57 +52,33 @@ class InventoryGamepad extends Component {
 		super(props);
 		this.state = {
 			// items: this.props.items,
-			addItem_useAsDescription: [true],
-			addItem_selectedCategory: [],
-			addItem_selectedArticleType: [],
 			windowAddItem: false,
 			windowExplorer: true
 		}
 
 		this.onAddItemClick = this.onAddItemClick.bind(this);
 		this.onExploreClick = this.onExploreClick.bind(this);
-		this.handleUseAsDescriptionSelection = this.handleUseAsDescriptionSelection.bind(this);
-		this.handleAddItemCategorySelection = this.handleAddItemCategorySelection.bind(this);
-		this.handleAddItemArticleSelection = this.handleAddItemArticleSelection.bind(this);
 		this.addItemFormSubmit = this.addItemFormSubmit.bind(this);
 	}
 
 	componentDidMount() {
-		this.props.actions.fetchItems();
+		// this.props.actions.fetchItems();
 	}
 
 	onAddItemClick() {
 	  const { windowAddItem } = this.state;
-
 	  this.setState({
 	    windowAddItem: windowAddItem ? true : true,
 	    windowExplorer: windowAddItem ? false : false
 	  });
-
-	  console.log(this.state.windowAddItem);
 	}
 
 	onExploreClick() {
 	  const { windowExplorer } = this.state;
-
 	  this.setState({
 	    windowAddItem: windowExplorer ? false : false,
 	    windowExplorer: windowExplorer ? true : true
 	  });
-
-	  console.log(this.state.windowAddItem);
-	}
-
-	handleUseAsDescriptionSelection(e) {
-		this.setState({ addItem_useAsDescription: e.target.value });
-	}
-
-	handleAddItemCategorySelection(e) {
-		this.setState({ addItem_selectedCategory: e.target.value });
-	}
-
-	handleAddItemArticleSelection(e) {
-		this.setState({ addItem_selectedArticleType: e.target.value });
 	}
 
 	addItemFormSubmit = (values) => {
@@ -169,13 +145,7 @@ class InventoryGamepad extends Component {
 							isShowing={this.state.windowExplorer} />
 						<GamePadAddItemForm
 							isShowing={this.state.windowAddItem}
-							onSubmit={this.addItemFormSubmit}
-							handleUseAsDescriptionSelection={this.handleUseAsDescriptionSelection}
-							handleAddItemCategorySelection={this.handleAddItemCategorySelection}
-							handleAddItemArticleSelection={this.handleAddItemArticleSelection}
-							selectedUseAsDescription={this.state.addItem_useAsDescription}
-							selectedCategory={this.state.addItem_selectedCategory}
-							selectedArticleType={this.state.addItem_selectedArticleType} />
+							onSubmit={this.addItemFormSubmit} />
 					</div>
 
         </div>

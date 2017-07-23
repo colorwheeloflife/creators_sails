@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
 import ItemSnapshot from './item_snapshot';
 
-let WindowExplorer = props => {
-  const { isShowing } = props;
+class WindowExplorer extends Component {
+  constructor(props) {
+    super(props);
+  }
 
-		return (
-      <div className={ isShowing ? "" : "hidden" }>
+  render() {
+    return (
+      <div className={ this.props.isShowing ? "" : "hidden" }>
         <h1 className="inventory_gamepad_content_window_title"> Explorer </h1>
 
       </div>
 		);
+  }
+
 }
 
 export default WindowExplorer;
