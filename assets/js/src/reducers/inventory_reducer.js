@@ -10,6 +10,8 @@ export default function(state = {testing: '1234'}, action) {
       console.log(action.payload);
       return { ...state, error: '', item: action.payload };
     case FETCH_ITEMS:
+      console.log('reducer');
+      console.log(action.payload);
       return { ...state, error: '', items: action.payload };
   }
 

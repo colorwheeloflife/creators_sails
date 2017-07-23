@@ -35,22 +35,19 @@ export function basicAddItem(values, callback) {
 }
 
 export function fetchItems() {
-  const request = axios.get(`/item`)
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-
-  // return (dispatch) => {
-  //   request.then(({data}) => {
-  //     dispatch({type: FETCH_ITEMS, payload: data })
-  //   });
-  // };
-
-  return {
-    type: FETCH_ITEMS,
-    payload: request
-  };
+  return (dispatch) => {
+    console.log('pre-actions');
+    axios.get(`/item`)
+      .then(response => {
+        console.log(response);
+        dispatch({
+          type: FETCH_ITEMS,
+          payload: response.data
+        });
+      })
+      .catch(error => {
+        console.log(error);
+        // dispatch(authError(response.data.error));
+      });
+  }
 }

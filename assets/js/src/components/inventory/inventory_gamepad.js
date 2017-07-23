@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
 import { reduxForm } from 'redux-form-6';
+import * as actions from '../../actions';
+
 import Select from 'react-select';
 import MultiSelectField from '../form/multiselect';
 import WindowExplorer from './window_explorer';
@@ -42,26 +45,69 @@ const MATERIALS = [
 	{ label: 'Crystals', value: 'crystals' },
 ];
 
+
 class InventoryGamepad extends Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			commander: 'nothing',
-			window_box: <WindowExplorer />
+			// items: this.props.items,
+			addItem_useAsDescription: [true],
+			addItem_selectedCategory: [],
+			addItem_selectedArticleType: [],
+			windowAddItem: false,
+			windowExplorer: true
 		}
 
 		this.onAddItemClick = this.onAddItemClick.bind(this);
 		this.onExploreClick = this.onExploreClick.bind(this);
+		this.handleUseAsDescriptionSelection = this.handleUseAsDescriptionSelection.bind(this);
+		this.handleAddItemCategorySelection = this.handleAddItemCategorySelection.bind(this);
+		this.handleAddItemArticleSelection = this.handleAddItemArticleSelection.bind(this);
+		this.addItemFormSubmit = this.addItemFormSubmit.bind(this);
+	}
+
+	componentDidMount() {
+		this.props.actions.fetchItems();
 	}
 
 	onAddItemClick() {
-		this.setState({ window_box: <GamePadAddItemForm /> });
+	  const { windowAddItem } = this.state;
+
+	  this.setState({
+	    windowAddItem: windowAddItem ? true : true,
+	    windowExplorer: windowAddItem ? false : false
+	  });
+
+	  console.log(this.state.windowAddItem);
 	}
 
 	onExploreClick() {
-		this.setState({ window_box: <WindowExplorer /> });
+	  const { windowExplorer } = this.state;
+
+	  this.setState({
+	    windowAddItem: windowExplorer ? false : false,
+	    windowExplorer: windowExplorer ? true : true
+	  });
+
+	  console.log(this.state.windowAddItem);
 	}
+
+	handleUseAsDescriptionSelection(e) {
+		this.setState({ addItem_useAsDescription: e.target.value });
+	}
+
+	handleAddItemCategorySelection(e) {
+		this.setState({ addItem_selectedCategory: e.target.value });
+	}
+
+	handleAddItemArticleSelection(e) {
+		this.setState({ addItem_selectedArticleType: e.target.value });
+	}
+
+	addItemFormSubmit = (values) => {
+    this.props.actions.basicAddItem(values);
+  }
 
   render() {
     return (
@@ -117,17 +163,39 @@ class InventoryGamepad extends Component {
             <input id="inventory_gamepad_content_searchbar_input" placeholder="Search inventory here..."/>
             <button id="inventory_gamepad_content_searchbar_btn" className="btn btn-success">Go!</button>
           </div>
+
           <div id="inventory_gamepad_content_window">
-						{this.state.window_box}
+						<WindowExplorer
+							isShowing={this.state.windowExplorer} />
+						<GamePadAddItemForm
+							isShowing={this.state.windowAddItem}
+							onSubmit={this.addItemFormSubmit}
+							handleUseAsDescriptionSelection={this.handleUseAsDescriptionSelection}
+							handleAddItemCategorySelection={this.handleAddItemCategorySelection}
+							handleAddItemArticleSelection={this.handleAddItemArticleSelection}
+							selectedUseAsDescription={this.state.addItem_useAsDescription}
+							selectedCategory={this.state.addItem_selectedCategory}
+							selectedArticleType={this.state.addItem_selectedArticleType} />
 					</div>
+
         </div>
       </div>
     );
   }
 }
 
-function mapStateToProps(state) {
-  return;
-}
+const mapStateToProps = state => ({
+  items: state.items,
+  testing: state.testing
+})
 
-export default connect(mapStateToProps)(InventoryGamepad);
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(actions, dispatch)
+})
+
+InventoryGamepad = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(InventoryGamepad);
+
+export default InventoryGamepad;

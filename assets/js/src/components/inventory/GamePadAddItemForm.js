@@ -4,53 +4,68 @@ import { Field, reduxForm } from 'redux-form'
 import CheckboxOrRadioGroup from './gamepad/CheckboxOrRadioGroup';
 
 var trueness = [true];
+var CATEGORIES = ['Visual Art', 'Clothing', 'Accessories', 'Jewelry', 'Instruments', 'Totems'];
 
 let GamePadAddItemForm = props => {
-  const { handleSubmit } = props
+  const { handleSubmit } = props;
   return (
-    <div id="add_item_container">
+    <div id="add_item_container" className={ props.isShowing ? "" : "hidden" }>
 
-      <div class="inventory_gamepad_add_item_form">
+      <div className="inventory_gamepad_add_item_form">
         <h1 className="inventory_gamepad_content_window_title"> Add Item </h1>
 
         <div id="add_item_name_entry_container" className="form-group">
-
           <label id="add_item_name_entry_title" htmlFor="name">Name:</label>
-
           <Field id="add_item_name_entry_input" className="form-control" name="name" component="input" type="text" />
-
         </div>
 
+        <div id="add_item_picture_reel_container"> Picture Reel</div>
 
-
-        <div id="add_item_picture_reel_container"> Picture Reel </div>
         <div id="add_item_intention_statement_container" className="form-group">
-
           <label id="add_item_intention_statement_entry_title" htmlFor="intention_statement">Intention Statement:</label>
           <div id="add_item_intention_statement_entry_gist">
             Gist gist gist gist gist gist gist gist gist gist gist gist gist gist gist gist gist gist gist gist gist gist gist gist gist gist
           </div>
-
           <Field id="add_item_intention_statement_entry_input" className="form-control" name="intention_statement" component="textarea" type="text" />
         </div>
 
         <div id="add_item_use_as_description_container">
-
             <CheckboxOrRadioGroup
                 id="add_item_use_as_description_checkbox"
+                controlFunc={props.handleUseAsDescriptionSelection}
                 type={'checkbox'}
-                options={trueness} />
-
+                options={trueness}
+                selectedOptions={props.selectedUseAsDescription} />
             <label id="add_item_use_as_description_label" htmlFor="use_as_description">Use as description?</label>
-
         </div>
 
 
-
         <div id="add_item_post_description_col_1">
-          <div id="add_item_category_selection_container"> Category Selection </div>
-          <div id="add_item_article_type_container"> Article Type </div>
+
+          <div id="add_item_category_selection_container">
+            <label id="add_item_category_selection_label" htmlFor="add_item_category_selection_radio">Category Selection:</label>
+            <CheckboxOrRadioGroup
+                id="add_item_category_selection_radio_group"
+                setName={CATEGORIES}
+                controlFunc={props.handleAddItemCategorySelection}
+                type={'radio'}
+                options={CATEGORIES}
+                selectedOptions={props.selectedCategory} />
+          </div>
+
+          <div id="add_item_article_type_container"> Article Type
+            <label id="add_item_article_type_selection_label" htmlFor="add_item_article_type_selection_radio">Article Type Selection:</label>
+            <CheckboxOrRadioGroup
+                id="add_item_article_type_selection_radio_group"
+                setName={CATEGORIES}
+                controlFunc={props.handleAddItemArticleSelection}
+                type={'radio'}
+                options={CATEGORIES}
+                selectedOptions={props.selectedArticleType} />
+          </div>
+
           <div id="add_item_article_time_log_container"> Time Log </div>
+
         </div>
 
 
