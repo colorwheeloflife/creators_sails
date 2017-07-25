@@ -6,6 +6,7 @@ import CheckboxOrRadioGroup from './gamepad/CheckboxOrRadioGroup';
 var trueness = [true];
 var CATEGORIES = ['Visual Art', 'Clothing', 'Accessories', 'Jewelry', 'Instruments', 'Totems'];
 var ARTICLE_TYPES = ['Tops', 'Bottoms', 'Vests', 'Tutus'];
+var SUBCATEGORIES = ['Acrylic', 'Digital Art', 'Fingerpaint', 'Wood Craftsmanship'];
 
 
 class GamePadAddItemForm extends Component {
@@ -17,7 +18,9 @@ class GamePadAddItemForm extends Component {
 			selectedCategory: [],
 			selectedArticleTypes: [],
 
-      subCategoryDropdownOpen: false
+      subCategoryDropdownOpen: false,
+
+      subCategoryDropdownTagCheckboxSelections: []
 		}
 
     this.handleUseAsDescriptionSelection = this.handleUseAsDescriptionSelection.bind(this);
@@ -25,6 +28,7 @@ class GamePadAddItemForm extends Component {
 		this.handleAddItemArticleSelection = this.handleAddItemArticleSelection.bind(this);
 
     this.handleSubcategoryDropdownOpen = this.handleSubcategoryDropdownOpen.bind(this);
+    this.handleSubcategoryDropdownTagCheckboxSelection = this.handleSubcategoryDropdownTagCheckboxSelection.bind(this);
   }
 
 
@@ -75,6 +79,23 @@ class GamePadAddItemForm extends Component {
       this.setState({ subCategoryDropdownOpen: true });
     }
     console.log(this.state.subCategoryDropdownOpen);
+  }
+
+  handleSubcategoryDropdownTagCheckboxSelection(e) {
+    const target = e.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
+		var subCategoryDropdownTagCheckboxSelections = this.state.subCategoryDropdownTagCheckboxSelections;
+
+		if (value) {
+      subCategoryDropdownTagCheckboxSelections.push(name);
+    } else {
+      var index = subCategoryDropdownTagCheckboxSelections.indexOf(name);
+      subCategoryDropdownTagCheckboxSelections.splice(index, 1);
+    }
+
+		this.setState({ subCategoryDropdownTagCheckboxSelections });
   }
 
 
@@ -160,9 +181,21 @@ class GamePadAddItemForm extends Component {
                 <button id="add_item_subcategory_tagging_input_submit_btn" className="btn btn-primary add_item_tagging_input_submit_btn"></button>
               </div>
 
-              <button className="btn btn-primary add_item_tagging_dropdown_btn" onClick={this.handleSubcategoryDropdownOpen}></button>
+              <button className={"btn btn-primary add_item_tagging_dropdown_btn " + (this.state.subCategoryDropdownOpen ? 'no_border_radius_bottom' : 'closed')} onClick={this.handleSubcategoryDropdownOpen}></button>
 
-              <div className={"add_item_tagging_dropdown_menu " + (this.state.subCategoryDropdownOpen ? 'show' : 'hidden')}></div>
+              <div className={"add_item_tagging_dropdown_menu " + (this.state.subCategoryDropdownOpen ? 'show' : 'hidden')}>
+                <CheckboxOrRadioGroup
+                    id="add_item_subcategory_tagging_dropdown_menu_tag_options"
+                    divClassName="add_item_tagging_dropdown_menu_tag_options"
+                    labelClassName="form-label capitalize dropdown_tag_checkbox_selections"
+                    inputClassName="form-checkbox"
+                    setName={SUBCATEGORIES}
+                    controlFunc={this.handleSubcategoryDropdownTagCheckboxSelection}
+                    type={'checkbox'}
+                    options={SUBCATEGORIES}
+                    selectedOptions={this.state.subCategoryDropdownTagCheckboxSelections} />
+
+              </div>
 
               <div className="add_item_tagging_selected_tag_container"></div>
 
