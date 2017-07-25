@@ -22,7 +22,8 @@ class GamePadAddItemForm extends Component {
 
       subCategoryDropdownOpen: false,
 
-      subCategoryDropdownTagCheckboxSelections: []
+      subCategoryInputValue: "",
+      subCategoryTagSelections: []
 		}
 
     this.handleUseAsDescriptionSelection = this.handleUseAsDescriptionSelection.bind(this);
@@ -30,6 +31,8 @@ class GamePadAddItemForm extends Component {
 		this.handleAddItemArticleSelection = this.handleAddItemArticleSelection.bind(this);
 
     this.handleSubcategoryDropdownOpen = this.handleSubcategoryDropdownOpen.bind(this);
+    this.handleSubcategoryInputChange = this.handleSubcategoryInputChange.bind(this);
+    this.handleSubcategoryInputTagSelection = this.handleSubcategoryInputTagSelection.bind(this);
     this.handleSubcategoryDropdownTagCheckboxSelection = this.handleSubcategoryDropdownTagCheckboxSelection.bind(this);
   }
 
@@ -82,21 +85,37 @@ class GamePadAddItemForm extends Component {
     }
   }
 
+  handleSubcategoryInputChange(e) {
+    const value = e.target.value;
+
+    console.log(value);
+    this.setState({ subCategoryInputValue: value });
+  }
+
+  handleSubcategoryInputTagSelection(e) {
+    var tag = this.state.subCategoryInputValue;
+    var subCategoryTagSelections = this.state.subCategoryTagSelections;
+    subCategoryTagSelections.push(tag);
+
+    this.setState({ subCategoryTagSelections });
+    this.setState({ subCategoryInputValue: "" });
+  }
+
   handleSubcategoryDropdownTagCheckboxSelection(e) {
     const target = e.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
 
-		var subCategoryDropdownTagCheckboxSelections = this.state.subCategoryDropdownTagCheckboxSelections;
+		var subCategoryTagSelections = this.state.subCategoryTagSelections;
 
 		if (value) {
-      subCategoryDropdownTagCheckboxSelections.push(name);
+      subCategoryTagSelections.push(name);
     } else {
-      var index = subCategoryDropdownTagCheckboxSelections.indexOf(name);
-      subCategoryDropdownTagCheckboxSelections.splice(index, 1);
+      var index = subCategoryTagSelections.indexOf(name);
+      subCategoryTagSelections.splice(index, 1);
     }
 
-		this.setState({ subCategoryDropdownTagCheckboxSelections });
+		this.setState({ subCategoryTagSelections });
   }
 
 
@@ -178,8 +197,15 @@ class GamePadAddItemForm extends Component {
               <div className="add_item_tagging_titlehead_label">Subcategory Tagging</div>
 
               <div className="add_item_tagging_input_container">
-                <Field id="add_item_subcategory_tagging_input" className="form-control add_item_tagging_input" name="subcategory" component="input" type="text" />
-                <button id="add_item_subcategory_tagging_input_submit_btn" className="btn btn-primary add_item_tagging_input_submit_btn"></button>
+                <Field
+                  id="add_item_subcategory_tagging_input"
+                  className="form-control add_item_tagging_input"
+                  name="subcategory"
+                  component="input"
+                  type="text"
+                  value={this.state.subCategoryInputValue}
+                  onChange={this.handleSubcategoryInputChange}/>
+                <button id="add_item_subcategory_tagging_input_submit_btn" className="btn btn-primary add_item_tagging_input_submit_btn" onClick={this.handleSubcategoryInputTagSelection} ></button>
               </div>
 
               <button className={"btn btn-primary add_item_tagging_dropdown_btn " + (this.state.subCategoryDropdownOpen ? 'no_border_radius_bottom' : 'closed')} onClick={this.handleSubcategoryDropdownOpen}></button>
@@ -202,7 +228,7 @@ class GamePadAddItemForm extends Component {
                       controlFunc={this.handleSubcategoryDropdownTagCheckboxSelection}
                       type={'checkbox'}
                       options={SUBCATEGORIES}
-                      selectedOptions={this.state.subCategoryDropdownTagCheckboxSelections} />
+                      selectedOptions={this.state.subCategoryTagSelections} />
                 </Scrollbars>
 
               </div>
