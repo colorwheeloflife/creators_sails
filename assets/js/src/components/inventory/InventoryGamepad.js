@@ -58,7 +58,7 @@ class InventoryGamepad extends Component {
 
 		this.onAddItemClick = this.onAddItemClick.bind(this);
 		this.onExploreClick = this.onExploreClick.bind(this);
-		this.addItemFormSubmit = this.addItemFormSubmit.bind(this);
+		this.submit = this.submit.bind(this);
 	}
 
 	componentDidMount() {
@@ -81,7 +81,8 @@ class InventoryGamepad extends Component {
 	  });
 	}
 
-	addItemFormSubmit = (values) => {
+	submit = (values) => {
+		console.log(values);
     this.props.actions.basicAddItem(values);
   }
 
@@ -145,7 +146,7 @@ class InventoryGamepad extends Component {
 							isShowing={this.state.windowExplorer} />
 						<GamePadAddItemForm
 							isShowing={this.state.windowAddItem}
-							onSubmit={this.addItemFormSubmit} />
+							onSubmit={this.submit} />
 					</div>
 
         </div>

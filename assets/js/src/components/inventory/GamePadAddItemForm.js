@@ -15,12 +15,16 @@ class GamePadAddItemForm extends Component {
     this.state = {
 			useAsDescription: [true],
 			selectedCategory: [],
-			selectedArticleTypes: []
+			selectedArticleTypes: [],
+
+      subCategoryDropdownOpen: false
 		}
 
     this.handleUseAsDescriptionSelection = this.handleUseAsDescriptionSelection.bind(this);
 		this.handleAddItemCategorySelection = this.handleAddItemCategorySelection.bind(this);
 		this.handleAddItemArticleSelection = this.handleAddItemArticleSelection.bind(this);
+
+    this.handleSubcategoryDropdownOpen = this.handleSubcategoryDropdownOpen.bind(this);
   }
 
 
@@ -51,9 +55,6 @@ class GamePadAddItemForm extends Component {
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
 
-    console.log(value);
-    console.log(name);
-
 		var selectedArticleTypes = this.state.selectedArticleTypes;
 
 		if (value) {
@@ -65,6 +66,16 @@ class GamePadAddItemForm extends Component {
 
 		this.setState({ selectedArticleTypes });
 	}
+
+  handleSubcategoryDropdownOpen(e) {
+    var subCategoryDropdownOpen = this.state.subCategoryDropdownOpen;
+    if (subCategoryDropdownOpen) {
+      this.setState({ subCategoryDropdownOpen: false });
+    } else {
+      this.setState({ subCategoryDropdownOpen: true });
+    }
+    console.log(this.state.subCategoryDropdownOpen);
+  }
 
 
   render() {
@@ -92,6 +103,9 @@ class GamePadAddItemForm extends Component {
           <div id="add_item_use_as_description_container">
               <CheckboxOrRadioGroup
                   id="add_item_use_as_description_checkbox"
+                  divClassName="checkbox-group no_label_checkbox"
+                  labelClassName="form-label capitalize"
+                  inputClassName="form-checkbox"
                   controlFunc={this.handleUseAsDescriptionSelection}
                   type={'checkbox'}
                   options={trueness}
@@ -103,9 +117,12 @@ class GamePadAddItemForm extends Component {
           <div id="add_item_post_description_col_1">
 
             <div id="add_item_category_selection_container">
-              <label id="add_item_category_selection_label" htmlFor="add_item_category_selection_radio">Category Selection:</label>
+              <label id="add_item_category_selection_label" className="form_field_title_label" htmlFor="add_item_category_selection_radio">Category Selection:</label>
               <CheckboxOrRadioGroup
                   id="add_item_category_selection_radio_group"
+                  divClassName="checkbox-group"
+                  labelClassName="form-label capitalize vertical_selection_labels"
+                  inputClassName="form-radio"
                   setName={CATEGORIES}
                   controlFunc={this.handleAddItemCategorySelection}
                   type={'radio'}
@@ -113,10 +130,13 @@ class GamePadAddItemForm extends Component {
                   selectedOptions={this.state.selectedCategory} />
             </div>
 
-            <div id="add_item_article_type_container"> Article Type
-              <label id="add_item_article_type_selection_label" htmlFor="add_item_article_type_selection_radio">Article Type Selection:</label>
+            <div id="add_item_article_type_container">
+              <label id="add_item_article_type_selection_label" className="form_field_title_label" htmlFor="add_item_article_type_selection_radio">Article Type Selection:</label>
               <CheckboxOrRadioGroup
                   id="add_item_article_type_selection_radio_group"
+                  divClassName="checkbox-group"
+                  labelClassName="form-label capitalize vertical_selection_labels"
+                  inputClassName="form-checkbox"
                   setName={ARTICLE_TYPES}
                   controlFunc={this.handleAddItemArticleSelection}
                   type={'checkbox'}
@@ -130,12 +150,31 @@ class GamePadAddItemForm extends Component {
 
 
           <div id="add_item_post_description_col_2">
-            <div id="add_item_article_subcategory_tagging_container"> Subcategory Tagging </div>
+
+            <div id="add_item_article_subcategory_tagging_container">
+
+              <div className="add_item_tagging_titlehead_label">Subcategory Tagging</div>
+
+              <div className="add_item_tagging_input_container">
+                <Field id="add_item_subcategory_tagging_input" className="form-control add_item_tagging_input" name="subcategory" component="input" type="text" />
+                <button id="add_item_subcategory_tagging_input_submit_btn" className="btn btn-primary add_item_tagging_input_submit_btn"></button>
+              </div>
+
+              <button className="btn btn-primary add_item_tagging_dropdown_btn" onClick={this.handleSubcategoryDropdownOpen}></button>
+
+              <div className={"add_item_tagging_dropdown_menu " + (this.state.subCategoryDropdownOpen ? 'show' : 'hidden')}></div>
+
+              <div className="add_item_tagging_selected_tag_container"></div>
+
+            </div>
+
+
             <div id="add_item_article_vibe_tagging_container"> Vibe Tagging </div>
             <div id="add_item_article_material_tagging_container"> Material Tagging </div>
             <div id="add_item_article_color_tagging_container"> Color Tagging </div>
             <div id="add_item_article_technique_tagging_container"> Technique Tagging </div>
             <div id="add_item_article_tag_tagging_container"> Tag Tagging </div>
+
           </div>
 
           <div id="add_item_description_statement_container"></div>
@@ -145,7 +184,7 @@ class GamePadAddItemForm extends Component {
           <div id="add_item_article_shipping_container"> Shipping </div>
           <div id="add_item_article_placement_container"> Placement </div>
 
-          <button id="add_item_submission_btn" className="btn btn-primary"> Submit </button>
+          <button type="submit" id="add_item_submission_btn" className="btn btn-primary" onSubmit={this.props.submit}> Submit </button>
 
         </div>
       </div>
