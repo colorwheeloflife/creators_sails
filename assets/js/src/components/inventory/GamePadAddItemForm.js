@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form'
+import { Scrollbars } from 'react-custom-scrollbars';
+
 
 import CheckboxOrRadioGroup from './gamepad/CheckboxOrRadioGroup';
 
 var trueness = [true];
 var CATEGORIES = ['Visual Art', 'Clothing', 'Accessories', 'Jewelry', 'Instruments', 'Totems'];
 var ARTICLE_TYPES = ['Tops', 'Bottoms', 'Vests', 'Tutus'];
-var SUBCATEGORIES = ['Acrylic', 'Digital Art', 'Fingerpaint', 'Wood Craftsmanship'];
+var SUBCATEGORIES = ['Acrylic', 'Digital Art', 'Fingerpaint', 'Wood Craftsmanship', 'Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6', 'Option 7', 'Option 8', 'Option 9', 'Option 10', 'Option 11', 'Option 12', 'Option 13', 'Option 14', 'Option 15' ];
 
 
 class GamePadAddItemForm extends Component {
@@ -72,13 +74,12 @@ class GamePadAddItemForm extends Component {
 	}
 
   handleSubcategoryDropdownOpen(e) {
-    var subCategoryDropdownOpen = this.state.subCategoryDropdownOpen;
+    const subCategoryDropdownOpen = this.state.subCategoryDropdownOpen;
     if (subCategoryDropdownOpen) {
       this.setState({ subCategoryDropdownOpen: false });
     } else {
       this.setState({ subCategoryDropdownOpen: true });
     }
-    console.log(this.state.subCategoryDropdownOpen);
   }
 
   handleSubcategoryDropdownTagCheckboxSelection(e) {
@@ -184,16 +185,25 @@ class GamePadAddItemForm extends Component {
               <button className={"btn btn-primary add_item_tagging_dropdown_btn " + (this.state.subCategoryDropdownOpen ? 'no_border_radius_bottom' : 'closed')} onClick={this.handleSubcategoryDropdownOpen}></button>
 
               <div className={"add_item_tagging_dropdown_menu " + (this.state.subCategoryDropdownOpen ? 'show' : 'hidden')}>
-                <CheckboxOrRadioGroup
-                    id="add_item_subcategory_tagging_dropdown_menu_tag_options"
-                    divClassName="add_item_tagging_dropdown_menu_tag_options"
-                    labelClassName="form-label capitalize dropdown_tag_checkbox_selections"
-                    inputClassName="form-checkbox"
-                    setName={SUBCATEGORIES}
-                    controlFunc={this.handleSubcategoryDropdownTagCheckboxSelection}
-                    type={'checkbox'}
-                    options={SUBCATEGORIES}
-                    selectedOptions={this.state.subCategoryDropdownTagCheckboxSelections} />
+
+                <Scrollbars
+                  style={{ width: 400, height: 180, margin: '3px 0 0 0'}}
+                  onScroll={this.handleScroll}
+                  onScrollFrame={this.handleScrollFrame}
+                  onScrollStart={this.handleScrollStart}
+                  onScrollStop={this.handlenScrollStop}
+                  onUpdate={this.handleUpdate}>
+                  <CheckboxOrRadioGroup
+                      id="add_item_subcategory_tagging_dropdown_menu_tag_options"
+                      divClassName="add_item_tagging_dropdown_menu_tag_options"
+                      labelClassName="form-label capitalize dropdown_tag_checkbox_selections"
+                      inputClassName="form-checkbox"
+                      setName={SUBCATEGORIES}
+                      controlFunc={this.handleSubcategoryDropdownTagCheckboxSelection}
+                      type={'checkbox'}
+                      options={SUBCATEGORIES}
+                      selectedOptions={this.state.subCategoryDropdownTagCheckboxSelections} />
+                </Scrollbars>
 
               </div>
 

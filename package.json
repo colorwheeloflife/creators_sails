@@ -39,6 +39,7 @@
     "prop-types": "^15.5.10",
     "rc": "1.0.1",
     "react": "^15.6.1",
+    "react-custom-scrollbars": "^4.1.2",
     "react-dom": "^15.6.1",
     "react-popup": "^0.8.0",
     "react-present": "^0.2.0",
