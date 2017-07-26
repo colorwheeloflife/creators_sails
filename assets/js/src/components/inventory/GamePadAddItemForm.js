@@ -4,6 +4,7 @@ import { Scrollbars } from 'react-custom-scrollbars';
 
 
 import CheckboxOrRadioGroup from './gamepad/CheckboxOrRadioGroup';
+import TagGroup from './gamepad/TagGroup';
 
 var trueness = [true];
 var CATEGORIES = ['Visual Art', 'Clothing', 'Accessories', 'Jewelry', 'Instruments', 'Totems'];
@@ -34,6 +35,7 @@ class GamePadAddItemForm extends Component {
     this.handleSubcategoryInputChange = this.handleSubcategoryInputChange.bind(this);
     this.handleSubcategoryInputTagSelection = this.handleSubcategoryInputTagSelection.bind(this);
     this.handleSubcategoryDropdownTagCheckboxSelection = this.handleSubcategoryDropdownTagCheckboxSelection.bind(this);
+    this.onSubCategoryTagDeleteClick = this.onSubCategoryTagDeleteClick.bind(this);
   }
 
 
@@ -76,6 +78,7 @@ class GamePadAddItemForm extends Component {
 		this.setState({ selectedArticleTypes });
 	}
 
+
   handleSubcategoryDropdownOpen(e) {
     const subCategoryDropdownOpen = this.state.subCategoryDropdownOpen;
     if (subCategoryDropdownOpen) {
@@ -85,12 +88,13 @@ class GamePadAddItemForm extends Component {
     }
   }
 
+
   handleSubcategoryInputChange(e) {
     const value = e.target.value;
 
-    console.log(value);
     this.setState({ subCategoryInputValue: value });
   }
+
 
   handleSubcategoryInputTagSelection(e) {
     var tag = this.state.subCategoryInputValue;
@@ -100,6 +104,7 @@ class GamePadAddItemForm extends Component {
     this.setState({ subCategoryTagSelections });
     this.setState({ subCategoryInputValue: "" });
   }
+
 
   handleSubcategoryDropdownTagCheckboxSelection(e) {
     const target = e.target;
@@ -117,6 +122,15 @@ class GamePadAddItemForm extends Component {
 
 		this.setState({ subCategoryTagSelections });
   }
+
+  onSubCategoryTagDeleteClick(t) {
+    var subCategoryTagSelections = this.state.subCategoryTagSelections;
+    var index = subCategoryTagSelections.indexOf(t);
+    subCategoryTagSelections.splice(index, 1);
+
+    this.setState({ subCategoryTagSelections });
+  }
+
 
 
   render() {
@@ -233,7 +247,26 @@ class GamePadAddItemForm extends Component {
 
               </div>
 
-              <div className="add_item_tagging_selected_tag_container"></div>
+              <div className="add_item_tagging_selected_tag_container">
+                <Scrollbars
+                  style={{ width: 400, height: 180, margin: '3px 0 0 0'}}
+                  onScroll={this.handleScroll}
+                  onScrollFrame={this.handleScrollFrame}
+                  onScrollStart={this.handleScrollStart}
+                  onScrollStop={this.handlenScrollStop}
+                  onUpdate={this.handleUpdate}>
+                  <TagGroup
+                      id="add_item_subcategory_tag_group"
+                      groupClassName="add_item_selected_tag_group"
+                      className="add_item_selected_tag"
+                      closerClassName="add_item_selected_tag_delete_x"
+                      setName={this.state.subCategoryTagSelections}
+                      options={this.state.subCategoryTagSelections}
+                      selectedOptions={this.state.subCategoryTagSelections}
+                      onSubCategoryTagDeleteClick={this.onSubCategoryTagDeleteClick} />
+                </Scrollbars>
+
+              </div>
 
             </div>
 
