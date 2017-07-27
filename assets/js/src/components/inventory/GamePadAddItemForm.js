@@ -29,7 +29,7 @@ class GamePadAddItemForm extends Component {
 
       artSizingTracker: ["1"],
       artSizingCount: 1,
-      artSizingInput: [""],
+      artSizingInput: [["height", "width"]],
       artSizingUnitDropdownOpen: false,
       artSizingUnit: "Unit"
 		}
@@ -44,7 +44,8 @@ class GamePadAddItemForm extends Component {
     this.handleSubcategoryInputTagSelection = this.handleSubcategoryInputTagSelection.bind(this);
     this.handleSubcategoryDropdownTagCheckboxSelection = this.handleSubcategoryDropdownTagCheckboxSelection.bind(this);
     this.onSubCategoryTagDeleteClick = this.onSubCategoryTagDeleteClick.bind(this);
-    this.handleSizingInputChange = this.handleSizingInputChange.bind(this);
+    this.handleSizingInputLowendChange = this.handleSizingInputLowendChange.bind(this);
+    this.handleSizingInputHighendChange = this.handleSizingInputHighendChange.bind(this);
     this.handleSizingInputDropdownOpen = this.handleSizingInputDropdownOpen.bind(this);
     this.handleSizingUnitSelection = this.handleSizingUnitSelection.bind(this);
     this.handleSizingInputAddition = this.handleSizingInputAddition.bind(this);
@@ -155,7 +156,7 @@ class GamePadAddItemForm extends Component {
   }
 
 
-  handleSizingInputChange(e) {
+  handleSizingInputLowendChange(e) {
     var value = e.target.value;
     var token = e.target.name;
 
@@ -163,7 +164,21 @@ class GamePadAddItemForm extends Component {
     var artSizingTracker = this.state.artSizingTracker;
     var index = artSizingTracker.indexOf(token);
 
-    artSizingInput[index] = value;
+    artSizingInput[index][0] = value;
+
+    this.setState({ artSizingInput });
+    console.log(this.state.artSizingInput);
+  }
+
+  handleSizingInputHighendChange(e) {
+    var value = e.target.value;
+    var token = e.target.name;
+
+    var artSizingInput = this.state.artSizingInput;
+    var artSizingTracker = this.state.artSizingTracker;
+    var index = artSizingTracker.indexOf(token);
+
+    artSizingInput[index][1] = value;
 
     this.setState({ artSizingInput });
     console.log(this.state.artSizingInput);
@@ -192,7 +207,7 @@ class GamePadAddItemForm extends Component {
     var artSizingTracker = this.state.artSizingTracker;
     var artSizingInput = this.state.artSizingInput;
     artSizingTracker.push(count);
-    artSizingInput.push("");
+    artSizingInput.push(["height", "width"]);
 
     this.setState({ artSizingTracker });
     this.setState({ artSizingInput });
@@ -368,12 +383,14 @@ class GamePadAddItemForm extends Component {
             <ArtSizingCardGroup
               groupClassName="add_item_art_sizing_input_group"
               containerClassName="add_item_art_sizing_input_container"
-              inputClassName="form control add_item_art_sizing_input add_item_art_sizing_lowend_input"
-              name="sizing_lowend"
+              inputLowendClassName="form control add_item_art_sizing_input add_item_art_sizing_lowend_input"
+              inputHighendClassName="form control add_item_art_sizing_input add_item_art_sizing_highend_input"
+              name="sizing"
               type="text"
               options={this.state.artSizingTracker}
               value={this.state.artSizingInput}
-              handleSizingInputChange={this.handleSizingInputChange}
+              handleSizingInputLowendChange={this.handleSizingInputLowendChange}
+              handleSizingInputHighendChange={this.handleSizingInputHighendChange}
               handleSizingInputDropdownOpen={this.handleSizingInputDropdownOpen}
               />
 
