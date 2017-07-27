@@ -5,6 +5,7 @@ import { Scrollbars } from 'react-custom-scrollbars';
 
 import CheckboxOrRadioGroup from './gamepad/CheckboxOrRadioGroup';
 import TagGroup from './gamepad/TagGroup';
+import ArtSizingCardGroup from './gamepad/ArtSizingCardGroup';
 
 var trueness = [true];
 var CATEGORIES = ['Visual Art', 'Clothing', 'Accessories', 'Jewelry', 'Instruments', 'Totems'];
@@ -24,7 +25,12 @@ class GamePadAddItemForm extends Component {
       subCategoryDropdownOpen: false,
 
       subCategoryInputValue: "",
-      subCategoryTagSelections: []
+      subCategoryTagSelections: [],
+
+      artSizingTracker: ["1"],
+      artSizingCount: 1,
+      artSizingInput: [""],
+      artSizingDropdownOpen: [false]
 		}
 
     this.handleUseAsDescriptionSelection = this.handleUseAsDescriptionSelection.bind(this);
@@ -37,6 +43,9 @@ class GamePadAddItemForm extends Component {
     this.handleSubcategoryInputTagSelection = this.handleSubcategoryInputTagSelection.bind(this);
     this.handleSubcategoryDropdownTagCheckboxSelection = this.handleSubcategoryDropdownTagCheckboxSelection.bind(this);
     this.onSubCategoryTagDeleteClick = this.onSubCategoryTagDeleteClick.bind(this);
+    this.handleSizingInputChange = this.handleSizingInputChange.bind(this);
+    this.handleSizingInputDropdownOpen = this.handleSizingInputDropdownOpen.bind(this);
+    this.handleSizingInputAddition = this.handleSizingInputAddition.bind(this);
   }
 
 
@@ -142,6 +151,40 @@ class GamePadAddItemForm extends Component {
 
     this.setState({ subCategoryTagSelections });
   }
+
+
+  handleSizingInputChange(e) {
+    var value = e.target.value;
+    var token = e.target.name;
+
+    var artSizingInput = this.state.artSizingInput;
+    var artSizingTracker = this.state.artSizingTracker;
+    var index = artSizingTracker.indexOf(token);
+
+    artSizingInput[index] = value;
+
+    this.setState({ artSizingInput });
+    console.log(this.state.artSizingInput);
+  }
+
+  handleSizingInputDropdownOpen(e) {
+    console.log('triggering');
+  }
+
+
+  handleSizingInputAddition(e) {
+    var count = `${this.state.artSizingCount + 1}`;
+    var artSizingTracker = this.state.artSizingTracker;
+    var artSizingInput = this.state.artSizingInput;
+    artSizingTracker.push(count);
+    artSizingInput.push("");
+
+    this.setState({ artSizingTracker });
+    this.setState({ artSizingInput });
+    this.setState({ artSizingCount: parseInt(count)});
+  }
+
+
 
 
 
@@ -297,9 +340,27 @@ class GamePadAddItemForm extends Component {
 
           </div>
 
-          <div id="add_item_description_statement_container"></div>
+          <div id="add_item_article_sizing_container">
 
-          <div id="add_item_article_sizing_container"> Sizing </div>
+            <ArtSizingCardGroup
+              groupClassName="add_item_art_sizing_input_group"
+              containerClassName="add_item_art_sizing_input_container"
+              inputClassName="form control add_item_art_sizing_input add_item_art_sizing_lowend_input"
+              name="sizing_lowend"
+              type="text"
+              options={this.state.artSizingTracker}
+              value={this.state.artSizingInput}
+              handleSizingInputChange={this.handleSizingInputChange}
+              handleSizingInputDropdownOpen={this.handleSizingInputDropdownOpen}
+              />
+
+            <div id="add_item_art_sizing_input_addition_btn" onClick={this.handleSizingInputAddition}>
+              +
+            </div>
+
+
+          </div>
+
           <div id="add_item_article_pricing_container"> Pricing </div>
           <div id="add_item_article_shipping_container"> Shipping </div>
           <div id="add_item_article_placement_container"> Placement </div>
