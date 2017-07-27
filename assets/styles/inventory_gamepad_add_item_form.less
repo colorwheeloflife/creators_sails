@@ -77,7 +77,6 @@
   // border: 1px solid black;
 }
 
-
 #add_item_use_as_description_container {
   width: 30%;
   float: right;
@@ -103,13 +102,34 @@
   margin: 2%;
 }
 
-// #add_item_description_statement_container {
-//   width: 90%;
-//   height: 200px;
-//   margin: 20px 5%;
-//   float: left;
-//   border: 1px solid black;
-// }
+#add_item_description_container {
+  width: 90%;
+  min-height: 246px;
+  margin: 20px 5%;
+  float: left;
+  border: 1px solid black;
+}
+
+#add_item_description_entry_title {
+  float: left;
+  margin: 1%;
+  font-size: 20px;
+
+  // border: 1px solid black;
+}
+
+#add_item_description_entry_input {
+  width: 98%;
+  height: 180px; // dynamically make height equal to having a bottom margin equivalent 1%;
+  float: left;
+  margin: 1%;
+  // border: 1px solid black;
+}
+
+
+
+
+
 
 #add_item_post_description_col_1 {
   margin-top: 30px;
@@ -265,14 +285,22 @@
 
 .add_item_tagging_selected_tag_container {
   width: 96%;
-  height: 100px;
+  min-height: 100px;
   float: left;
+  display: inline-block;
   margin: 1% 2%;
   border: 1px solid black;
 }
 
 .add_item_selected_tag_group {
   padding: 0.7%;
+}
+
+.add_item_tag_scroll {
+  width: 100%;
+  min-height: 95px;
+  max-height: 200px;
+  margin: '3px 0 0 0'
 }
 
 .add_item_selected_tag {

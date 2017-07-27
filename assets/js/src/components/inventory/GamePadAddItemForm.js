@@ -33,6 +33,7 @@ class GamePadAddItemForm extends Component {
 
     this.handleSubcategoryDropdownOpen = this.handleSubcategoryDropdownOpen.bind(this);
     this.handleSubcategoryInputChange = this.handleSubcategoryInputChange.bind(this);
+    this.handleSubCategoryInputKeyPress = this.handleSubCategoryInputKeyPress.bind(this);
     this.handleSubcategoryInputTagSelection = this.handleSubcategoryInputTagSelection.bind(this);
     this.handleSubcategoryDropdownTagCheckboxSelection = this.handleSubcategoryDropdownTagCheckboxSelection.bind(this);
     this.onSubCategoryTagDeleteClick = this.onSubCategoryTagDeleteClick.bind(this);
@@ -105,6 +106,17 @@ class GamePadAddItemForm extends Component {
     this.setState({ subCategoryInputValue: "" });
   }
 
+  handleSubCategoryInputKeyPress(e){
+    if (e.key === 'Enter') {
+      var tag = this.state.subCategoryInputValue;
+      var subCategoryTagSelections = this.state.subCategoryTagSelections;
+      subCategoryTagSelections.push(tag);
+
+      this.setState({ subCategoryTagSelections });
+      this.setState({ subCategoryInputValue: "" });
+    }
+  }
+
 
   handleSubcategoryDropdownTagCheckboxSelection(e) {
     const target = e.target;
@@ -168,6 +180,11 @@ class GamePadAddItemForm extends Component {
               <label id="add_item_use_as_description_label" htmlFor="use_as_description">Use as description?</label>
           </div>
 
+          <div id="add_item_description_container" className={"form-group " + (this.state.useAsDescription[0] ? 'hidden' : 'show')}>
+            <label id="add_item_description_entry_title" htmlFor="description">Description:</label>
+            <Field id="add_item_description_entry_input" className="form-control" name="description" component="textarea" type="text" />
+          </div>
+
 
           <div id="add_item_post_description_col_1">
 
@@ -218,7 +235,8 @@ class GamePadAddItemForm extends Component {
                   component="input"
                   type="text"
                   value={this.state.subCategoryInputValue}
-                  onChange={this.handleSubcategoryInputChange}/>
+                  onChange={this.handleSubcategoryInputChange}
+                  onKeyPress={this.handleSubCategoryInputKeyPress} />
                 <button id="add_item_subcategory_tagging_input_submit_btn" className="btn btn-primary add_item_tagging_input_submit_btn" onClick={this.handleSubcategoryInputTagSelection} ></button>
               </div>
 
@@ -227,7 +245,7 @@ class GamePadAddItemForm extends Component {
               <div className={"add_item_tagging_dropdown_menu " + (this.state.subCategoryDropdownOpen ? 'show' : 'hidden')}>
 
                 <Scrollbars
-                  style={{ width: 400, height: 180, margin: '3px 0 0 0'}}
+                  className="add_item_tag_scroll"
                   onScroll={this.handleScroll}
                   onScrollFrame={this.handleScrollFrame}
                   onScrollStart={this.handleScrollStart}
@@ -249,7 +267,7 @@ class GamePadAddItemForm extends Component {
 
               <div className="add_item_tagging_selected_tag_container">
                 <Scrollbars
-                  style={{ width: 400, height: 180, margin: '3px 0 0 0'}}
+                  className="add_item_tag_scroll"
                   onScroll={this.handleScroll}
                   onScrollFrame={this.handleScrollFrame}
                   onScrollStart={this.handleScrollStart}
