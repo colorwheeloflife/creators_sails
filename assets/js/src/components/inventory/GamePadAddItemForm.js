@@ -202,7 +202,7 @@ class GamePadAddItemForm extends Component {
                   selectedOptions={this.state.selectedCategory} />
             </div>
 
-            <div id="add_item_article_type_container">
+            <div id="add_item_article_type_container" className={'' + (this.state.selectedCategory.indexOf('Clothing') > -1 ? 'show' : 'hidden')}>
               <label id="add_item_article_type_selection_label" className="form_field_title_label" htmlFor="add_item_article_type_selection_radio">Article Type Selection:</label>
               <CheckboxOrRadioGroup
                   id="add_item_article_type_selection_radio_group"
