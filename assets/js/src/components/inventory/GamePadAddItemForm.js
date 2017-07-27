@@ -30,7 +30,8 @@ class GamePadAddItemForm extends Component {
       artSizingTracker: ["1"],
       artSizingCount: 1,
       artSizingInput: [""],
-      artSizingDropdownOpen: [false]
+      artSizingUnitDropdownOpen: false,
+      artSizingUnit: "Unit"
 		}
 
     this.handleUseAsDescriptionSelection = this.handleUseAsDescriptionSelection.bind(this);
@@ -45,6 +46,7 @@ class GamePadAddItemForm extends Component {
     this.onSubCategoryTagDeleteClick = this.onSubCategoryTagDeleteClick.bind(this);
     this.handleSizingInputChange = this.handleSizingInputChange.bind(this);
     this.handleSizingInputDropdownOpen = this.handleSizingInputDropdownOpen.bind(this);
+    this.handleSizingUnitSelection = this.handleSizingUnitSelection.bind(this);
     this.handleSizingInputAddition = this.handleSizingInputAddition.bind(this);
   }
 
@@ -168,7 +170,20 @@ class GamePadAddItemForm extends Component {
   }
 
   handleSizingInputDropdownOpen(e) {
-    console.log('triggering');
+    var artSizingUnitDropdownOpen = this.state.artSizingUnitDropdownOpen;
+    if (artSizingUnitDropdownOpen) {
+      artSizingUnitDropdownOpen = false;
+    } else {
+      artSizingUnitDropdownOpen = true;
+    }
+
+    this.setState({ artSizingUnitDropdownOpen });
+  }
+
+  handleSizingUnitSelection(e) {
+    var artSizingUnit = e.target.innerHTML;
+    this.setState({ artSizingUnit });
+    this.setState({ artSizingUnitDropdownOpen: false });
   }
 
 
@@ -341,6 +356,14 @@ class GamePadAddItemForm extends Component {
           </div>
 
           <div id="add_item_article_sizing_container">
+
+            <div id="add_item_art_sizing_measurement_unit_dropdown" onClick={this.handleSizingInputDropdownOpen}>{this.state.artSizingUnit}</div>
+            <div id="add_item_art_sizing_measurement_unit_dropdown_menu" className={'' + (this.state.artSizingUnitDropdownOpen ? 'show' : 'hidden')}>
+              <li className="add_item_art_sizing_measurement_unit_dropdown_list_item" onClick={this.handleSizingUnitSelection}>inches</li>
+              <li className="add_item_art_sizing_measurement_unit_dropdown_list_item" onClick={this.handleSizingUnitSelection}>feet</li>
+              <li className="add_item_art_sizing_measurement_unit_dropdown_list_item" onClick={this.handleSizingUnitSelection}>centimeters</li>
+              <li className="add_item_art_sizing_measurement_unit_dropdown_list_item" onClick={this.handleSizingUnitSelection}>meters</li>
+            </div>
 
             <ArtSizingCardGroup
               groupClassName="add_item_art_sizing_input_group"
