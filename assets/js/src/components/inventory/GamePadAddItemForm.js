@@ -5,6 +5,7 @@ import { Scrollbars } from 'react-custom-scrollbars';
 import CheckboxOrRadioGroup from './gamepad/CheckboxOrRadioGroup';
 import TagGroup from './gamepad/TagGroup';
 import ArtSizingCardGroup from './gamepad/ArtSizingCardGroup';
+import IndividualCheckboxWithoutOptionDisplay from './gamepad/IndividualCheckboxWithoutOptionDisplay';
 
 var trueness = [true];
 var CATEGORIES = ['Visual Art', 'Clothing', 'Accessories', 'Jewelry', 'Instruments', 'Totems'];
@@ -30,8 +31,13 @@ class GamePadAddItemForm extends Component {
       artSizingCount: 1,
       artSizingInput: [["height", "width"]],
       artSizingUnitDropdownOpen: false,
-      artSizingUnit: "Unit"
+      artSizingUnit: "Unit",
+
+      itemOnSaleTracker: ["1"],
+      itemOnSaleCount: 1,
+      itemOnSaleDeclarations: [""]
 		}
+
 
 
     this.handleUseAsDescriptionSelection = this.handleUseAsDescriptionSelection.bind(this);
@@ -49,6 +55,8 @@ class GamePadAddItemForm extends Component {
     this.handleSizingInputDropdownOpen = this.handleSizingInputDropdownOpen.bind(this);
     this.handleSizingUnitSelection = this.handleSizingUnitSelection.bind(this);
     this.handleSizingInputAddition = this.handleSizingInputAddition.bind(this);
+    this.handleItemOnSaleSelection = this.handleItemOnSaleSelection.bind(this);
+
   }
 
 
@@ -117,6 +125,7 @@ class GamePadAddItemForm extends Component {
     });
   }
 
+
   handleSubCategoryInputKeyPress(e){
     if (e.key === 'Enter') {
       var tag = this.state.subCategoryInputValue;
@@ -145,6 +154,7 @@ class GamePadAddItemForm extends Component {
 
 		this.setState({ subCategoryTagSelections });
   }
+
 
   onSubCategoryTagDeleteClick(t) {
     var subCategoryTagSelections = this.state.subCategoryTagSelections;
@@ -183,6 +193,7 @@ class GamePadAddItemForm extends Component {
     // console.log(this.state.artSizingInput);
   }
 
+
   handleSizingInputDropdownOpen(e) {
     var artSizingUnitDropdownOpen = this.state.artSizingUnitDropdownOpen;
     if (artSizingUnitDropdownOpen) {
@@ -193,6 +204,7 @@ class GamePadAddItemForm extends Component {
 
     this.setState({ artSizingUnitDropdownOpen });
   }
+
 
   handleSizingUnitSelection(e) {
     var artSizingUnit = e.target.innerHTML;
@@ -215,6 +227,24 @@ class GamePadAddItemForm extends Component {
 
 
 
+  handleItemOnSaleSelection(e) {
+    const target = e.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
+		var itemOnSaleDeclarations = this.state.itemOnSaleDeclarations;
+    var index = this.state.itemOnSaleTracker.indexOf(name);
+
+    if ( itemOnSaleDeclarations[index] ) {
+      itemOnSaleDeclarations[index].slice(index, 1);
+    } else {
+      itemOnSaleDeclarations[index].push(name);
+    }
+
+		this.setState({ itemOnSaleDeclarations });
+  }
+
+
 
 
   render() {
@@ -222,13 +252,14 @@ class GamePadAddItemForm extends Component {
       <div id="add_item_container" className={ this.props.isShowing ? "" : "hidden" }>
 
 
-        <form className="inventory_gamepad_add_item_form">
+        <div className="inventory_gamepad_add_item_form">
           <h1 className="inventory_gamepad_content_window_title"> Add Item </h1>
 
           <div id="add_item_name_entry_container" className="form-group">
             <label id="add_item_name_entry_title" htmlFor="name">Name:</label>
             <Field id="add_item_name_entry_input" className="form-control" name="name" component="input" type="text" />
           </div>
+
 
           <div id="add_item_picture_reel_container"> Picture Reel</div>
 
@@ -239,6 +270,7 @@ class GamePadAddItemForm extends Component {
             </div>
             <Field id="add_item_intention_statement_entry_input" className="form-control" name="intention_statement" component="textarea" type="text" />
           </div>
+
 
           <div id="add_item_use_as_description_container">
               <CheckboxOrRadioGroup
@@ -253,10 +285,12 @@ class GamePadAddItemForm extends Component {
               <label id="add_item_use_as_description_label" htmlFor="use_as_description">Use as description?</label>
           </div>
 
+
           <div id="add_item_description_container" className={"form-group " + (this.state.useAsDescription[0] ? 'hidden' : 'show')}>
             <label id="add_item_description_entry_title" htmlFor="description">Description:</label>
             <Field id="add_item_description_entry_input" className="form-control" name="description" component="textarea" type="text" />
           </div>
+
 
 
           <div id="add_item_post_description_col_1">
@@ -294,12 +328,11 @@ class GamePadAddItemForm extends Component {
           </div>
 
 
+
           <div id="add_item_post_description_col_2">
 
             <div id="add_item_article_subcategory_tagging_container">
-
               <div className="add_item_tagging_titlehead_label">Subcategory Tagging</div>
-
               <div className="add_item_tagging_input_container">
                 <Field
                   id="add_item_subcategory_tagging_input"
@@ -312,11 +345,8 @@ class GamePadAddItemForm extends Component {
                   onKeyPress={this.handleSubCategoryInputKeyPress} />
                 <button id="add_item_subcategory_tagging_input_submit_btn" className="btn btn-primary add_item_tagging_input_submit_btn" onClick={this.handleSubcategoryInputTagSelection} ></button>
               </div>
-
               <button className={"btn btn-primary add_item_tagging_dropdown_btn " + (this.state.subCategoryDropdownOpen ? 'no_border_radius_bottom' : 'closed')} onClick={this.handleSubcategoryDropdownOpen}></button>
-
               <div className={"add_item_tagging_dropdown_menu " + (this.state.subCategoryDropdownOpen ? 'show' : 'hidden')}>
-
                 <Scrollbars
                   className="add_item_tag_scroll"
                   onScroll={this.handleScroll}
@@ -335,9 +365,7 @@ class GamePadAddItemForm extends Component {
                       options={SUBCATEGORIES}
                       selectedOptions={this.state.subCategoryTagSelections} />
                 </Scrollbars>
-
               </div>
-
               <div className="add_item_tagging_selected_tag_container">
                 <Scrollbars
                   className="add_item_tag_scroll"
@@ -356,9 +384,7 @@ class GamePadAddItemForm extends Component {
                       selectedOptions={this.state.subCategoryTagSelections}
                       onSubCategoryTagDeleteClick={this.onSubCategoryTagDeleteClick} />
                 </Scrollbars>
-
               </div>
-
             </div>
 
 
@@ -401,13 +427,45 @@ class GamePadAddItemForm extends Component {
 
           </div>
 
-          <div id="add_item_article_pricing_container"> Pricing </div>
+          <div id="add_item_article_pricing_container">
+
+            <div className="add_item_price_input_card">
+              <label className="add_item_price_entry_title" htmlFor="price">Price:</label>
+              <Field className="add_item_price_entry_input form-control" name="price" component="input" type="text" />
+
+              <label className="add_item_sale_price_entry_title" htmlFor="price">When on sale:</label>
+              <Field className="add_item_sale_price_entry_input form-control" name="sale_price" component="input" type="text" />
+
+
+                <div className="add_item_on_sale_checkbox_container">
+                    <IndividualCheckboxWithoutOptionDisplay
+                        id="add_item_on_sale_checkbox"
+                        divClassName="checkbox-group no_label_checkbox"
+                        labelClassName="form-label capitalize"
+                        inputClassName="form-checkbox"
+                        controlFunc={this.handleItemOnSaleSelection}
+                        type={'checkbox'}
+                        options={this.state.itemOnSaleTracker}
+                        selectedOptions={this.state.itemOnSaleDeclarations} />
+                      <label className="add_item_item_on_sale_label" htmlFor="item_on_sale">On Sale?</label>
+                </div>
+
+            </div>
+
+          </div>
+
+
+
+
+
+
           <div id="add_item_article_shipping_container"> Shipping </div>
           <div id="add_item_article_placement_container"> Placement </div>
 
+
           <button type="submit" id="add_item_submission_btn" className="btn btn-primary"> Submit </button>
 
-        </form>
+        </div>
       </div>
   	);
   }
@@ -418,3 +476,19 @@ GamePadAddItemForm = reduxForm({
 })(GamePadAddItemForm)
 
 export default GamePadAddItemForm;
+
+
+
+
+/*
+
+
+
+
+
+
+
+
+
+
+*/
