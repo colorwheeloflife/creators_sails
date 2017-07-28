@@ -14,6 +14,7 @@ class BasicAddItemPage extends React.Component {
   }
 
   submit = (values) => {
+    console.log(values);
     this.props.actions.basicAddItem(values);
   }
 

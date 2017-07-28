@@ -48,7 +48,6 @@
     "react-select": "^1.0.0-rc.5",
     "redux": "^3.7.1",
     "redux-form": "^7.0.1",
-    "redux-form-6": "^6.5.0",
     "redux-thunk": "^2.2.0",
     "sails": "~0.12.13",
     "sails-disk": "~0.10.9",

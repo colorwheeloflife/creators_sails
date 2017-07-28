@@ -6,6 +6,7 @@ module.exports.webpack = {
 
   // webpack options, see https://webpack.js.org/configuration/
   options: {
+    devtool: 'eval-source-map',
     entry: {
       app: './assets/js/src/index.js',
       style: './assets/styles/importer.less'

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form'
 import { Scrollbars } from 'react-custom-scrollbars';
 
-
 import CheckboxOrRadioGroup from './gamepad/CheckboxOrRadioGroup';
 import TagGroup from './gamepad/TagGroup';
 import ArtSizingCardGroup from './gamepad/ArtSizingCardGroup';
@@ -33,6 +32,7 @@ class GamePadAddItemForm extends Component {
       artSizingUnitDropdownOpen: false,
       artSizingUnit: "Unit"
 		}
+
 
     this.handleUseAsDescriptionSelection = this.handleUseAsDescriptionSelection.bind(this);
 		this.handleAddItemCategorySelection = this.handleAddItemCategorySelection.bind(this);
@@ -94,11 +94,8 @@ class GamePadAddItemForm extends Component {
 
   handleSubcategoryDropdownOpen(e) {
     const subCategoryDropdownOpen = this.state.subCategoryDropdownOpen;
-    if (subCategoryDropdownOpen) {
-      this.setState({ subCategoryDropdownOpen: false });
-    } else {
-      this.setState({ subCategoryDropdownOpen: true });
-    }
+
+    this.setState({ subCategoryDropdownOpen: !subCategoryDropdownOpen });
   }
 
 
@@ -114,8 +111,10 @@ class GamePadAddItemForm extends Component {
     var subCategoryTagSelections = this.state.subCategoryTagSelections;
     subCategoryTagSelections.push(tag);
 
-    this.setState({ subCategoryTagSelections });
-    this.setState({ subCategoryInputValue: "" });
+    this.setState({
+      subCategoryTagSelections,
+      subCategoryInputValue: ""
+    });
   }
 
   handleSubCategoryInputKeyPress(e){
@@ -167,7 +166,7 @@ class GamePadAddItemForm extends Component {
     artSizingInput[index][0] = value;
 
     this.setState({ artSizingInput });
-    console.log(this.state.artSizingInput);
+    // console.log(this.state.artSizingInput);
   }
 
   handleSizingInputHighendChange(e) {
@@ -181,7 +180,7 @@ class GamePadAddItemForm extends Component {
     artSizingInput[index][1] = value;
 
     this.setState({ artSizingInput });
-    console.log(this.state.artSizingInput);
+    // console.log(this.state.artSizingInput);
   }
 
   handleSizingInputDropdownOpen(e) {
@@ -222,7 +221,8 @@ class GamePadAddItemForm extends Component {
     return (
       <div id="add_item_container" className={ this.props.isShowing ? "" : "hidden" }>
 
-        <div className="inventory_gamepad_add_item_form">
+
+        <form className="inventory_gamepad_add_item_form">
           <h1 className="inventory_gamepad_content_window_title"> Add Item </h1>
 
           <div id="add_item_name_entry_container" className="form-group">
@@ -405,9 +405,9 @@ class GamePadAddItemForm extends Component {
           <div id="add_item_article_shipping_container"> Shipping </div>
           <div id="add_item_article_placement_container"> Placement </div>
 
-          <button type="submit" id="add_item_submission_btn" className="btn btn-primary" onSubmit={this.props.submit}> Submit </button>
+          <button type="submit" id="add_item_submission_btn" className="btn btn-primary"> Submit </button>
 
-        </div>
+        </form>
       </div>
   	);
   }

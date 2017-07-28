@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
-import { reduxForm } from 'redux-form-6';
+import { reduxForm } from 'redux-form';
 import * as actions from '../../actions';
 
 import Select from 'react-select';
