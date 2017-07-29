@@ -235,13 +235,31 @@ class GamePadAddItemForm extends Component {
 		var itemOnSaleDeclarations = this.state.itemOnSaleDeclarations;
     var index = this.state.itemOnSaleTracker.indexOf(name);
 
-    if ( itemOnSaleDeclarations[index] ) {
-      itemOnSaleDeclarations[index].slice(index, 1);
+    console.log(value);
+    console.log([name]);
+    console.log(itemOnSaleDeclarations);
+    console.log(index);
+    console.log(itemOnSaleDeclarations[index]);
+
+    if ( itemOnSaleDeclarations[1] ) {
+      if ( itemOnSaleDeclarations[index] ) {
+        itemOnSaleDeclarations[index].slice(index, 1);
+      } else {
+        itemOnSaleDeclarations[index].push(name);
+      }
     } else {
-      itemOnSaleDeclarations[index].push(name);
+      if (value) {
+        itemOnSaleDeclarations = [name];
+      } else {
+        itemOnSaleDeclarations = [""];
+      }
     }
 
+
+
+
 		this.setState({ itemOnSaleDeclarations });
+    console.log(this.state.itemOnSaleDeclarations);
   }
 
 
@@ -252,14 +270,13 @@ class GamePadAddItemForm extends Component {
       <div id="add_item_container" className={ this.props.isShowing ? "" : "hidden" }>
 
 
-        <div className="inventory_gamepad_add_item_form">
+        <form className="inventory_gamepad_add_item_form" onSubmit={ this.props.handleSubmit }>
           <h1 className="inventory_gamepad_content_window_title"> Add Item </h1>
 
           <div id="add_item_name_entry_container" className="form-group">
             <label id="add_item_name_entry_title" htmlFor="name">Name:</label>
             <Field id="add_item_name_entry_input" className="form-control" name="name" component="input" type="text" />
           </div>
-
 
           <div id="add_item_picture_reel_container"> Picture Reel</div>
 
@@ -463,9 +480,10 @@ class GamePadAddItemForm extends Component {
           <div id="add_item_article_placement_container"> Placement </div>
 
 
+
           <button type="submit" id="add_item_submission_btn" className="btn btn-primary"> Submit </button>
 
-        </div>
+        </form>
       </div>
   	);
   }

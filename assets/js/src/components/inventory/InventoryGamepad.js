@@ -82,9 +82,8 @@ class InventoryGamepad extends Component {
 	}
 
 	submit = (values) => {
-		values.preventDefault();
 		console.log(values);
-    // this.props.actions.basicAddItem(values);
+
   }
 
   render() {
