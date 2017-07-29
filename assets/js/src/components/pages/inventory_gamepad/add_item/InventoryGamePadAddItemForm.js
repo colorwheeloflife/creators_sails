@@ -2,10 +2,14 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form'
 import { Scrollbars } from 'react-custom-scrollbars';
 
-import CheckboxOrRadioGroup from './gamepad/CheckboxOrRadioGroup';
-import TagGroup from './gamepad/TagGroup';
-import ArtSizingCardGroup from './gamepad/ArtSizingCardGroup';
-import IndividualCheckboxWithoutOptionDisplay from './gamepad/IndividualCheckboxWithoutOptionDisplay';
+import CheckboxOrRadioGroup from '../../../reusables/CheckboxOrRadioGroup';
+import CheckboxWithoutOptionDisplay from '../../../reusables/CheckboxWithoutOptionDisplay';
+import TagGroup from '../../../reusables/TagGroup';
+
+import ArtSizingField from './fields/sizing/ArtSizingField';
+import ClothingSizingField from './fields/sizing/ClothingSizingField';
+import JewelrySizingField from './fields/sizing/JewelrySizingField';
+
 
 var trueness = [true];
 var CATEGORIES = ['Visual Art', 'Clothing', 'Accessories', 'Jewelry', 'Instruments', 'Totems'];
@@ -13,7 +17,7 @@ var ARTICLE_TYPES = ['Tops', 'Bottoms', 'Vests', 'Tutus'];
 var SUBCATEGORIES = ['Acrylic', 'Digital Art', 'Fingerpaint', 'Wood Craftsmanship', 'Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6', 'Option 7', 'Option 8', 'Option 9', 'Option 10', 'Option 11', 'Option 12', 'Option 13', 'Option 14', 'Option 15' ];
 
 
-class GamePadAddItemForm extends Component {
+class InventoryGamePadAddItemForm extends Component {
   constructor(props) {
     super(props);
 
@@ -375,7 +379,7 @@ class GamePadAddItemForm extends Component {
                       id="add_item_subcategory_tagging_dropdown_menu_tag_options"
                       divClassName="add_item_tagging_dropdown_menu_tag_options"
                       labelClassName="form-label capitalize dropdown_tag_checkbox_selections"
-                      inputClassName="form-checkbox"
+                      inputClassName="form-checkbox form-control"
                       setName={SUBCATEGORIES}
                       controlFunc={this.handleSubcategoryDropdownTagCheckboxSelection}
                       type={'checkbox'}
@@ -414,34 +418,19 @@ class GamePadAddItemForm extends Component {
           </div>
 
           <div id="add_item_article_sizing_container">
-
-            <div id="add_item_art_sizing_measurement_unit_dropdown" onClick={this.handleSizingInputDropdownOpen}>{this.state.artSizingUnit}</div>
-            <div id="add_item_art_sizing_measurement_unit_dropdown_menu" className={'' + (this.state.artSizingUnitDropdownOpen ? 'show' : 'hidden')}>
-              <li className="add_item_art_sizing_measurement_unit_dropdown_list_item" onClick={this.handleSizingUnitSelection}>inches</li>
-              <li className="add_item_art_sizing_measurement_unit_dropdown_list_item" onClick={this.handleSizingUnitSelection}>feet</li>
-              <li className="add_item_art_sizing_measurement_unit_dropdown_list_item" onClick={this.handleSizingUnitSelection}>centimeters</li>
-              <li className="add_item_art_sizing_measurement_unit_dropdown_list_item" onClick={this.handleSizingUnitSelection}>meters</li>
-            </div>
-
-            <ArtSizingCardGroup
-              groupClassName="add_item_art_sizing_input_group"
-              containerClassName="add_item_art_sizing_input_container"
-              inputLowendClassName="form control add_item_art_sizing_input add_item_art_sizing_lowend_input"
-              inputHighendClassName="form control add_item_art_sizing_input add_item_art_sizing_highend_input"
-              name="sizing"
-              type="text"
-              options={this.state.artSizingTracker}
-              value={this.state.artSizingInput}
+            <ArtSizingField
+              selectedCategory={this.state.selectedCategory}
+              handleSizingInputDropdownOpen={this.handleSizingInputDropdownOpen}
+              handleSizingUnitSelection={this.handleSizingUnitSelection}
               handleSizingInputLowendChange={this.handleSizingInputLowendChange}
               handleSizingInputHighendChange={this.handleSizingInputHighendChange}
               handleSizingInputDropdownOpen={this.handleSizingInputDropdownOpen}
+
+              artSizingUnitDropdownOpen={this.state.artSizingUnitDropdownOpen}
+              artSizingTracker={this.state.artSizingTracker}
+              artSizingInput={this.state.artSizingInput}
+              artSizingUnit={this.state.artSizingUnit}
               />
-
-            <div id="add_item_art_sizing_input_addition_btn" onClick={this.handleSizingInputAddition}>
-              +
-            </div>
-
-
           </div>
 
           <div id="add_item_article_pricing_container">
@@ -455,7 +444,7 @@ class GamePadAddItemForm extends Component {
 
 
                 <div className="add_item_on_sale_checkbox_container">
-                    <IndividualCheckboxWithoutOptionDisplay
+                    <CheckboxWithoutOptionDisplay
                         id="add_item_on_sale_checkbox"
                         divClassName="checkbox-group no_label_checkbox"
                         labelClassName="form-label capitalize"
@@ -489,11 +478,11 @@ class GamePadAddItemForm extends Component {
   }
 }
 
-GamePadAddItemForm = reduxForm({
+InventoryGamePadAddItemForm = reduxForm({
   form: 'GamePadAddItem'
-})(GamePadAddItemForm)
+})(InventoryGamePadAddItemForm)
 
-export default GamePadAddItemForm;
+export default InventoryGamePadAddItemForm;
 
 
 

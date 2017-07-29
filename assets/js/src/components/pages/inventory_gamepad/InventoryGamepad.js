@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import { reduxForm } from 'redux-form';
-import * as actions from '../../actions';
+import * as actions from '../../../actions';
 
 import Select from 'react-select';
-import MultiSelectField from '../form/multiselect';
-import WindowExplorer from './window_explorer';
-import GamePadAddItemForm from './GamePadAddItemForm';
+import MultiSelectField from '../../reusables/MultiSelectField';
+import InventoryGamePadExplorer from './explorer/InventoryGamePadExplorer';
+import InventoryGamePadAddItemForm from './add_item/InventoryGamePadAddItemForm';
 
 const CATEGORIES = [
 	{ label: 'Visual Art', value: 'visual_art' },
@@ -46,7 +46,7 @@ const MATERIALS = [
 ];
 
 
-class InventoryGamepad extends Component {
+class InventoryGamePad extends Component {
 
 	constructor(props) {
 		super(props);
@@ -142,9 +142,9 @@ class InventoryGamepad extends Component {
           </div>
 
           <div id="inventory_gamepad_content_window">
-						<WindowExplorer
+						<InventoryGamePadExplorer
 							isShowing={this.state.windowExplorer} />
-						<GamePadAddItemForm
+						<InventoryGamePadAddItemForm
 							isShowing={this.state.windowAddItem}
 							onSubmit={this.submit} />
 					</div>
@@ -164,9 +164,9 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(actions, dispatch)
 })
 
-InventoryGamepad = connect(
+InventoryGamePad = connect(
   mapStateToProps,
   mapDispatchToProps
-)(InventoryGamepad);
+)(InventoryGamePad);
 
-export default InventoryGamepad;
+export default InventoryGamePad;

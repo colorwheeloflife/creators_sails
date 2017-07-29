@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import ItemSnapshot from './item_snapshot';
+import ItemSnapshotCard from '../../../reusables/ItemSnapshotCard';
 
-class WindowExplorer extends Component {
+class InventoryGamePadExplorer extends Component {
   constructor(props) {
     super(props);
   }
@@ -17,7 +17,7 @@ class WindowExplorer extends Component {
 
 }
 
-export default WindowExplorer;
+export default InventoryGamePadExplorer;
 
 
 

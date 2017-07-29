@@ -1,6 +1,6 @@
 import React from 'react'
 
-const IndividualCheckboxWithoutOptionDisplay = (props) => {
+const CheckboxWithoutOptionDisplay = (props) => {
 		return (
 	    <div className={props.divClassName}>
 				<input
@@ -15,4 +15,4 @@ const IndividualCheckboxWithoutOptionDisplay = (props) => {
 		);
 };
 
-export default IndividualCheckboxWithoutOptionDisplay;
+export default CheckboxWithoutOptionDisplay;

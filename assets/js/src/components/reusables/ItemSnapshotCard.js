@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class ItemSnapshot extends Component {
+class ItemSnapshotCard extends Component {
 
   render () {
 		return (
@@ -9,4 +9,4 @@ class ItemSnapshot extends Component {
 	}
 }
 
-export default ItemSnapshot;
+export default ItemSnapshotCard;

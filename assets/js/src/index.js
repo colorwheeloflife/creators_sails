@@ -7,9 +7,8 @@ import reduxThunk from 'redux-thunk';
 import Popup from 'react-popup';
 
 import App from './components/app';
-import BasicAddItem from './components/inventory/basic_add_item';
-import BasicAddItemPage from './components/inventory/BasicAddItemPage';
-import InventoryGamepad from './components/inventory/InventoryGamepad';
+import BasicAddItemPage from './components/pages/add_item/BasicAddItemPage';
+import InventoryGamePad from './components/pages/inventory_gamepad/InventoryGamePad';
 import Feature from './components/feature';
 import Welcome from './components/welcome';
 import reducers from './reducers';
@@ -23,7 +22,7 @@ ReactDOM.render(
       <Route path="/" component={App}>
         <IndexRoute component={Welcome} />
         <Route path="basicadditem" component={BasicAddItemPage} />
-        <Route path="inventory" component={InventoryGamepad} />
+        <Route path="inventory" component={InventoryGamePad} />
         <Route path="feature" component={Feature} />
       </Route>
     </Router>
