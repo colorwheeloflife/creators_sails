@@ -37,6 +37,9 @@ class InventoryGamePadAddItemForm extends Component {
       artSizingUnitDropdownOpen: false,
       artSizingUnit: "Unit",
 
+      clothingSizingOptions: ["XS", "S", "M", "L", "XL"],
+      clothingSizingCounts: [0, 0, 0, 0, 0],
+
       itemOnSaleTracker: ["1"],
       itemOnSaleCount: 1,
       itemOnSaleDeclarations: [""]
@@ -59,6 +62,9 @@ class InventoryGamePadAddItemForm extends Component {
     this.handleSizingInputDropdownOpen = this.handleSizingInputDropdownOpen.bind(this);
     this.handleSizingUnitSelection = this.handleSizingUnitSelection.bind(this);
     this.handleSizingInputAddition = this.handleSizingInputAddition.bind(this);
+
+    this.handleClothingSizeCountChange = this.handleClothingSizeCountChange.bind(this);
+
     this.handleItemOnSaleSelection = this.handleItemOnSaleSelection.bind(this);
 
   }
@@ -229,6 +235,23 @@ class InventoryGamePadAddItemForm extends Component {
     this.setState({ artSizingCount: parseInt(count)});
   }
 
+  handleClothingSizeCountChange(e) {
+    var value = e.target.value;
+    var name = e.target.name;
+
+    var clothingSizingOptions = this.state.clothingSizingOptions;
+    var clothingSizingCounts = this.state.clothingSizingCounts;
+
+    var index = clothingSizingOptions.indexOf(name);
+    clothingSizingCounts[index] = value;
+
+    this.setState({ clothingSizingCounts });
+
+    console.log(value);
+    console.log(name);
+    console.log(clothingSizingCounts);
+  }
+
 
 
   handleItemOnSaleSelection(e) {
@@ -238,12 +261,6 @@ class InventoryGamePadAddItemForm extends Component {
 
 		var itemOnSaleDeclarations = this.state.itemOnSaleDeclarations;
     var index = this.state.itemOnSaleTracker.indexOf(name);
-
-    console.log(value);
-    console.log([name]);
-    console.log(itemOnSaleDeclarations);
-    console.log(index);
-    console.log(itemOnSaleDeclarations[index]);
 
     if ( itemOnSaleDeclarations[1] ) {
       if ( itemOnSaleDeclarations[index] ) {
@@ -258,12 +275,7 @@ class InventoryGamePadAddItemForm extends Component {
         itemOnSaleDeclarations = [""];
       }
     }
-
-
-
-
 		this.setState({ itemOnSaleDeclarations });
-    console.log(this.state.itemOnSaleDeclarations);
   }
 
 
@@ -431,6 +443,13 @@ class InventoryGamePadAddItemForm extends Component {
               artSizingInput={this.state.artSizingInput}
               artSizingUnit={this.state.artSizingUnit}
               />
+
+            <ClothingSizingField
+              selectedCategory={this.state.selectedCategory}
+              clothingSizingOptions={this.state.clothingSizingOptions}
+              handleClothingSizeCountChange={this.handleClothingSizeCountChange}
+              />
+
           </div>
 
           <div id="add_item_article_pricing_container">
