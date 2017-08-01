@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form'
 import { Scrollbars } from 'react-custom-scrollbars';
+import Dropzone from 'react-dropzone';
 
 import CheckboxOrRadioGroup from '../../../reusables/CheckboxOrRadioGroup';
 import CheckboxWithoutOptionDisplay from '../../../reusables/CheckboxWithoutOptionDisplay';
@@ -22,6 +23,7 @@ class InventoryGamePadAddItemForm extends Component {
     super(props);
 
     this.state = {
+      files: [],
 			useAsDescription: [true],
 			selectedCategory: [],
 			selectedArticleTypes: [],
@@ -44,33 +46,25 @@ class InventoryGamePadAddItemForm extends Component {
       itemOnSaleCount: 1,
       itemOnSaleDeclarations: [""]
 		}
-
-
-
-    this.handleUseAsDescriptionSelection = this.handleUseAsDescriptionSelection.bind(this);
-		this.handleAddItemCategorySelection = this.handleAddItemCategorySelection.bind(this);
-		this.handleAddItemArticleSelection = this.handleAddItemArticleSelection.bind(this);
-
-    this.handleSubcategoryDropdownOpen = this.handleSubcategoryDropdownOpen.bind(this);
-    this.handleSubcategoryInputChange = this.handleSubcategoryInputChange.bind(this);
-    this.handleSubCategoryInputKeyPress = this.handleSubCategoryInputKeyPress.bind(this);
-    this.handleSubcategoryInputTagSelection = this.handleSubcategoryInputTagSelection.bind(this);
-    this.handleSubcategoryDropdownTagCheckboxSelection = this.handleSubcategoryDropdownTagCheckboxSelection.bind(this);
-    this.onSubCategoryTagDeleteClick = this.onSubCategoryTagDeleteClick.bind(this);
-    this.handleSizingInputLowendChange = this.handleSizingInputLowendChange.bind(this);
-    this.handleSizingInputHighendChange = this.handleSizingInputHighendChange.bind(this);
-    this.handleSizingInputDropdownOpen = this.handleSizingInputDropdownOpen.bind(this);
-    this.handleSizingUnitSelection = this.handleSizingUnitSelection.bind(this);
-    this.handleSizingInputAddition = this.handleSizingInputAddition.bind(this);
-
-    this.handleClothingSizeCountChange = this.handleClothingSizeCountChange.bind(this);
-
-    this.handleItemOnSaleSelection = this.handleItemOnSaleSelection.bind(this);
-
   }
 
 
-  handleUseAsDescriptionSelection(e) {
+  onDrop = (acceptedFiles, rejectedFiles) => {
+      console.log('Received files: ', files);
+      console.log('Received files: ', rejectedFiles);
+
+      var files = this.state.files;
+      acceptedFiles.map(function(acceptedFile) {  files.push(acceptedFile);  });
+
+      this.setState({ files });
+      console.log(this.state.files);
+  }
+
+  onDropzoneOpenClick = () => {
+      this.refs.dropzone.open();
+  }
+
+  handleUseAsDescriptionSelection = (e) => {
 		const target = e.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
@@ -87,12 +81,12 @@ class InventoryGamePadAddItemForm extends Component {
 	}
 
 
-	handleAddItemCategorySelection(e) {
+	handleAddItemCategorySelection = (e) => {
 		this.setState({ selectedCategory: e.target.value });
 	}
 
 
-	handleAddItemArticleSelection(e) {
+	handleAddItemArticleSelection = (e) => {
 		const target = e.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
@@ -110,21 +104,21 @@ class InventoryGamePadAddItemForm extends Component {
 	}
 
 
-  handleSubcategoryDropdownOpen(e) {
+  handleSubcategoryDropdownOpen = (e) => {
     const subCategoryDropdownOpen = this.state.subCategoryDropdownOpen;
 
     this.setState({ subCategoryDropdownOpen: !subCategoryDropdownOpen });
   }
 
 
-  handleSubcategoryInputChange(e) {
+  handleSubcategoryInputChange = (e) => {
     const value = e.target.value;
 
     this.setState({ subCategoryInputValue: value });
   }
 
 
-  handleSubcategoryInputTagSelection(e) {
+  handleSubcategoryInputTagSelection = (e) => {
     var tag = this.state.subCategoryInputValue;
     var subCategoryTagSelections = this.state.subCategoryTagSelections;
     subCategoryTagSelections.push(tag);
@@ -136,7 +130,7 @@ class InventoryGamePadAddItemForm extends Component {
   }
 
 
-  handleSubCategoryInputKeyPress(e){
+  handleSubCategoryInputKeyPress = (e) => {
     if (e.key === 'Enter') {
       var tag = this.state.subCategoryInputValue;
       var subCategoryTagSelections = this.state.subCategoryTagSelections;
@@ -148,7 +142,7 @@ class InventoryGamePadAddItemForm extends Component {
   }
 
 
-  handleSubcategoryDropdownTagCheckboxSelection(e) {
+  handleSubcategoryDropdownTagCheckboxSelection = (e) => {
     const target = e.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
@@ -166,7 +160,7 @@ class InventoryGamePadAddItemForm extends Component {
   }
 
 
-  onSubCategoryTagDeleteClick(t) {
+  onSubCategoryTagDeleteClick = (t) => {
     var subCategoryTagSelections = this.state.subCategoryTagSelections;
     var index = subCategoryTagSelections.indexOf(t);
     subCategoryTagSelections.splice(index, 1);
@@ -175,7 +169,7 @@ class InventoryGamePadAddItemForm extends Component {
   }
 
 
-  handleSizingInputLowendChange(e) {
+  handleSizingInputLowendChange = (e) => {
     var value = e.target.value;
     var token = e.target.name;
 
@@ -189,7 +183,7 @@ class InventoryGamePadAddItemForm extends Component {
     // console.log(this.state.artSizingInput);
   }
 
-  handleSizingInputHighendChange(e) {
+  handleSizingInputHighendChange = (e) => {
     var value = e.target.value;
     var token = e.target.name;
 
@@ -204,7 +198,7 @@ class InventoryGamePadAddItemForm extends Component {
   }
 
 
-  handleSizingInputDropdownOpen(e) {
+  handleSizingInputDropdownOpen = (e) => {
     var artSizingUnitDropdownOpen = this.state.artSizingUnitDropdownOpen;
     if (artSizingUnitDropdownOpen) {
       artSizingUnitDropdownOpen = false;
@@ -216,14 +210,14 @@ class InventoryGamePadAddItemForm extends Component {
   }
 
 
-  handleSizingUnitSelection(e) {
+  handleSizingUnitSelection = (e) => {
     var artSizingUnit = e.target.innerHTML;
     this.setState({ artSizingUnit });
     this.setState({ artSizingUnitDropdownOpen: false });
   }
 
 
-  handleSizingInputAddition(e) {
+  handleSizingInputAddition = (e) => {
     var count = `${this.state.artSizingCount + 1}`;
     var artSizingTracker = this.state.artSizingTracker;
     var artSizingInput = this.state.artSizingInput;
@@ -235,7 +229,7 @@ class InventoryGamePadAddItemForm extends Component {
     this.setState({ artSizingCount: parseInt(count)});
   }
 
-  handleClothingSizeCountChange(e) {
+  handleClothingSizeCountChange = (e) => {
     var value = e.target.value;
     var name = e.target.name;
 
@@ -250,6 +244,10 @@ class InventoryGamePadAddItemForm extends Component {
     console.log(value);
     console.log(name);
     console.log(clothingSizingCounts);
+  }
+
+  handlePreSubmit = () => {
+    var values_obj = {};
   }
 
 
@@ -282,6 +280,8 @@ class InventoryGamePadAddItemForm extends Component {
 
 
   render() {
+    const files = this.state.files.map((file) => <img key={file.name} src={file.preview} className="add_item_picture_preview"/>)
+
     return (
       <div id="add_item_container" className={ this.props.isShowing ? "" : "hidden" }>
 
@@ -294,7 +294,36 @@ class InventoryGamePadAddItemForm extends Component {
             <Field id="add_item_name_entry_input" className="form-control" name="name" component="input" type="text" />
           </div>
 
-          <div id="add_item_picture_reel_container"> Picture Reel</div>
+
+
+          <div id="add_item_picture_reel_container">
+
+            <div id="add_item_picture_dropzone_upload">
+              <Dropzone ref="dropzone" id="add_item_dropzone_pad" onDrop={this.onDrop} >
+                <div>Try dropping some files here, or click to select files to upload.</div>
+              </Dropzone>
+              <button type="button" id="add_item_dropzone_btn" className="btn btn-primary" onClick={this.onDropzoneOpenClick}>
+                  Open Dropzone
+              </button>
+            </div>
+
+            {this.state.files ? <div id="add_item_picture_previews_container">
+              <Scrollbars
+                className="add_item_picture_scroll"
+                onScroll={this.handleScroll}
+                onScrollFrame={this.handleScrollFrame}
+                onScrollStart={this.handleScrollStart}
+                onScrollStop={this.handlenScrollStop}
+                onUpdate={this.handleUpdate}>
+                <div>{files}</div>
+              </Scrollbars>
+            </div> : null}
+          </div>
+
+
+
+
+
 
           <div id="add_item_intention_statement_container" className="form-group">
             <label id="add_item_intention_statement_entry_title" htmlFor="intention_statement">Intention Statement:</label>

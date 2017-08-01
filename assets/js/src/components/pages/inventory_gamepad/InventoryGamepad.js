@@ -6,6 +6,7 @@ import * as actions from '../../../actions';
 
 import Select from 'react-select';
 import MultiSelectField from '../../reusables/MultiSelectField';
+
 import InventoryGamePadExplorer from './explorer/InventoryGamePadExplorer';
 import InventoryGamePadAddItemForm from './add_item/InventoryGamePadAddItemForm';
 
@@ -55,17 +56,13 @@ class InventoryGamePad extends Component {
 			windowAddItem: false,
 			windowExplorer: true
 		}
-
-		this.onAddItemClick = this.onAddItemClick.bind(this);
-		this.onExploreClick = this.onExploreClick.bind(this);
-		this.submit = this.submit.bind(this);
 	}
 
-	componentDidMount() {
+	componentDidMount = () => {
 		// this.props.actions.fetchItems();
 	}
 
-	onAddItemClick() {
+	onAddItemClick = () => {
 	  const { windowAddItem } = this.state;
 	  this.setState({
 	    windowAddItem: windowAddItem ? true : true,
@@ -73,7 +70,7 @@ class InventoryGamePad extends Component {
 	  });
 	}
 
-	onExploreClick() {
+	onExploreClick = () => {
 	  const { windowExplorer } = this.state;
 	  this.setState({
 	    windowAddItem: windowExplorer ? false : false,
