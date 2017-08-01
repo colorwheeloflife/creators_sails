@@ -40,7 +40,6 @@
   width: 35%;
   height: 100%;
   float: left;
-  border: 1px solid black;
 }
 
 #add_item_dropzone_pad {
@@ -60,7 +59,6 @@
   width: 65%;
   height: 100%;
   float: right;
-  border: 1px solid black;
 }
 
 .add_item_picture_preview {
@@ -427,6 +425,10 @@
 
 
 
+
+
+
+
 #add_item_article_sizing_container {
   width: 90%;
   min-height: 175px;
@@ -440,10 +442,11 @@
 }
 
 .add_item_art_sizing_input_group {
-  max-width: 96%;
+  width: 96%;
   min-height: 90%;
   float: left;
   margin: 2%;
+  padding: 1%;
 
   // border: 1px solid black;
 }
@@ -465,6 +468,8 @@
   font-size: 13px;
   text-align: center;
   color: grey;
+
+  border: 1px solid black;
 }
 
 .add_item_art_sizing_lowend_input {
@@ -489,6 +494,8 @@
   right: 5px;
   padding: 3px 5px;
   text-align: center;
+  background-color: white;
+  z-index: 1;
   border: 1px solid black;
 }
 
@@ -501,6 +508,8 @@
   padding: 2px 4px;
   font-size: 14px;
   text-align: right;
+  background-color: white;
+  z-index: 1;
   border: 1px solid black;
 }
 
@@ -515,10 +524,11 @@
   width: 27px;
   height: 27px;
   float: left;
-  margin-top: 34px;
+  margin-top: 24px;
   border-radius: 25px;
   text-align: center;
   border: 1px solid black;
+  cursor: pointer;
 }
 
 

@@ -23,6 +23,9 @@ const ArtSizingCardGroup = (props) => (
           </div>
 				);
 			})}
+			<div id="add_item_art_sizing_input_addition_btn" onClick={props.handleSizingInputAddition}>
+				+
+			</div>
 		</div>
 );
 

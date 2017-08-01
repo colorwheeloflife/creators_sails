@@ -24,11 +24,8 @@ const ArtSizingField = (props) => (
 			handleSizingInputLowendChange={props.handleSizingInputLowendChange}
 			handleSizingInputHighendChange={props.handleSizingInputHighendChange}
 			handleSizingInputDropdownOpen={props.handleSizingInputDropdownOpen}
+			handleSizingInputAddition={props.handleSizingInputAddition}
 			/>
-
-		<div id="add_item_art_sizing_input_addition_btn" onClick={props.handleSizingInputAddition}>
-			+
-		</div>
 	</div>
 );
 

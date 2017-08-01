@@ -218,6 +218,7 @@ class InventoryGamePadAddItemForm extends Component {
 
 
   handleSizingInputAddition = (e) => {
+    console.log(e);
     var count = `${this.state.artSizingCount + 1}`;
     var artSizingTracker = this.state.artSizingTracker;
     var artSizingInput = this.state.artSizingInput;
@@ -227,7 +228,13 @@ class InventoryGamePadAddItemForm extends Component {
     this.setState({ artSizingTracker });
     this.setState({ artSizingInput });
     this.setState({ artSizingCount: parseInt(count)});
+
+    console.log(artSizingTracker);
+    console.log(artSizingInput);
+    console.log(this.state.artSizingCount);
+    console.log(e);
   }
+
 
   handleClothingSizeCountChange = (e) => {
     var value = e.target.value;
@@ -295,9 +302,7 @@ class InventoryGamePadAddItemForm extends Component {
           </div>
 
 
-
           <div id="add_item_picture_reel_container">
-
             <div id="add_item_picture_dropzone_upload">
               <Dropzone ref="dropzone" id="add_item_dropzone_pad" onDrop={this.onDrop} >
                 <div>Try dropping some files here, or click to select files to upload.</div>
@@ -306,7 +311,6 @@ class InventoryGamePadAddItemForm extends Component {
                   Open Dropzone
               </button>
             </div>
-
             {this.state.files ? <div id="add_item_picture_previews_container">
               <Scrollbars
                 className="add_item_picture_scroll"
@@ -319,10 +323,6 @@ class InventoryGamePadAddItemForm extends Component {
               </Scrollbars>
             </div> : null}
           </div>
-
-
-
-
 
 
           <div id="add_item_intention_statement_container" className="form-group">
@@ -352,6 +352,8 @@ class InventoryGamePadAddItemForm extends Component {
             <label id="add_item_description_entry_title" htmlFor="description">Description:</label>
             <Field id="add_item_description_entry_input" className="form-control" name="description" component="textarea" type="text" />
           </div>
+
+
 
 
 
@@ -388,6 +390,8 @@ class InventoryGamePadAddItemForm extends Component {
             <div id="add_item_article_time_log_container"> Time Log </div>
 
           </div>
+
+
 
 
 
@@ -458,6 +462,10 @@ class InventoryGamePadAddItemForm extends Component {
 
           </div>
 
+
+
+
+
           <div id="add_item_article_sizing_container">
             <ArtSizingField
               selectedCategory={this.state.selectedCategory}
@@ -466,6 +474,7 @@ class InventoryGamePadAddItemForm extends Component {
               handleSizingInputLowendChange={this.handleSizingInputLowendChange}
               handleSizingInputHighendChange={this.handleSizingInputHighendChange}
               handleSizingInputDropdownOpen={this.handleSizingInputDropdownOpen}
+              handleSizingInputAddition={this.handleSizingInputAddition}
 
               artSizingUnitDropdownOpen={this.state.artSizingUnitDropdownOpen}
               artSizingTracker={this.state.artSizingTracker}
