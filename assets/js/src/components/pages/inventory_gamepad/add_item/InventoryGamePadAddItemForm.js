@@ -39,8 +39,12 @@ class InventoryGamePadAddItemForm extends Component {
       artSizingUnitDropdownOpen: false,
       artSizingUnit: "Unit",
 
+      clothingSizingTracker: ["1", "2", "3", "4", "5"],
+      clothingSizingCount: 5,
+      clothingSizingInput: [0, 0, 0, 0, 0],
       clothingSizingOptions: ["XS", "S", "M", "L", "XL"],
       clothingSizingCounts: [0, 0, 0, 0, 0],
+      clothingInputGroupClass: "clothing_size_input_5_group",
 
       itemOnSaleTracker: ["1"],
       itemOnSaleCount: 1,
@@ -217,8 +221,7 @@ class InventoryGamePadAddItemForm extends Component {
   }
 
 
-  handleSizingInputAddition = (e) => {
-    console.log(e);
+  handleArtSizingInputAddition = (e) => {
     var count = `${this.state.artSizingCount + 1}`;
     var artSizingTracker = this.state.artSizingTracker;
     var artSizingInput = this.state.artSizingInput;
@@ -228,11 +231,6 @@ class InventoryGamePadAddItemForm extends Component {
     this.setState({ artSizingTracker });
     this.setState({ artSizingInput });
     this.setState({ artSizingCount: parseInt(count)});
-
-    console.log(artSizingTracker);
-    console.log(artSizingInput);
-    console.log(this.state.artSizingCount);
-    console.log(e);
   }
 
 
@@ -247,14 +245,45 @@ class InventoryGamePadAddItemForm extends Component {
     clothingSizingCounts[index] = value;
 
     this.setState({ clothingSizingCounts });
-
-    console.log(value);
-    console.log(name);
-    console.log(clothingSizingCounts);
   }
 
-  handlePreSubmit = () => {
-    var values_obj = {};
+
+  handleClothingSizingInputAddition = (e) => {
+    var target = e.target;
+    var position = target.getAttribute("name");
+
+    var count = `${this.state.clothingSizingCount + 1}`;
+    var clothingSizingTracker = this.state.clothingSizingTracker;
+    var clothingSizingInput = this.state.clothingSizingInput;
+    var clothingSizingOptions = this.state.clothingSizingOptions;
+    var clothingInputGroupClass = "";
+
+    if (position === "before") {
+      clothingSizingTracker.unshift(count);
+      clothingSizingInput.unshift(0);
+      clothingSizingOptions.unshift("XXS");
+    }
+
+    if (position === "after") {
+      clothingSizingTracker.push(count);
+      clothingSizingInput.push(0);
+      clothingSizingOptions.push("XXL");
+    }
+
+    switch ( parseInt(count) ) {
+      case 6:
+        clothingInputGroupClass = "clothing_size_input_6_group";
+        break;
+      case 7:
+        clothingInputGroupClass = "clothing_size_input_7_group";
+      default:
+        break;
+    }
+
+    this.setState({ clothingSizingTracker });
+    this.setState({ clothingSizingInput });
+    this.setState({ clothingSizingCount: parseInt(count)});
+    this.setState({ clothingInputGroupClass });
   }
 
 
@@ -284,6 +313,9 @@ class InventoryGamePadAddItemForm extends Component {
   }
 
 
+  handlePreSubmit = () => {
+    var values_obj = {};
+  }
 
 
   render() {
@@ -474,7 +506,7 @@ class InventoryGamePadAddItemForm extends Component {
               handleSizingInputLowendChange={this.handleSizingInputLowendChange}
               handleSizingInputHighendChange={this.handleSizingInputHighendChange}
               handleSizingInputDropdownOpen={this.handleSizingInputDropdownOpen}
-              handleSizingInputAddition={this.handleSizingInputAddition}
+              handleArtSizingInputAddition={this.handleArtSizingInputAddition}
 
               artSizingUnitDropdownOpen={this.state.artSizingUnitDropdownOpen}
               artSizingTracker={this.state.artSizingTracker}
@@ -486,6 +518,8 @@ class InventoryGamePadAddItemForm extends Component {
               selectedCategory={this.state.selectedCategory}
               clothingSizingOptions={this.state.clothingSizingOptions}
               handleClothingSizeCountChange={this.handleClothingSizeCountChange}
+              handleClothingSizingInputAddition={this.handleClothingSizingInputAddition}
+              clothingInputGroupClass={this.state.clothingInputGroupClass}
               />
 
           </div>

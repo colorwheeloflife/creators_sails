@@ -9,6 +9,8 @@ const ClothingSizingField = (props) => (
 				<ClothingSizeInputGroup
 					options={props.clothingSizingOptions}
 					handleClothingSizeCountChange={props.handleClothingSizeCountChange}
+					handleClothingSizingInputAddition={props.handleClothingSizingInputAddition}
+					clothingInputGroupClass={props.clothingInputGroupClass}
 					/>
 			</div>
 
