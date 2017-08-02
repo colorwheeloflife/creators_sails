@@ -14,7 +14,8 @@ import JewelrySizingField from './fields/sizing/JewelrySizingField';
 
 var trueness = [true];
 var CATEGORIES = ['Visual Art', 'Clothing', 'Accessories', 'Jewelry', 'Instruments', 'Totems'];
-var ARTICLE_TYPES = ['Tops', 'Bottoms', 'Vests', 'Tutus'];
+var CLOTHING_ARTICLE_TYPES = ['Tops', 'Bottoms', 'Vests', 'Tutus'];
+var JEWELRY_ARTICLE_TYPES = ['Bracelet', 'Earring', 'Necklace', 'Nose Ring', 'Ring'];
 var SUBCATEGORIES = ['Acrylic', 'Digital Art', 'Fingerpaint', 'Wood Craftsmanship', 'Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6', 'Option 7', 'Option 8', 'Option 9', 'Option 10', 'Option 11', 'Option 12', 'Option 13', 'Option 14', 'Option 15' ];
 
 
@@ -26,7 +27,8 @@ class InventoryGamePadAddItemForm extends Component {
       files: [],
 			useAsDescription: [true],
 			selectedCategory: [],
-			selectedArticleTypes: [],
+			selectedClothingArticleTypes: [],
+      selectedJewelryArticleTypes: [],
 
       subCategoryDropdownOpen: false,
 
@@ -46,11 +48,19 @@ class InventoryGamePadAddItemForm extends Component {
       clothingSizingCounts: [0, 0, 0, 0, 0],
       clothingInputGroupClass: "clothing_size_input_5_group",
 
+      jewelrySizingTracker: ["1"],
+      jewelrySizingCount: 1,
+      jewelrySizingInput: [["in mm"]],
+      jewelrySizingUnitDropdownOpen: false,
+      jewelrySizingUnit: "mm",
+
       itemOnSaleTracker: ["1"],
       itemOnSaleCount: 1,
       itemOnSaleDeclarations: [""]
 		}
   }
+
+  componentDidMount() {}
 
 
   onDrop = (acceptedFiles, rejectedFiles) => {
@@ -64,9 +74,11 @@ class InventoryGamePadAddItemForm extends Component {
       console.log(this.state.files);
   }
 
+
   onDropzoneOpenClick = () => {
       this.refs.dropzone.open();
   }
+
 
   handleUseAsDescriptionSelection = (e) => {
 		const target = e.target;
@@ -90,21 +102,46 @@ class InventoryGamePadAddItemForm extends Component {
 	}
 
 
+  handleArticleTypeShowValidation = (selected) => {
+    var validated = false;
+    var accepted_categories = ['Clothing', 'Jewelry'];
+    if (accepted_categories.indexOf(selected) > -1) {
+      validated = true;
+    }
+    return validated;
+  }
+
+
 	handleAddItemArticleSelection = (e) => {
 		const target = e.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
 
-		var selectedArticleTypes = this.state.selectedArticleTypes;
+    var selectedArticleTypes = "";
 
-		if (value) {
-      selectedArticleTypes.push(name);
-    } else {
-      var index = selectedArticleTypes.indexOf(name);
-      selectedArticleTypes.splice(index, 1);
+    switch (true) {
+      case (CLOTHING_ARTICLE_TYPES.indexOf(name) > -1):
+        var selectedClothingArticleTypes = this.state.selectedClothingArticleTypes;
+        updateSelection(selectedClothingArticleTypes);
+        this.setState({ selectedClothingArticleTypes });
+        break;
+      case (JEWELRY_ARTICLE_TYPES.indexOf(name) > -1):
+        var selectedJewelryArticleTypes = this.state.selectedJewelryArticleTypes;
+        updateSelection(selectedJewelryArticleTypes);
+        this.setState({ selectedJewelryArticleTypes });
+        break;
+      default:
+        console.log('no article type match');
     }
 
-		this.setState({ selectedArticleTypes });
+    function updateSelection(container) {
+      if (value) {
+        container.push(name);
+      } else {
+        var index = container.indexOf(name);
+        container.splice(index, 1);
+      }
+    }
 	}
 
 
@@ -186,6 +223,7 @@ class InventoryGamePadAddItemForm extends Component {
     this.setState({ artSizingInput });
     // console.log(this.state.artSizingInput);
   }
+
 
   handleSizingInputHighendChange = (e) => {
     var value = e.target.value;
@@ -285,6 +323,73 @@ class InventoryGamePadAddItemForm extends Component {
     this.setState({ clothingSizingCount: parseInt(count)});
     this.setState({ clothingInputGroupClass });
   }
+
+
+
+
+
+
+
+
+  // handleSizingInputLowendChange = (e) => {
+  //   var value = e.target.value;
+  //   var token = e.target.name;
+  //
+  //   var artSizingInput = this.state.artSizingInput;
+  //   var artSizingTracker = this.state.artSizingTracker;
+  //   var index = artSizingTracker.indexOf(token);
+  //
+  //   artSizingInput[index][0] = value;
+  //
+  //   this.setState({ artSizingInput });
+  //   // console.log(this.state.artSizingInput);
+  // }
+
+
+
+
+  handleJewelrySizingInputChange = (e) => {
+    var value = e.target.value;
+    var token = e.target.name;
+
+    console.log('value', value);
+    console.log('token', token);
+
+    var jewelrySizingInput = this.state.jewelrySizingInput;
+    var jewelrySizingTracker = this.state.jewelrySizingTracker;
+    var index = jewelrySizingTracker.indexOf(token);
+
+    jewelrySizingInput[index][0] = value;
+
+    console.log('array', jewelrySizingInput);
+    console.log('index', index);
+    console.log('index chosen', jewelrySizingInput[index]);
+    console.log('index chosen', jewelrySizingInput[index][0]);
+
+    this.setState({ jewelrySizingInput });
+    console.log(this.state.jewelrySizingInput);
+  }
+
+
+  handleJewelrySizingInputAddition = (e) => {
+    var original_count = this.state.jewelrySizingCount;
+    var new_number_count = parseInt(original_count) + 1;
+    var jewelrySizingTracker = this.state.jewelrySizingTracker;
+    var jewelrySizingInput = this.state.jewelrySizingInput;
+    jewelrySizingTracker.push(new_number_count.toString());
+    jewelrySizingInput.push([""]);
+
+    this.setState({ jewelrySizingTracker });
+    this.setState({ jewelrySizingInput });
+    this.setState({ jewelrySizingCount: new_number_count });
+  }
+
+
+
+
+
+
+
 
 
 
@@ -405,18 +510,37 @@ class InventoryGamePadAddItemForm extends Component {
                   selectedOptions={this.state.selectedCategory} />
             </div>
 
-            <div id="add_item_article_type_container" className={'' + (this.state.selectedCategory.indexOf('Clothing') > -1 ? 'show' : 'hidden')}>
-              <label id="add_item_article_type_selection_label" className="form_field_title_label" htmlFor="add_item_article_type_selection_radio">Article Type Selection:</label>
-              <CheckboxOrRadioGroup
-                  id="add_item_article_type_selection_radio_group"
-                  divClassName="checkbox-group"
-                  labelClassName="form-label capitalize vertical_selection_labels"
-                  inputClassName="form-checkbox"
-                  setName={ARTICLE_TYPES}
-                  controlFunc={this.handleAddItemArticleSelection}
-                  type={'checkbox'}
-                  options={ARTICLE_TYPES}
-                  selectedOptions={this.state.selectedArticleTypes} />
+            <div id="add_item_article_type_container" className={'' + (this.handleArticleTypeShowValidation(this.state.selectedCategory) === true ? 'show' : 'hidden')}>
+
+              <label id="add_item_article_type_selection_label" className="form_field_title_label">Article Type Selection:</label>
+
+              <div className={"" + (this.state.selectedCategory.indexOf('Clothing') > -1 ? 'show' : 'hidden')}>
+                <CheckboxOrRadioGroup
+                    id="add_item_clothing_article_type_selection_radio_group"
+
+                    divClassName="checkbox-group"
+                    labelClassName="form-label capitalize vertical_selection_labels"
+                    inputClassName="form-checkbox"
+                    setName={CLOTHING_ARTICLE_TYPES}
+                    controlFunc={this.handleAddItemArticleSelection}
+                    type={'checkbox'}
+                    options={CLOTHING_ARTICLE_TYPES}
+                    selectedOptions={this.state.selectedClothingArticleTypes} />
+              </div>
+
+              <div className={"" + (this.state.selectedCategory.indexOf('Jewelry') > -1 ? 'show' : 'hidden')}>
+                <CheckboxOrRadioGroup
+                    id="add_item_jewelry_article_type_selection_radio_group"
+
+                    divClassName="checkbox-group"
+                    labelClassName="form-label capitalize vertical_selection_labels"
+                    inputClassName="form-checkbox"
+                    setName={JEWELRY_ARTICLE_TYPES}
+                    controlFunc={this.handleAddItemArticleSelection}
+                    type={'checkbox'}
+                    options={JEWELRY_ARTICLE_TYPES}
+                    selectedOptions={this.state.selectedJewelryArticleTypes} />
+              </div>
             </div>
 
             <div id="add_item_article_time_log_container"> Time Log </div>
@@ -521,6 +645,16 @@ class InventoryGamePadAddItemForm extends Component {
               handleClothingSizingInputAddition={this.handleClothingSizingInputAddition}
               clothingInputGroupClass={this.state.clothingInputGroupClass}
               />
+
+            <JewelrySizingField
+              selectedCategory={this.state.selectedCategory}
+              selectedJewelryArticleTypes={this.state.selectedJewelryArticleTypes}
+
+              jewelrySizingTracker={this.state.jewelrySizingTracker}
+              jewelrySizingInput={this.state.jewelrySizingInput}
+              handleJewelrySizingInputChange={this.handleJewelrySizingInputChange}
+              handleJewelrySizingInputAddition={this.handleJewelrySizingInputAddition}
+            />
 
           </div>
 

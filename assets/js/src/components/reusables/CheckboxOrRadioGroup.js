@@ -1,7 +1,7 @@
 import React from 'react'
 
 const CheckboxOrRadioGroup = (props) => (
-	<div>
+	<div className={props.groupClassName}>
 		<div className={props.divClassName}>
 			{props.options.map(option => {
 				return (
