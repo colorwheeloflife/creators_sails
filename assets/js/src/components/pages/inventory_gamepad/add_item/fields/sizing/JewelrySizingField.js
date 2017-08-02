@@ -1,6 +1,6 @@
 import React from 'react'
 
-import JewelrySizingCardGroup from './pieces/JewelryBraceletSizingCardGroup';
+import JewelrySizingCardGroup from './pieces/JewelrySizingCardGroup';
 
 const JewelrySizingField = (props) => (
 		<div id="jewelry_sizing_field" className={'' + (props.selectedCategory.indexOf('Jewelry') > -1 ? 'show' : 'hidden')}>

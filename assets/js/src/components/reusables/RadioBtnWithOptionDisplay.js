@@ -1,6 +1,6 @@
 import React from 'react'
 
-const CheckboxWithOptionDisplay = (props) => (
+const CheckboxOrRadioWithOptionDisplay = (props) => (
 	return (
     <div key={option}  className={props.divClassName}>
 			<input

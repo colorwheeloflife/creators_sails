@@ -4,7 +4,8 @@ import { Scrollbars } from 'react-custom-scrollbars';
 import Dropzone from 'react-dropzone';
 
 import CheckboxOrRadioGroup from '../../../reusables/CheckboxOrRadioGroup';
-import CheckboxWithoutOptionDisplay from '../../../reusables/CheckboxWithoutOptionDisplay';
+import CheckboxOrRadioWithoutOptionDisplay from '../../../reusables/CheckboxOrRadioWithoutOptionDisplay';
+import CheckboxOrRadioWithOptionDisplay from '../../../reusables/CheckboxOrRadioWithOptionDisplay';
 import TagGroup from '../../../reusables/TagGroup';
 
 import ArtSizingField from './fields/sizing/ArtSizingField';
@@ -31,6 +32,10 @@ class InventoryGamePadAddItemForm extends Component {
       selectedJewelryArticleTypes: [],
 
       subCategoryDropdownOpen: false,
+
+      timeLogHours: "",
+      timeLogMinutes: "",
+      timeLogPrecisionSelection: [],
 
       subCategoryInputValue: "",
       subCategoryTagSelections: [],
@@ -143,6 +148,37 @@ class InventoryGamePadAddItemForm extends Component {
       }
     }
 	}
+
+
+  handleTimeLogHoursInputChange = (e) => {
+    this.setState({ timeLogHours: e.target.value });
+    console.log(e.target.value);
+    console.log(this.state.timeLogHours);
+  }
+
+
+  handleTimeLogMinutesInputChange = (e) => {
+    this.setState({ timeLogMinutes: e.target.value });
+    console.log(e.target.value);
+    console.log(this.state.timeLogMinutes);
+  }
+
+  handleTimeLogPrecisionSelection = (e) => {
+    var target = e.target;
+    var name = e.target.name;
+
+    console.log(name);
+
+    // switch (name) {
+    //   case 'exact':
+        this.setState({ timeLogPrecisionSelection: [name] });
+    // }
+  }
+
+
+
+
+
 
 
   handleSubcategoryDropdownOpen = (e) => {
@@ -543,7 +579,53 @@ class InventoryGamePadAddItemForm extends Component {
               </div>
             </div>
 
-            <div id="add_item_article_time_log_container"> Time Log </div>
+
+
+            <div id="add_item_article_time_log_container">
+
+              <label id="add_item_time_log_label_hours" className="add_item_time_log_label"> Hours: </label>
+
+              <input
+                id="add_item_time_log_input_hours"
+                className="add_item_time_log_input"
+                name="add_item_time_log_input_hour"
+                type="text"
+                value={this.state.timeLogHours}
+                onChange={this.handleTimeLogHoursInputChange} />
+
+              <label id="add_item_time_log_label_minutes" className="add_item_time_log_label"> Minutes: </label>
+
+              <input
+                id="add_item_time_log_input_minutes"
+                className="add_item_time_log_input"
+                name="add_item_time_log_input_min"
+                type="text"
+                value={this.state.timeLogMinutes}
+                onChange={this.handleTimeLogMinutesInputChange} />
+
+              <CheckboxOrRadioWithOptionDisplay
+                id="add_item_time_log_exact_time_radio"
+                divClassName="checkbox-group add_item_time_log_precision_container"
+                inputClassName="form-checkbox"
+                controlFunc={this.handleTimeLogPrecisionSelection}
+                type={'radio'}
+                options="exact"
+                selectedOptions={this.state.timeLogPrecisionSelection}
+              />
+
+              <CheckboxOrRadioWithOptionDisplay
+                id="add_item_time_log_approx_time_radio"
+                divClassName="checkbox-group add_item_time_log_precision_container"
+                inputClassName="form-checkbox"
+                controlFunc={this.handleTimeLogPrecisionSelection}
+                type={'radio'}
+                options="approximate"
+                selectedOptions={this.state.timeLogPrecisionSelection}
+              />
+
+
+
+            </div>
 
           </div>
 
@@ -623,6 +705,10 @@ class InventoryGamePadAddItemForm extends Component {
 
 
           <div id="add_item_article_sizing_container">
+            <div id="add_item_sizing_container_empty_message" className={"" + (this.state.selectedCategory[0] ? 'hidden' : 'show')}>
+              Select A Category To Render Sizing Field
+            </div>
+
             <ArtSizingField
               selectedCategory={this.state.selectedCategory}
               handleSizingInputDropdownOpen={this.handleSizingInputDropdownOpen}
@@ -655,7 +741,6 @@ class InventoryGamePadAddItemForm extends Component {
               handleJewelrySizingInputChange={this.handleJewelrySizingInputChange}
               handleJewelrySizingInputAddition={this.handleJewelrySizingInputAddition}
             />
-
           </div>
 
           <div id="add_item_article_pricing_container">
@@ -669,7 +754,7 @@ class InventoryGamePadAddItemForm extends Component {
 
 
                 <div className="add_item_on_sale_checkbox_container">
-                    <CheckboxWithoutOptionDisplay
+                    <CheckboxOrRadioWithoutOptionDisplay
                         id="add_item_on_sale_checkbox"
                         divClassName="checkbox-group no_label_checkbox"
                         labelClassName="form-label capitalize"
