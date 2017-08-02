@@ -11,6 +11,7 @@ import TagGroup from '../../../reusables/TagGroup';
 import ArtSizingField from './fields/sizing/ArtSizingField';
 import ClothingSizingField from './fields/sizing/ClothingSizingField';
 import JewelrySizingField from './fields/sizing/JewelrySizingField';
+import ShippingCardGroup from './fields/shipping/ShippingCardGroup';
 
 
 var trueness = [true];
@@ -61,7 +62,10 @@ class InventoryGamePadAddItemForm extends Component {
 
       itemOnSaleTracker: ["1"],
       itemOnSaleCount: 1,
-      itemOnSaleDeclarations: [""]
+      itemOnSaleDeclarations: [""],
+
+      shippingDestinations: ['Canada', 'USA', 'Everywhere Else'],
+      shippingDestinationCosts: [["", ""], ["", ""], ["", ""]]
 		}
   }
 
@@ -423,12 +427,6 @@ class InventoryGamePadAddItemForm extends Component {
 
 
 
-
-
-
-
-
-
   handleItemOnSaleSelection(e) {
     const target = e.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -451,6 +449,29 @@ class InventoryGamePadAddItemForm extends Component {
       }
     }
 		this.setState({ itemOnSaleDeclarations });
+  }
+
+
+
+  handleOneItemShippingCost = (e) => {
+    var value = e.target.value;
+    var name = e.target.name;
+
+    var shippingDestinations = this.state.shippingDestinations;
+    var index = shippingDestinations.indexOf(name);
+    var shippingDestinationCosts = this.state.shippingDestinationCosts;
+
+    shippingDestinationCosts[index][0] = value;
+
+    this.setState({ shippingDestinationCosts });
+  }
+
+  handleAdditionalItemsShippingCost = (e) => {
+
+  }
+
+  handleAdditionalShippingDestination = (e) => {
+
   }
 
 
@@ -775,7 +796,37 @@ class InventoryGamePadAddItemForm extends Component {
 
 
 
-          <div id="add_item_article_shipping_container"> Shipping </div>
+          <div id="add_item_article_shipping_container">
+
+            <ShippingCardGroup
+              groupClassName="add_item_article_shipping_group"
+              containerClassName="add_item_article_shipping_card"
+              labelClassName="add_item_article_shipping_label"
+              inputOneItemClassName="add_item_article_shipping_input add_item_article_shipping_input_one_item"
+              inputAdditionalItemsClassName="add_item_article_shipping_input add_item_article_shipping_additional_items"
+              options={this.state.shippingDestinations}
+              value={this.state.shippingDestinationCosts}
+              handleOneItemShippingCost={this.handleOneItemShippingCost}
+              handleEachAdditionalItemShippingCost={this.handleEachAdditionalItemShippingCost}
+              handleAdditionalShippingDestination={this.handleAdditionalShippingDestination}
+
+            />
+
+
+
+
+
+
+
+
+          </div>
+
+
+
+
+
+
+
           <div id="add_item_article_placement_container"> Placement </div>
 
 
