@@ -13,7 +13,7 @@ import TagGroup from '../../../reusables/TagGroup';
 import ArtSizingField from './fields/sizing/ArtSizingField';
 import ClothingSizingField from './fields/sizing/ClothingSizingField';
 import JewelrySizingField from './fields/sizing/JewelrySizingField';
-import ShippingCardGroup from './fields/shipping/ShippingCardGroup';
+import ShippingCardTableRowGroup from './fields/shipping/shippingCardTableRowGroup';
 
 
 var trueness = [true];
@@ -842,23 +842,17 @@ class InventoryGamePadAddItemForm extends Component {
 
 
           <div id="add_item_article_shipping_container">
+
             <div id="add_item_shipping_origin_selection_container">
-
-
-
-
               <div id="add_item_shipping_origin_col_1">
                 <label id="add_item_shipping_origin_selection_label" className="add_item_shipping_origin_label"> Shipping Origin </label>
                 <span className="add_item_shipping_origin_span_descriptor"> The region this will be shipped from </span>
 
-                  <label id="add_item_shipping_processing_time_selection_label" className="add_item_shipping_origin_label"> Processing Time </label>
-                  <span className="add_item_shipping_origin_span_descriptor"> Upon purchase, how long will it take to ship the item? </span>
-
+                <label id="add_item_shipping_processing_time_selection_label" className="add_item_shipping_origin_label"> Processing Time </label>
+                <span className="add_item_shipping_origin_span_descriptor"> Upon purchase, how long will it take to ship the item? </span>
               </div>
 
               <div id="add_item_shipping_origin_col_2">
-
-
                 <div id="add_item_shipping_origin_selection_dropdown" className="add_item_shipping_origin_dropdown">
                   <SelectField
                     options={REGIONS}
@@ -878,14 +872,30 @@ class InventoryGamePadAddItemForm extends Component {
                     handleSelectChange={this.handleShippingProcessingTimeSelections}
                   />
                 </div>
-
-
-
               </div>
-
-
-
             </div>
+
+
+
+
+                <ShippingCardTableRowGroup
+                  containerID="add_item_shipping_table_container"
+                  tableID="add_item_shipping_table"
+                  theadID="add_item_shipping_head"
+                  tbodyID="add_item_shipping_body"
+                  inputOneItemClassName="add_item_article_shipping_input add_item_article_shipping_input_one_item"
+                  inputAdditionalItemsClassName="add_item_article_shipping_input add_item_article_shipping_additional_items"
+
+                  headerOptions={['Destination', 'One Item', 'Each Additional Item']}
+
+                  bodyOptions={this.state.shippingDestinations}
+                  value={this.state.shippingDestinationCosts}
+                  handleOneItemShippingCost={this.handleOneItemShippingCost}
+                  handleEachAdditionalItemShippingCost={this.handleEachAdditionalItemShippingCost}
+                  addAdditionalRow={this.handleAdditionalShippingDestination}
+                />
+
+
           </div>
 
 
@@ -919,30 +929,12 @@ export default InventoryGamePadAddItemForm;
 
 
 
-<table id="add_item_shipping_table" className="table table-responsive table-hover">
-  <thead id="add_item_shipping_head">
-    <tr>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody id="add_item_shipping_body"></tbody>
 
 
-</table>
 
-<ShippingCardGroup
-  groupClassName="add_item_article_shipping_group"
-  containerClassName="add_item_article_shipping_card"
-  labelClassName="add_item_article_shipping_label"
-  inputOneItemClassName="add_item_article_shipping_input add_item_article_shipping_input_one_item"
-  inputAdditionalItemsClassName="add_item_article_shipping_input add_item_article_shipping_additional_items"
-  options={this.state.shippingDestinations}
-  value={this.state.shippingDestinationCosts}
-  handleOneItemShippingCost={this.handleOneItemShippingCost}
-  handleEachAdditionalItemShippingCost={this.handleEachAdditionalItemShippingCost}
-  handleAdditionalShippingDestination={this.handleAdditionalShippingDestination}
 
-/>
+
+
 
 
 
