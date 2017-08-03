@@ -3,6 +3,8 @@ import { Field, reduxForm } from 'redux-form'
 import { Scrollbars } from 'react-custom-scrollbars';
 import Dropzone from 'react-dropzone';
 
+import SelectField from '../../../reusables/SelectField';
+import MultiSelectField from '../../../reusables/MultiSelectField';
 import CheckboxOrRadioGroup from '../../../reusables/CheckboxOrRadioGroup';
 import CheckboxOrRadioWithoutOptionDisplay from '../../../reusables/CheckboxOrRadioWithoutOptionDisplay';
 import CheckboxOrRadioWithOptionDisplay from '../../../reusables/CheckboxOrRadioWithOptionDisplay';
@@ -19,6 +21,29 @@ var CATEGORIES = ['Visual Art', 'Clothing', 'Accessories', 'Jewelry', 'Instrumen
 var CLOTHING_ARTICLE_TYPES = ['Tops', 'Bottoms', 'Vests', 'Tutus'];
 var JEWELRY_ARTICLE_TYPES = ['Bracelet', 'Earring', 'Necklace', 'Nose Ring', 'Ring'];
 var SUBCATEGORIES = ['Acrylic', 'Digital Art', 'Fingerpaint', 'Wood Craftsmanship', 'Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6', 'Option 7', 'Option 8', 'Option 9', 'Option 10', 'Option 11', 'Option 12', 'Option 13', 'Option 14', 'Option 15' ];
+
+const REGIONS = [
+	{ label: 'British Columbia', value: 'British Columbia' },
+	{ label: 'Alberta', value: 'Alberta' },
+	{ label: 'Washington', value: 'Washington' },
+	{ label: 'Oregon', value: 'Oregon' },
+	{ label: 'Nevada', value: 'Nevada' },
+	{ label: 'Arizona', value: 'Arizona' },
+  { label: 'New Mexico', value: 'New Mexico' },
+  { label: 'Colorado', value: 'Colorado' }
+];
+
+const PROCESSING_TIME_OPTIONS = [
+	{ label: '1 business day', value: '1 business day' },
+	{ label: '1-2 business days', value: '1-2 business days' },
+	{ label: '1-3 business days', value: '1-3 business days' },
+	{ label: '2-5 business days', value: '2-5 business days' },
+	{ label: '1 week', value: '1 week' },
+	{ label: '1-2 weeks', value: '1-2 weeks' },
+  { label: 'over 2 weeks', value: 'over 2 weeks' },
+  { label: '1 month', value: '1 month' },
+  { label: 'over a month', value: 'over a month' }
+];
 
 
 class InventoryGamePadAddItemForm extends Component {
@@ -63,6 +88,9 @@ class InventoryGamePadAddItemForm extends Component {
       itemOnSaleTracker: ["1"],
       itemOnSaleCount: 1,
       itemOnSaleDeclarations: [""],
+
+      shippingOriginSelections: "",
+      shippingProcessingTimeSelections: "",
 
       shippingDestinations: ['Canada', 'USA', 'Everywhere Else'],
       shippingDestinationCosts: [["", ""], ["", ""], ["", ""]]
@@ -453,6 +481,23 @@ class InventoryGamePadAddItemForm extends Component {
 
 
 
+  handleShippingOriginSelections = (selection) => {
+    var shippingOriginSelections = this.state.shippingOriginSelections;
+    shippingOriginSelections = selection;
+
+    this.setState({ shippingOriginSelections });
+  }
+
+
+  handleShippingProcessingTimeSelections = (selection) => {
+    var shippingProcessingTimeSelections = this.state.shippingProcessingTimeSelections;
+    shippingProcessingTimeSelections = selection;
+
+    this.setState({ shippingProcessingTimeSelections });
+  }
+
+
+
   handleOneItemShippingCost = (e) => {
     var value = e.target.value;
     var name = e.target.name;
@@ -797,28 +842,50 @@ class InventoryGamePadAddItemForm extends Component {
 
 
           <div id="add_item_article_shipping_container">
-
-            <ShippingCardGroup
-              groupClassName="add_item_article_shipping_group"
-              containerClassName="add_item_article_shipping_card"
-              labelClassName="add_item_article_shipping_label"
-              inputOneItemClassName="add_item_article_shipping_input add_item_article_shipping_input_one_item"
-              inputAdditionalItemsClassName="add_item_article_shipping_input add_item_article_shipping_additional_items"
-              options={this.state.shippingDestinations}
-              value={this.state.shippingDestinationCosts}
-              handleOneItemShippingCost={this.handleOneItemShippingCost}
-              handleEachAdditionalItemShippingCost={this.handleEachAdditionalItemShippingCost}
-              handleAdditionalShippingDestination={this.handleAdditionalShippingDestination}
-
-            />
+            <div id="add_item_shipping_origin_selection_container">
 
 
 
 
+              <div id="add_item_shipping_origin_col_1">
+                <label id="add_item_shipping_origin_selection_label" className="add_item_shipping_origin_label"> Shipping Origin </label>
+                <span className="add_item_shipping_origin_span_descriptor"> The region this will be shipped from </span>
+
+                  <label id="add_item_shipping_processing_time_selection_label" className="add_item_shipping_origin_label"> Processing Time </label>
+                  <span className="add_item_shipping_origin_span_descriptor"> Upon purchase, how long will it take to ship the item? </span>
+
+              </div>
+
+              <div id="add_item_shipping_origin_col_2">
+
+
+                <div id="add_item_shipping_origin_selection_dropdown" className="add_item_shipping_origin_dropdown">
+                  <SelectField
+                    options={REGIONS}
+                    placeholder="Select a region:"
+                    disabled={this.state.disabled}
+                    value={this.state.shippingOriginSelections}
+                    handleSelectChange={this.handleShippingOriginSelections}
+                  />
+                </div>
+
+                <div id="add_item_shipping_processing_time_selection_dropdown" className="add_item_shipping_origin_dropdown">
+                  <SelectField
+                    options={PROCESSING_TIME_OPTIONS}
+                    placeholder="Select your processing time:"
+                    disabled={this.state.disabled}
+                    value={this.state.shippingProcessingTimeSelections}
+                    handleSelectChange={this.handleShippingProcessingTimeSelections}
+                  />
+                </div>
 
 
 
+              </div>
 
+
+
+            </div>
           </div>
 
 
@@ -852,9 +919,30 @@ export default InventoryGamePadAddItemForm;
 
 
 
+<table id="add_item_shipping_table" className="table table-responsive table-hover">
+  <thead id="add_item_shipping_head">
+    <tr>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="add_item_shipping_body"></tbody>
 
 
+</table>
 
+<ShippingCardGroup
+  groupClassName="add_item_article_shipping_group"
+  containerClassName="add_item_article_shipping_card"
+  labelClassName="add_item_article_shipping_label"
+  inputOneItemClassName="add_item_article_shipping_input add_item_article_shipping_input_one_item"
+  inputAdditionalItemsClassName="add_item_article_shipping_input add_item_article_shipping_additional_items"
+  options={this.state.shippingDestinations}
+  value={this.state.shippingDestinationCosts}
+  handleOneItemShippingCost={this.handleOneItemShippingCost}
+  handleEachAdditionalItemShippingCost={this.handleEachAdditionalItemShippingCost}
+  handleAdditionalShippingDestination={this.handleAdditionalShippingDestination}
+
+/>
 
 
 
