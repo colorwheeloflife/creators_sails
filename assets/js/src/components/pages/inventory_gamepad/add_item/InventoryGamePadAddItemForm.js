@@ -184,27 +184,18 @@ class InventoryGamePadAddItemForm extends Component {
 
   handleTimeLogHoursInputChange = (e) => {
     this.setState({ timeLogHours: e.target.value });
-    console.log(e.target.value);
-    console.log(this.state.timeLogHours);
   }
 
 
   handleTimeLogMinutesInputChange = (e) => {
     this.setState({ timeLogMinutes: e.target.value });
-    console.log(e.target.value);
-    console.log(this.state.timeLogMinutes);
   }
 
   handleTimeLogPrecisionSelection = (e) => {
     var target = e.target;
     var name = e.target.name;
 
-    console.log(name);
-
-    // switch (name) {
-    //   case 'exact':
-        this.setState({ timeLogPrecisionSelection: [name] });
-    // }
+    this.setState({ timeLogPrecisionSelection: [name] });
   }
 
 
@@ -221,9 +212,12 @@ class InventoryGamePadAddItemForm extends Component {
 
 
   handleSubcategoryInputChange = (e) => {
+    // console.log(e);
+    // console.log(e.target);
     const value = e.target.value;
 
     this.setState({ subCategoryInputValue: value });
+    // console.log(this.state.subCategoryInputValue);
   }
 
 
@@ -253,6 +247,7 @@ class InventoryGamePadAddItemForm extends Component {
 
   handleSubcategoryDropdownTagCheckboxSelection = (e) => {
     const target = e.target;
+    console.log(target);
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
 
@@ -304,7 +299,6 @@ class InventoryGamePadAddItemForm extends Component {
     artSizingInput[index][1] = value;
 
     this.setState({ artSizingInput });
-    // console.log(this.state.artSizingInput);
   }
 
 
@@ -728,7 +722,8 @@ class InventoryGamePadAddItemForm extends Component {
                       id="add_item_subcategory_tagging_dropdown_menu_tag_options"
                       divClassName="add_item_tagging_dropdown_menu_tag_options"
                       labelClassName="form-label capitalize dropdown_tag_checkbox_selections"
-                      inputClassName="form-checkbox form-control"
+                      inputClassName="form-checkbox form-control radio_checkbox_label_input"
+                      spanClassName="radio_checkbox_label_span"
                       setName={SUBCATEGORIES}
                       controlFunc={this.handleSubcategoryDropdownTagCheckboxSelection}
                       type={'checkbox'}
@@ -875,33 +870,23 @@ class InventoryGamePadAddItemForm extends Component {
               </div>
             </div>
 
+            <ShippingCardTableRowGroup
+              containerID="add_item_shipping_table_container"
+              tableID="add_item_shipping_table"
+              theadID="add_item_shipping_head"
+              tbodyID="add_item_shipping_body"
+              inputOneItemClassName="add_item_article_shipping_input add_item_article_shipping_input_one_item"
+              inputAdditionalItemsClassName="add_item_article_shipping_input add_item_article_shipping_additional_items"
 
+              headerOptions={['Destination', 'One Item', 'Each Additional Item']}
 
-
-                <ShippingCardTableRowGroup
-                  containerID="add_item_shipping_table_container"
-                  tableID="add_item_shipping_table"
-                  theadID="add_item_shipping_head"
-                  tbodyID="add_item_shipping_body"
-                  inputOneItemClassName="add_item_article_shipping_input add_item_article_shipping_input_one_item"
-                  inputAdditionalItemsClassName="add_item_article_shipping_input add_item_article_shipping_additional_items"
-
-                  headerOptions={['Destination', 'One Item', 'Each Additional Item']}
-
-                  bodyOptions={this.state.shippingDestinations}
-                  value={this.state.shippingDestinationCosts}
-                  handleOneItemShippingCost={this.handleOneItemShippingCost}
-                  handleEachAdditionalItemShippingCost={this.handleEachAdditionalItemShippingCost}
-                  addAdditionalRow={this.handleAdditionalShippingDestination}
-                />
-
-
+              bodyOptions={this.state.shippingDestinations}
+              value={this.state.shippingDestinationCosts}
+              handleOneItemShippingCost={this.handleOneItemShippingCost}
+              handleEachAdditionalItemShippingCost={this.handleEachAdditionalItemShippingCost}
+              addAdditionalRow={this.handleAdditionalShippingDestination}
+            />
           </div>
-
-
-
-
-
 
 
           <div id="add_item_article_placement_container"> Placement </div>

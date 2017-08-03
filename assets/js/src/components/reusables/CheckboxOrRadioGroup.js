@@ -13,7 +13,7 @@ const CheckboxOrRadioGroup = (props) => (
 							onChange={props.controlFunc}
 							value={option}
 							checked={props.selectedOptions.indexOf(option) > -1}
-							type={props.type} /> {option}
+							type={props.type} /> <span className={props.spanClassName}>{option}</span>
 					</label>
 				);
 			})}
@@ -22,3 +22,32 @@ const CheckboxOrRadioGroup = (props) => (
 );
 
 export default CheckboxOrRadioGroup;
+
+
+
+
+
+/*
+
+
+const CheckboxOrRadioGroup = (props) => (
+	<div className={props.groupClassName}>
+		{props.options.map(option => {
+			return (
+				<div className={props.optionContainerClassName}>
+					<input
+						id={props.id}
+						className={props.inputClassName}
+						name={option}
+						onChange={props.controlFunc}
+						value={option}
+						checked={props.selectedOptions.indexOf(option) > -1}
+						type={props.type} />
+					<label key={option} className={props.labelClassName}>{option}</label>
+				</div>
+			);
+		})}
+	</div>
+);
+
+*/
