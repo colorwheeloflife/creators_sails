@@ -21,6 +21,11 @@ var CATEGORIES = ['Visual Art', 'Clothing', 'Accessories', 'Jewelry', 'Instrumen
 var CLOTHING_ARTICLE_TYPES = ['Tops', 'Bottoms', 'Vests', 'Tutus'];
 var JEWELRY_ARTICLE_TYPES = ['Bracelet', 'Earring', 'Necklace', 'Nose Ring', 'Ring'];
 var SUBCATEGORIES = ['Acrylic', 'Digital Art', 'Fingerpaint', 'Wood Craftsmanship', 'Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6', 'Option 7', 'Option 8', 'Option 9', 'Option 10', 'Option 11', 'Option 12', 'Option 13', 'Option 14', 'Option 15' ];
+var VIBES = ['Enchanted Wonderland', 'Sacred Nomad'];
+var MATERIALS = [];
+var COLORS = [];
+var TECHNIQUES = [];
+var TAGS = [];
 
 const REGIONS = [
 	{ label: 'British Columbia', value: 'British Columbia' },
@@ -57,14 +62,33 @@ class InventoryGamePadAddItemForm extends Component {
 			selectedClothingArticleTypes: [],
       selectedJewelryArticleTypes: [],
 
-      subCategoryDropdownOpen: false,
-
       timeLogHours: "",
       timeLogMinutes: "",
       timeLogPrecisionSelection: [],
 
+			subCategoryDropdownOpen: false,
       subCategoryInputValue: "",
       subCategoryTagSelections: [],
+
+			vibeDropdownOpen: false,
+			vibeInputValue: "",
+			vibeTagSelections: [],
+
+			materialDropdownOpen: false,
+			materialInputValue: "",
+			materialTagSelections: [],
+
+			colorDropdownOpen: false,
+			colorInputValue: "",
+			colorTagSelections: [],
+
+			techniqueDropdownOpen: false,
+			techniqueInputValue: "",
+			techniqueTagSelections: [],
+
+			standardTagDropdownOpen: false,
+			standardTagInputValue: "",
+			standardTagSelections: [],
 
       artSizingTracker: ["1"],
       artSizingCount: 1,
@@ -204,73 +228,382 @@ class InventoryGamePadAddItemForm extends Component {
 
 
 
-  handleSubcategoryDropdownOpen = (e) => {
-    const subCategoryDropdownOpen = this.state.subCategoryDropdownOpen;
+  handleTaggingDropdownOpen = (e) => {
+		var target = e.target;
+		var name = target.name;
 
-    this.setState({ subCategoryDropdownOpen: !subCategoryDropdownOpen });
+		switch (name) {
+			case 'subcategory_dropdown':
+				const subCategoryDropdownOpen = this.state.subCategoryDropdownOpen;
+		    this.setState({ subCategoryDropdownOpen: !subCategoryDropdownOpen });
+				break;
+			case 'vibe_dropdown':
+				const vibeDropdownOpen = this.state.vibeDropdownOpen;
+		    this.setState({ vibeDropdownOpen: !vibeDropdownOpen });
+				break;
+			case 'material_dropdown':
+				const materialDropdownOpen = this.state.materialDropdownOpen;
+		    this.setState({ materialDropdownOpen: !materialDropdownOpen });
+				break;
+			case 'color_dropdown':
+				const colorDropdownOpen = this.state.colorDropdownOpen;
+		    this.setState({ colorDropdownOpen: !colorDropdownOpen });
+				break;
+			case 'technique_dropdown':
+				const techniqueDropdownOpen = this.state.techniqueDropdownOpen;
+		    this.setState({ techniqueDropdownOpen: !techniqueDropdownOpen });
+				break;
+			case 'standard_tag_dropdown':
+				const standardTagDropdownOpen = this.state.standardTagDropdownOpen;
+		    this.setState({ standardTagDropdownOpen: !standardTagDropdownOpen });
+				break;
+			default:
+				console.log('wub wub');
+				break;
+		}
+
+		/*
+
+		handleVibeInputChange
+		handleTaggingInputKeyPress
+		handleVibeInputTagSelection
+		handleVibeDropdownOpen
+		handleVibeDropdownTagCheckboxSelection
+		vibeTagSelections
+		onVibeTagDeleteClick
+
+		var name = e.target.name;
+		console.log(name);
+
+		switch (name) {
+			case subcategory_:
+
+				break;
+			case vibe_:
+
+				break;
+			case material_:
+
+				break;
+			case color_:
+
+				break;
+			case technique_:
+
+				break;
+			case tag_:
+
+				break;
+			default:
+				console.log('wub wub');
+				break;
+		}
+
+		*/
   }
 
 
-  handleSubcategoryInputChange = (e) => {
-    // console.log(e);
-    // console.log(e.target);
+  handleTaggingInputChange = (e) => {
     const value = e.target.value;
+		var name = e.target.name;
 
-    this.setState({ subCategoryInputValue: value });
-    // console.log(this.state.subCategoryInputValue);
+		switch (name) {
+			case 'subcategory':
+				this.setState({ subCategoryInputValue: value });
+				break;
+			case 'vibe':
+				this.setState({ vibeInputValue: value });
+				break;
+			case 'material':
+				this.setState({ materialInputValue: value });
+				break;
+			case 'color':
+				this.setState({ colorInputValue: value });
+				break;
+			case 'technique':
+				this.setState({ techniqueInputValue: value });
+				break;
+			case 'standard_tag':
+				this.setState({ standardTagInputValue: value });
+				break;
+			default:
+				console.log('wub wub');
+				break;
+		}
   }
 
 
-  handleSubcategoryInputTagSelection = (e) => {
-    var tag = this.state.subCategoryInputValue;
-    var subCategoryTagSelections = this.state.subCategoryTagSelections;
-    subCategoryTagSelections.push(tag);
+  handleTaggingInputTagSelection = (e) => {
+		var name = e.target.name;
 
-    this.setState({
-      subCategoryTagSelections,
-      subCategoryInputValue: ""
-    });
+		switch (name) {
+			case 'subcategory_submit':
+				var tag = this.state.subCategoryInputValue;
+				var subCategoryTagSelections = this.state.subCategoryTagSelections;
+				subCategoryTagSelections.push(tag);
+				this.setState({
+		      subCategoryTagSelections,
+		      subCategoryInputValue: ""
+		    });
+				break;
+			case 'vibe_submit':
+				var tag = this.state.vibeInputValue;
+				var vibeTagSelections = this.state.vibeTagSelections;
+				vibeTagSelections.push(tag);
+				this.setState({
+					vibeTagSelections,
+					vibeInputValue: ""
+				});
+				break;
+			case 'material_submit':
+				var tag = this.state.materialInputValue;
+				var materialTagSelections = this.state.materialTagSelections;
+				materialTagSelections.push(tag);
+				this.setState({
+					materialTagSelections,
+					materialInputValue: ""
+				});
+				break;
+			case 'color_submit':
+				var tag = this.state.colorInputValue;
+				var colorTagSelections = this.state.colorTagSelections;
+				colorTagSelections.push(tag);
+				this.setState({
+					colorTagSelections,
+					colorInputValue: ""
+				});
+				break;
+			case 'technique_submit':
+				var tag = this.state.techniqueInputValue;
+				var techniqueTagSelections = this.state.techniqueTagSelections;
+				techniqueTagSelections.push(tag);
+				this.setState({
+					techniqueTagSelections,
+					techniqueInputValue: ""
+				});
+				break;
+			case 'standard_tag_submit':
+				var tag = this.state.standardTagInputValue;
+				var standardTagSelections = this.state.standardTagSelections;
+				standardTagSelections.push(tag);
+				this.setState({
+					standardTagSelections,
+					standardTagInputValue: ""
+				});
+				break;
+			default:
+				console.log('wub wub');
+				break;
+		}
   }
 
 
-  handleSubCategoryInputKeyPress = (e) => {
+  handleTaggingInputKeyPress = (e) => {
+		var name = e.target.name;
     if (e.key === 'Enter') {
-      var tag = this.state.subCategoryInputValue;
-      var subCategoryTagSelections = this.state.subCategoryTagSelections;
-      subCategoryTagSelections.push(tag);
+			switch (name) {
+				case 'subcategory':
+					var tag = this.state.subCategoryInputValue;
+					var subCategoryTagSelections = this.state.subCategoryTagSelections;
+					subCategoryTagSelections.push(tag);
 
-      this.setState({ subCategoryTagSelections });
-      this.setState({ subCategoryInputValue: "" });
+					this.setState({
+						subCategoryTagSelections,
+						subCategoryInputValue: ""
+					 });
+					break;
+				case 'vibe':
+					var tag = this.state.vibeInputValue;
+					var vibeTagSelections = this.state.vibeTagSelections;
+					vibeTagSelections.push(tag);
+
+					this.setState({
+						vibeTagSelections,
+						vibeInputValue: ""
+					 });
+					break;
+				case 'material':
+					var tag = this.state.materialInputValue;
+					var materialTagSelections = this.state.materialTagSelections;
+					materialTagSelections.push(tag);
+
+					this.setState({
+						materialTagSelections,
+						materialInputValue: ""
+					 });
+					break;
+				case 'color':
+					var tag = this.state.colorInputValue;
+					var colorTagSelections = this.state.colorTagSelections;
+					colorTagSelections.push(tag);
+
+					this.setState({
+						colorTagSelections,
+						colorInputValue: ""
+					 });
+					break;
+				case 'technique':
+					var tag = this.state.techniqueInputValue;
+					var techniqueTagSelections = this.state.techniqueTagSelections;
+					techniqueTagSelections.push(tag);
+
+					this.setState({
+						techniqueTagSelections,
+						techniqueInputValue: ""
+					 });
+					break;
+				case 'standard_tag':
+					var tag = this.state.standardTagInputValue;
+					var standardTagSelections = this.state.standardTagSelections;
+					standardTagSelections.push(tag);
+
+					this.setState({
+						standardTagSelections,
+						standardTagInputValue: ""
+					 });
+					break;
+				default:
+					console.log('wub wub');
+					break;
+			}
     }
   }
 
 
-  handleSubcategoryDropdownTagCheckboxSelection = (e) => {
+  handleTaggingDropdownTagCheckboxSelection = (e) => {
     const target = e.target;
-    console.log(target);
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
 
+		switch (true) {
+			case SUBCATEGORIES.indexOf(name) > -1:
+				var subCategoryTagSelections = this.state.subCategoryTagSelections;
+				if (value) {
+					subCategoryTagSelections.push(name);
+				} else {
+					var index = subCategoryTagSelections.indexOf(name);
+					subCategoryTagSelections.splice(index, 1);
+				}
+				this.setState({ subCategoryTagSelections });
+				break;
+			case VIBES.indexOf(name) > -1:
+				var vibeTagSelections = this.state.vibeTagSelections;
+				if (value) {
+					vibeTagSelections.push(name);
+				} else {
+					var index = vibeTagSelections.indexOf(name);
+					vibeTagSelections.splice(index, 1);
+				}
+				this.setState({ vibeTagSelections });
+				break;
+			case MATERIALS.indexOf(name) > -1:
+				var materialTagSelections = this.state.materialTagSelections;
+				if (value) {
+					materialTagSelections.push(name);
+				} else {
+					var index = materialTagSelections.indexOf(name);
+					materialTagSelections.splice(index, 1);
+				}
+				this.setState({ materialTagSelections });
+				break;
+			case COLORS.indexOf(name) > -1:
+				var colorTagSelections = this.state.colorTagSelections;
+				if (value) {
+					colorTagSelections.push(name);
+				} else {
+					var index = colorTagSelections.indexOf(name);
+					colorTagSelections.splice(index, 1);
+				}
+				this.setState({ colorTagSelections });
+				break;
+			case TECHNIQUES.indexOf(name) > -1:
+				var techniqueTagSelections = this.state.techniqueTagSelections;
+				if (value) {
+					techniqueTagSelections.push(name);
+				} else {
+					var index = techniqueTagSelections.indexOf(name);
+					techniqueTagSelections.splice(index, 1);
+				}
+				this.setState({ techniqueTagSelections });
+				break;
+			case TAGS.indexOf(name) > -1:
+				var standardTagSelections = this.state.standardTagSelections;
+				if (value) {
+					standardTagSelections.push(name);
+				} else {
+					var index = standardTagSelections.indexOf(name);
+				standardTagSelections.splice(index, 1);
+				}
+				this.setState({ standardTagSelections });
+				break;
+			default:
+				console.log('wub wub');
+				break;
+		}
+  }
+
+
+  onTagDeleteClick = (t) => {
 		var subCategoryTagSelections = this.state.subCategoryTagSelections;
+		var vibeTagSelections = this.state.vibeTagSelections;
+		var materialTagSelections = this.state.materialTagSelections;
+		var colorTagSelections = this.state.colorTagSelections;
+		var techniqueTagSelections = this.state.techniqueTagSelections;
+		var standardTagSelections = this.state.standardTagSelections;
 
-		if (value) {
-      subCategoryTagSelections.push(name);
-    } else {
-      var index = subCategoryTagSelections.indexOf(name);
-      subCategoryTagSelections.splice(index, 1);
-    }
+		switch (true) {
+			case subCategoryTagSelections.indexOf(t) > -1:
+				var index = subCategoryTagSelections.indexOf(t);
+				subCategoryTagSelections.splice(index, 1);
 
-		this.setState({ subCategoryTagSelections });
+				this.setState({ subCategoryTagSelections });
+				break;
+			case vibeTagSelections.indexOf(t) > -1:
+				var index = vibeTagSelections.indexOf(t);
+				vibeTagSelections.splice(index, 1);
+
+				this.setState({ vibeTagSelections });
+				break;
+			case materialTagSelections.indexOf(t) > -1:
+				var index = materialsTagSelections.indexOf(t);
+				materialsTagSelections.splice(index, 1);
+
+				this.setState({ materialsTagSelections });
+				break;
+			case colorTagSelections.indexOf(t) > -1:
+				var index = colorTagSelections.indexOf(t);
+				colorTagSelections.splice(index, 1);
+
+				this.setState({ colorTagSelections });
+				break;
+			case techniqueTagSelections.indexOf(t) > -1:
+				var index = techniqueTagSelections.indexOf(t);
+				techniqueTagSelections.splice(index, 1);
+
+				this.setState({ techniqueTagSelections });
+				break;
+			case standardTagSelections.indexOf(t) > -1:
+		    var index = standardTagSelections.indexOf(t);
+		    standardTagSelections.splice(index, 1);
+
+		    this.setState({ standardTagSelections });
+				break;
+			default:
+				console.log('wub wub');
+				break;
+		}
   }
 
 
-  onSubCategoryTagDeleteClick = (t) => {
-    var subCategoryTagSelections = this.state.subCategoryTagSelections;
-    var index = subCategoryTagSelections.indexOf(t);
-    subCategoryTagSelections.splice(index, 1);
 
-    this.setState({ subCategoryTagSelections });
-  }
+
+
+
+
+
+
+
+
 
 
   handleSizingInputLowendChange = (e) => {
@@ -705,11 +1038,11 @@ class InventoryGamePadAddItemForm extends Component {
                   component="input"
                   type="text"
                   value={this.state.subCategoryInputValue}
-                  onChange={this.handleSubcategoryInputChange}
-                  onKeyPress={this.handleSubCategoryInputKeyPress} />
-                <button id="add_item_subcategory_tagging_input_submit_btn" className="btn btn-primary add_item_tagging_input_submit_btn" onClick={this.handleSubcategoryInputTagSelection} ></button>
+                  onChange={this.handleTaggingInputChange}
+                  onKeyPress={this.handleTaggingInputKeyPress} />
+                <button id="add_item_subcategory_tagging_input_submit_btn" name="subcategory_submit" className="btn btn-primary add_item_tagging_input_submit_btn" onClick={this.handleTaggingInputTagSelection} ></button>
               </div>
-              <button className={"btn btn-primary add_item_tagging_dropdown_btn " + (this.state.subCategoryDropdownOpen ? 'no_border_radius_bottom' : 'closed')} onClick={this.handleSubcategoryDropdownOpen}></button>
+              <button name="subcategory_dropdown" className={"btn btn-primary add_item_tagging_dropdown_btn " + (this.state.subCategoryDropdownOpen ? 'no_border_radius_bottom' : 'closed')} onClick={this.handleTaggingDropdownOpen}></button>
               <div className={"add_item_tagging_dropdown_menu " + (this.state.subCategoryDropdownOpen ? 'show' : 'hidden')}>
                 <Scrollbars
                   className="add_item_tag_scroll"
@@ -725,7 +1058,7 @@ class InventoryGamePadAddItemForm extends Component {
                       inputClassName="form-checkbox form-control radio_checkbox_label_input"
                       spanClassName="radio_checkbox_label_span"
                       setName={SUBCATEGORIES}
-                      controlFunc={this.handleSubcategoryDropdownTagCheckboxSelection}
+                      controlFunc={this.handleTaggingDropdownTagCheckboxSelection}
                       type={'checkbox'}
                       options={SUBCATEGORIES}
                       selectedOptions={this.state.subCategoryTagSelections} />
@@ -747,17 +1080,300 @@ class InventoryGamePadAddItemForm extends Component {
                       setName={this.state.subCategoryTagSelections}
                       options={this.state.subCategoryTagSelections}
                       selectedOptions={this.state.subCategoryTagSelections}
-                      onSubCategoryTagDeleteClick={this.onSubCategoryTagDeleteClick} />
+                      onTagDeleteClick={this.onTagDeleteClick} />
                 </Scrollbars>
               </div>
             </div>
 
 
-            <div id="add_item_article_vibe_tagging_container"> Vibe Tagging </div>
-            <div id="add_item_article_material_tagging_container"> Material Tagging </div>
-            <div id="add_item_article_color_tagging_container"> Color Tagging </div>
-            <div id="add_item_article_technique_tagging_container"> Technique Tagging </div>
-            <div id="add_item_article_tag_tagging_container"> Tag Tagging </div>
+            <div id="add_item_article_vibe_tagging_container">
+							<div className="add_item_tagging_titlehead_label">Vibe Tagging</div>
+							<div className="add_item_tagging_input_container">
+								<Field
+									id="add_item_vibe_tagging_input"
+									className="form-control add_item_tagging_input"
+									name="vibe"
+									component="input"
+									type="text"
+									value={this.state.vibeInputValue}
+									onChange={this.handleTaggingInputChange}
+									onKeyPress={this.handleTaggingInputKeyPress} />
+								<button id="add_item_vibe_tagging_input_submit_btn" name="vibe_submit" className="btn btn-primary add_item_tagging_input_submit_btn" onClick={this.handleTaggingInputTagSelection} ></button>
+							</div>
+							<button name="vibe_dropdown" className={"btn btn-primary add_item_tagging_dropdown_btn " + (this.state.vibeDropdownOpen ? 'no_border_radius_bottom' : 'closed')} onClick={this.handleTaggingDropdownOpen}></button>
+							<div className={"add_item_tagging_dropdown_menu " + (this.state.vibeDropdownOpen ? 'show' : 'hidden')}>
+								<Scrollbars
+									className="add_item_tag_scroll"
+									onScroll={this.handleScroll}
+									onScrollFrame={this.handleScrollFrame}
+									onScrollStart={this.handleScrollStart}
+									onScrollStop={this.handlenScrollStop}
+									onUpdate={this.handleUpdate}>
+									<CheckboxOrRadioGroup
+											id="add_item_vibe_tagging_dropdown_menu_tag_options"
+											divClassName="add_item_tagging_dropdown_menu_tag_options"
+											labelClassName="form-label capitalize dropdown_tag_checkbox_selections"
+											inputClassName="form-checkbox form-control radio_checkbox_label_input"
+											spanClassName="radio_checkbox_label_span"
+											setName={VIBES}
+											controlFunc={this.handleTaggingDropdownTagCheckboxSelection}
+											type={'checkbox'}
+											options={VIBES}
+											selectedOptions={this.state.vibeTagSelections} />
+								</Scrollbars>
+							</div>
+							<div className="add_item_tagging_selected_tag_container">
+								<Scrollbars
+									className="add_item_tag_scroll"
+									onScroll={this.handleScroll}
+									onScrollFrame={this.handleScrollFrame}
+									onScrollStart={this.handleScrollStart}
+									onScrollStop={this.handlenScrollStop}
+									onUpdate={this.handleUpdate}>
+									<TagGroup
+											id="add_item_vibe_tag_group"
+											groupClassName="add_item_selected_tag_group"
+											className="add_item_selected_tag"
+											closerClassName="add_item_selected_tag_delete_x"
+											setName={this.state.vibeTagSelections}
+											options={this.state.vibeTagSelections}
+											selectedOptions={this.state.vibeTagSelections}
+											onTagDeleteClick={this.onTagDeleteClick} />
+								</Scrollbars>
+							</div>
+						</div>
+
+
+            <div id="add_item_article_material_tagging_container">
+							<div className="add_item_tagging_titlehead_label">Material Tagging</div>
+							<div className="add_item_tagging_input_container">
+								<Field
+									id="add_item_material_tagging_input"
+									className="form-control add_item_tagging_input"
+									name="material"
+									component="input"
+									type="text"
+									value={this.state.materialInputValue}
+									onChange={this.handleTaggingInputChange}
+									onKeyPress={this.handleTaggingInputKeyPress} />
+								<button id="add_item_material_tagging_input_submit_btn" name="material_submit" className="btn btn-primary add_item_tagging_input_submit_btn" onClick={this.handleTaggingInputTagSelection} ></button>
+							</div>
+							<button name="material_dropdown" className={"btn btn-primary add_item_tagging_dropdown_btn " + (this.state.materialDropdownOpen ? 'no_border_radius_bottom' : 'closed')} onClick={this.handleTaggingDropdownOpen}></button>
+							<div className={"add_item_tagging_dropdown_menu " + (this.state.materialDropdownOpen ? 'show' : 'hidden')}>
+								<Scrollbars
+									className="add_item_tag_scroll"
+									onScroll={this.handleScroll}
+									onScrollFrame={this.handleScrollFrame}
+									onScrollStart={this.handleScrollStart}
+									onScrollStop={this.handlenScrollStop}
+									onUpdate={this.handleUpdate}>
+									<CheckboxOrRadioGroup
+											id="add_item_material_tagging_dropdown_menu_tag_options"
+											divClassName="add_item_tagging_dropdown_menu_tag_options"
+											labelClassName="form-label capitalize dropdown_tag_checkbox_selections"
+											inputClassName="form-checkbox form-control radio_checkbox_label_input"
+											spanClassName="radio_checkbox_label_span"
+											setName={MATERIALS}
+											controlFunc={this.handleTaggingDropdownTagCheckboxSelection}
+											type={'checkbox'}
+											options={MATERIALS}
+											selectedOptions={this.state.materialTagSelections} />
+								</Scrollbars>
+							</div>
+							<div className="add_item_tagging_selected_tag_container">
+								<Scrollbars
+									className="add_item_tag_scroll"
+									onScroll={this.handleScroll}
+									onScrollFrame={this.handleScrollFrame}
+									onScrollStart={this.handleScrollStart}
+									onScrollStop={this.handlenScrollStop}
+									onUpdate={this.handleUpdate}>
+									<TagGroup
+											id="add_item_material_tag_group"
+											groupClassName="add_item_selected_tag_group"
+											className="add_item_selected_tag"
+											closerClassName="add_item_selected_tag_delete_x"
+											setName={this.state.materialTagSelections}
+											options={this.state.materialTagSelections}
+											selectedOptions={this.state.materialTagSelections}
+											onTagDeleteClick={this.onTagDeleteClick} />
+								</Scrollbars>
+							</div>
+						</div>
+
+
+	          <div id="add_item_article_color_tagging_container">
+							<div className="add_item_tagging_titlehead_label">Color Tagging</div>
+							<div className="add_item_tagging_input_container">
+								<Field
+									id="add_item_color_tagging_input"
+									className="form-control add_item_tagging_input"
+									name="color"
+									component="input"
+									type="text"
+									value={this.state.colorInputValue}
+									onChange={this.handleTaggingInputChange}
+									onKeyPress={this.handleTaggingInputKeyPress} />
+								<button id="add_item_color_tagging_input_submit_btn" name="color_submit" className="btn btn-primary add_item_tagging_input_submit_btn" onClick={this.handleTaggingInputTagSelection} ></button>
+							</div>
+							<button name="color_dropdown" className={"btn btn-primary add_item_tagging_dropdown_btn " + (this.state.colorDropdownOpen ? 'no_border_radius_bottom' : 'closed')} onClick={this.handleTaggingDropdownOpen}></button>
+							<div className={"add_item_tagging_dropdown_menu " + (this.state.colorDropdownOpen ? 'show' : 'hidden')}>
+								<Scrollbars
+									className="add_item_tag_scroll"
+									onScroll={this.handleScroll}
+									onScrollFrame={this.handleScrollFrame}
+									onScrollStart={this.handleScrollStart}
+									onScrollStop={this.handlenScrollStop}
+									onUpdate={this.handleUpdate}>
+									<CheckboxOrRadioGroup
+											id="add_item_color_tagging_dropdown_menu_tag_options"
+											divClassName="add_item_tagging_dropdown_menu_tag_options"
+											labelClassName="form-label capitalize dropdown_tag_checkbox_selections"
+											inputClassName="form-checkbox form-control radio_checkbox_label_input"
+											spanClassName="radio_checkbox_label_span"
+											setName={COLORS}
+											controlFunc={this.handleTaggingDropdownTagCheckboxSelection}
+											type={'checkbox'}
+											options={COLORS}
+											selectedOptions={this.state.colorTagSelections} />
+								</Scrollbars>
+							</div>
+							<div className="add_item_tagging_selected_tag_container">
+								<Scrollbars
+									className="add_item_tag_scroll"
+									onScroll={this.handleScroll}
+									onScrollFrame={this.handleScrollFrame}
+									onScrollStart={this.handleScrollStart}
+									onScrollStop={this.handlenScrollStop}
+									onUpdate={this.handleUpdate}>
+									<TagGroup
+											id="add_item_color_tag_group"
+											groupClassName="add_item_selected_tag_group"
+											className="add_item_selected_tag"
+											closerClassName="add_item_selected_tag_delete_x"
+											setName={this.state.colorTagSelections}
+											options={this.state.colorTagSelections}
+											selectedOptions={this.state.colorTagSelections}
+											onTagDeleteClick={this.onTagDeleteClick} />
+								</Scrollbars>
+							</div>
+						</div>
+
+
+            <div id="add_item_article_technique_tagging_container">
+							<div className="add_item_tagging_titlehead_label">Technique Tagging</div>
+							<div className="add_item_tagging_input_container">
+								<Field
+									id="add_item_technique_tagging_input"
+									className="form-control add_item_tagging_input"
+									name="technique"
+									component="input"
+									type="text"
+									value={this.state.techniqueInputValue}
+									onChange={this.handleTaggingInputChange}
+									onKeyPress={this.handleTaggingInputKeyPress} />
+								<button id="add_item_technique_tagging_input_submit_btn" name="technique_submit" className="btn btn-primary add_item_tagging_input_submit_btn" onClick={this.handleTaggingInputTagSelection} ></button>
+							</div>
+							<button name="technique_dropdown" className={"btn btn-primary add_item_tagging_dropdown_btn " + (this.state.techniqueDropdownOpen ? 'no_border_radius_bottom' : 'closed')} onClick={this.handleTaggingDropdownOpen}></button>
+							<div className={"add_item_tagging_dropdown_menu " + (this.state.techniqueDropdownOpen ? 'show' : 'hidden')}>
+								<Scrollbars
+									className="add_item_tag_scroll"
+									onScroll={this.handleScroll}
+									onScrollFrame={this.handleScrollFrame}
+									onScrollStart={this.handleScrollStart}
+									onScrollStop={this.handlenScrollStop}
+									onUpdate={this.handleUpdate}>
+									<CheckboxOrRadioGroup
+											id="add_item_technique_tagging_dropdown_menu_tag_options"
+											divClassName="add_item_tagging_dropdown_menu_tag_options"
+											labelClassName="form-label capitalize dropdown_tag_checkbox_selections"
+											inputClassName="form-checkbox form-control radio_checkbox_label_input"
+											spanClassName="radio_checkbox_label_span"
+											setName={TECHNIQUES}
+											controlFunc={this.handleTaggingDropdownTagCheckboxSelection}
+											type={'checkbox'}
+											options={TECHNIQUES}
+											selectedOptions={this.state.techniqueTagSelections} />
+								</Scrollbars>
+							</div>
+							<div className="add_item_tagging_selected_tag_container">
+								<Scrollbars
+									className="add_item_tag_scroll"
+									onScroll={this.handleScroll}
+									onScrollFrame={this.handleScrollFrame}
+									onScrollStart={this.handleScrollStart}
+									onScrollStop={this.handlenScrollStop}
+									onUpdate={this.handleUpdate}>
+									<TagGroup
+											id="add_item_technique_tag_group"
+											groupClassName="add_item_selected_tag_group"
+											className="add_item_selected_tag"
+											closerClassName="add_item_selected_tag_delete_x"
+											setName={this.state.techniqueTagSelections}
+											options={this.state.techniqueTagSelections}
+											selectedOptions={this.state.techniqueTagSelections}
+											onTagDeleteClick={this.onTagDeleteClick} />
+								</Scrollbars>
+							</div>
+						</div>
+
+
+            <div id="add_item_article_tag_tagging_container">
+							<div className="add_item_tagging_titlehead_label">Standard Tagging</div>
+							<div className="add_item_tagging_input_container">
+								<Field
+									id="add_item_standard_tagging_input"
+									className="form-control add_item_tagging_input"
+									name="standard_tag"
+									component="input"
+									type="text"
+									value={this.state.standardInputValue}
+									onChange={this.handleTaggingInputChange}
+									onKeyPress={this.handleTaggingInputKeyPress} />
+								<button id="add_item_standard_tagging_input_submit_btn" name="standard_tag_submit" className="btn btn-primary add_item_tagging_input_submit_btn" onClick={this.handleTaggingInputTagSelection} ></button>
+							</div>
+							<button name="standard_tag_dropdown" className={"btn btn-primary add_item_tagging_dropdown_btn " + (this.state.standardTagDropdownOpen ? 'no_border_radius_bottom' : 'closed')} onClick={this.handleTaggingDropdownOpen}></button>
+							<div className={"add_item_tagging_dropdown_menu " + (this.state.standardTagDropdownOpen ? 'show' : 'hidden')}>
+								<Scrollbars
+									className="add_item_tag_scroll"
+									onScroll={this.handleScroll}
+									onScrollFrame={this.handleScrollFrame}
+									onScrollStart={this.handleScrollStart}
+									onScrollStop={this.handlenScrollStop}
+									onUpdate={this.handleUpdate}>
+									<CheckboxOrRadioGroup
+											id="add_item_standard_tagging_dropdown_menu_tag_options"
+											divClassName="add_item_tagging_dropdown_menu_tag_options"
+											labelClassName="form-label capitalize dropdown_tag_checkbox_selections"
+											inputClassName="form-checkbox form-control radio_checkbox_label_input"
+											spanClassName="radio_checkbox_label_span"
+											setName={TAGS}
+											controlFunc={this.handleTaggingDropdownTagCheckboxSelection}
+											type={'checkbox'}
+											options={TAGS}
+											selectedOptions={this.state.standardTagSelections} />
+								</Scrollbars>
+							</div>
+							<div className="add_item_tagging_selected_tag_container">
+								<Scrollbars
+									className="add_item_tag_scroll"
+									onScroll={this.handleScroll}
+									onScrollFrame={this.handleScrollFrame}
+									onScrollStart={this.handleScrollStart}
+									onScrollStop={this.handlenScrollStop}
+									onUpdate={this.handleUpdate}>
+									<TagGroup
+											id="add_item_standard_tag_group"
+											groupClassName="add_item_selected_tag_group"
+											className="add_item_selected_tag"
+											closerClassName="add_item_selected_tag_delete_x"
+											setName={this.state.standardTagSelections}
+											options={this.state.standardTagSelections}
+											selectedOptions={this.state.standardTagSelections}
+											onTagDeleteClick={this.onTagDeleteClick} />
+								</Scrollbars>
+							</div>
+						</div>
 
           </div>
 

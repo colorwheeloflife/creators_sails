@@ -9,7 +9,7 @@ const TagGroup = (props) => (
 						name={option}
 						value={option} >
           {option}
-          <div className={props.closerClassName} onClick={ () => props.onSubCategoryTagDeleteClick(option) }> x </div>
+          <div className={props.closerClassName} onClick={ () => props.onTagDeleteClick(option) }> x </div>
 				</div>
 			);
 		})}
