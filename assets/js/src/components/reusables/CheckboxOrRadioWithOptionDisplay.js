@@ -9,10 +9,10 @@ const CheckboxOrRadioWithOptionDisplay = (props) => {
 					name={props.options}
 					onChange={props.controlFunc}
 					value={props.options}
-					checked={props.selectedOptions.indexOf(props.options) > -1}
-					type={props.type} /> {props.options}
+					checked={props.selectedOption > -1}
+					type={props.type} />
 	    </div>
 		);
 };
 
-export default CheckboxOrRadioWithOptionDisplay;
+export default CheckboxOrRadioWithOptionDisplay; 

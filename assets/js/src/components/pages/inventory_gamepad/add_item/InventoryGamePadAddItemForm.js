@@ -10,7 +10,7 @@ import CheckboxOrRadioWithoutOptionDisplay from '../../../reusables/CheckboxOrRa
 import CheckboxOrRadioWithOptionDisplay from '../../../reusables/CheckboxOrRadioWithOptionDisplay';
 import TagGroup from '../../../reusables/TagGroup';
 
-import ArtSizingField from './fields/sizing/ArtSizingField';
+import ArtInventoryField from './fields/sizing/ArtInventoryField';
 import ClothingSizingField from './fields/sizing/ClothingSizingField';
 import JewelrySizingField from './fields/sizing/JewelrySizingField';
 import ShippingCardTableRowGroup from './fields/shipping/shippingCardTableRowGroup';
@@ -26,6 +26,9 @@ var MATERIALS = [];
 var COLORS = [];
 var TECHNIQUES = [];
 var TAGS = [];
+
+var measurement_units = ["inches", "feet", "centimeters", "meters"];
+var currencies = ["CAN", "USA"];
 
 const REGIONS = [
 	{ label: 'British Columbia', value: 'British Columbia' },
@@ -90,11 +93,17 @@ class InventoryGamePadAddItemForm extends Component {
 			standardTagInputValue: "",
 			standardTagSelections: [],
 
-      artSizingTracker: ["1"],
-      artSizingCount: 1,
-      artSizingInput: [["height", "width"]],
-      artSizingUnitDropdownOpen: false,
-      artSizingUnit: "Unit",
+			artInventoryUnitDropdownOpen: false,
+			artInventoryCurrencyDropdownOpen: false,
+			artInventoryUnit: "Unit",
+			artInventoryCurrency: "CUR",
+
+			artInventoryTracker: ["1"],
+			artInventoryCount: 1,
+			artInventoryInput: [["height", "width"]],
+			artInventoryQuantity: ["#"],
+			artInventoryPrice: ["$ _"],
+			artInventorySalePrice: ["$ _"],
 
       clothingSizingTracker: ["1", "2", "3", "4", "5"],
       clothingSizingCount: 5,
@@ -111,7 +120,7 @@ class InventoryGamePadAddItemForm extends Component {
 
       itemOnSaleTracker: ["1"],
       itemOnSaleCount: 1,
-      itemOnSaleDeclarations: [""],
+      itemOnSaleDeclarations: ["0"],
 
       shippingOriginSelections: "",
       shippingProcessingTimeSelections: "",
@@ -595,76 +604,149 @@ class InventoryGamePadAddItemForm extends Component {
   }
 
 
+	handleInventoryInputLowendChange = (e) => {
+	  var value = e.target.value;
+	  var token = e.target.name;
+
+	  var artInventoryInput = this.state.artInventoryInput;
+	  var artInventoryTracker = this.state.artInventoryTracker;
+	  var index = artInventoryTracker.indexOf(token);
+
+	  artInventoryInput[index][0] = value;
+
+	  this.setState({ artInventoryInput });
+	  // console.log(this.state.artInventoryInput);
+	}
 
 
+	handleInventoryInputHighendChange = (e) => {
+	  var value = e.target.value;
+	  var token = e.target.name;
+
+	  var artInventoryInput = this.state.artInventoryInput;
+	  var artInventoryTracker = this.state.artInventoryTracker;
+	  var index = artInventoryTracker.indexOf(token);
+
+	  artInventoryInput[index][1] = value;
+
+	  this.setState({ artInventoryInput });
+	}
+
+	handleInventoryQuantityChange = (e) => {
+	  var value = e.target.value;
+	  var token = e.target.name;
+
+	  var artInventoryQuantity = this.state.artInventoryQuantity;
+	  var artInventoryTracker = this.state.artInventoryTracker;
+	  var index = artInventoryTracker.indexOf(token);
+
+	  artInventoryQuantity[index] = value;
+
+	  this.setState({ artInventoryQuantity });
+	}
+
+	handleInventoryPriceChange = (e) => {
+	  var value = e.target.value;
+	  var token = e.target.name;
+
+	  var artInventoryPrice = this.state.artInventoryPrice;
+	  var artInventoryTracker = this.state.artInventoryTracker;
+	  var index = artInventoryTracker.indexOf(token);
+
+	  artInventoryPrice[index] = value;
+
+	  this.setState({ artInventoryPrice });
+	}
+
+	handleInventorySalePriceChange = (e) => {
+	  var value = e.target.value;
+	  var token = e.target.name;
+
+	  var artInventorySalePrice = this.state.artInventorySalePrice;
+	  var artInventoryTracker = this.state.artInventoryTracker;
+	  var index = artInventoryTracker.indexOf(token);
+
+	  artInventorySalePrice[index] = value;
+
+	  this.setState({ artInventorySalePrice });
+	}
 
 
+	handleItemOnSaleSelection = (e) => {
+    const target = e.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
 
+		var itemOnSaleDeclarations = this.state.itemOnSaleDeclarations;
+    var index = this.state.itemOnSaleTracker.indexOf(name);
 
+		console.log(itemOnSaleDeclarations);
 
-
-
-
-
-  handleSizingInputLowendChange = (e) => {
-    var value = e.target.value;
-    var token = e.target.name;
-
-    var artSizingInput = this.state.artSizingInput;
-    var artSizingTracker = this.state.artSizingTracker;
-    var index = artSizingTracker.indexOf(token);
-
-    artSizingInput[index][0] = value;
-
-    this.setState({ artSizingInput });
-    // console.log(this.state.artSizingInput);
-  }
-
-
-  handleSizingInputHighendChange = (e) => {
-    var value = e.target.value;
-    var token = e.target.name;
-
-    var artSizingInput = this.state.artSizingInput;
-    var artSizingTracker = this.state.artSizingTracker;
-    var index = artSizingTracker.indexOf(token);
-
-    artSizingInput[index][1] = value;
-
-    this.setState({ artSizingInput });
-  }
-
-
-  handleSizingInputDropdownOpen = (e) => {
-    var artSizingUnitDropdownOpen = this.state.artSizingUnitDropdownOpen;
-    if (artSizingUnitDropdownOpen) {
-      artSizingUnitDropdownOpen = false;
-    } else {
-      artSizingUnitDropdownOpen = true;
+    if ( itemOnSaleDeclarations[0] === "0" ) {
+			console.log('if');
+      itemOnSaleDeclarations[0] = name;
+    } else if (itemOnSaleDeclarations[index]) {
+			if (itemOnSaleDeclarations[1]) {
+				itemOnSaleDeclarations[index].slice(index, 1);
+			} else {
+				itemOnSaleDeclarations[0] = "0";
+			}
+		} else {
+			console.log('else');
+      itemOnSaleDeclarations[index].push(name);
     }
 
-    this.setState({ artSizingUnitDropdownOpen });
+		console.log(itemOnSaleDeclarations);
+
+
+		this.setState({ itemOnSaleDeclarations });
   }
 
 
-  handleSizingUnitSelection = (e) => {
-    var artSizingUnit = e.target.innerHTML;
-    this.setState({ artSizingUnit });
-    this.setState({ artSizingUnitDropdownOpen: false });
-  }
+	handleInventoryUnitInputDropdownOpen = (e) => {
+	  var artInventoryUnitDropdownOpen = this.state.artInventoryUnitDropdownOpen;
+	  if (artInventoryUnitDropdownOpen) {
+	    artInventoryUnitDropdownOpen = false;
+	  } else {
+	    artInventoryUnitDropdownOpen = true;
+	  }
+
+	  this.setState({ artInventoryUnitDropdownOpen });
+	}
+
+	handleInventoryCurrencyInputDropdownOpen = (e) => {
+	  var artInventoryCurrencyDropdownOpen = this.state.artInventoryCurrencyDropdownOpen;
+	  if (artInventoryCurrencyDropdownOpen) {
+	    artInventoryCurrencyDropdownOpen = false;
+	  } else {
+	    artInventoryCurrencyDropdownOpen = true;
+	  }
+
+		console.log(this.state.artInventoryCurrencyDropdownOpen);
+
+	  this.setState({ artInventoryCurrencyDropdownOpen });
+	}
 
 
-  handleArtSizingInputAddition = (e) => {
-    var count = `${this.state.artSizingCount + 1}`;
-    var artSizingTracker = this.state.artSizingTracker;
-    var artSizingInput = this.state.artSizingInput;
-    artSizingTracker.push(count);
-    artSizingInput.push(["height", "width"]);
 
-    this.setState({ artSizingTracker });
-    this.setState({ artSizingInput });
-    this.setState({ artSizingCount: parseInt(count)});
-  }
+	handleInventoryUnitSelection = (e) => {
+	  var artInventoryUnit = e.target.innerHTML;
+	  this.setState({ artInventoryUnit });
+	  this.setState({ artInventoryUnitDropdownOpen: false });
+	}
+
+
+	handleArtInventoryInputAddition = (e) => {
+	  var count = `${this.state.artInventoryCount + 1}`;
+	  var artInventoryTracker = this.state.artInventoryTracker;
+	  var artInventoryInput = this.state.artInventoryInput;
+	  artInventoryTracker.push(count);
+	  artInventoryInput.push(["height", "width"]);
+
+	  this.setState({ artInventoryTracker });
+	  this.setState({ artInventoryInput });
+	  this.setState({ artInventoryCount: parseInt(count)});
+	}
 
 
   handleClothingSizeCountChange = (e) => {
@@ -721,28 +803,6 @@ class InventoryGamePadAddItemForm extends Component {
 
 
 
-
-
-
-
-
-  // handleSizingInputLowendChange = (e) => {
-  //   var value = e.target.value;
-  //   var token = e.target.name;
-  //
-  //   var artSizingInput = this.state.artSizingInput;
-  //   var artSizingTracker = this.state.artSizingTracker;
-  //   var index = artSizingTracker.indexOf(token);
-  //
-  //   artSizingInput[index][0] = value;
-  //
-  //   this.setState({ artSizingInput });
-  //   // console.log(this.state.artSizingInput);
-  // }
-
-
-
-
   handleJewelrySizingInputChange = (e) => {
     var value = e.target.value;
     var token = e.target.name;
@@ -778,34 +838,6 @@ class InventoryGamePadAddItemForm extends Component {
     this.setState({ jewelrySizingInput });
     this.setState({ jewelrySizingCount: new_number_count });
   }
-
-
-
-
-  handleItemOnSaleSelection(e) {
-    const target = e.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
-
-		var itemOnSaleDeclarations = this.state.itemOnSaleDeclarations;
-    var index = this.state.itemOnSaleTracker.indexOf(name);
-
-    if ( itemOnSaleDeclarations[1] ) {
-      if ( itemOnSaleDeclarations[index] ) {
-        itemOnSaleDeclarations[index].slice(index, 1);
-      } else {
-        itemOnSaleDeclarations[index].push(name);
-      }
-    } else {
-      if (value) {
-        itemOnSaleDeclarations = [name];
-      } else {
-        itemOnSaleDeclarations = [""];
-      }
-    }
-		this.setState({ itemOnSaleDeclarations });
-  }
-
 
 
   handleShippingOriginSelections = (selection) => {
@@ -1381,24 +1413,52 @@ class InventoryGamePadAddItemForm extends Component {
 
 
 
-          <div id="add_item_article_sizing_container">
-            <div id="add_item_sizing_container_empty_message" className={"" + (this.state.selectedCategory[0] ? 'hidden' : 'show')}>
+          <div id="add_item_article_inventory_container">
+            <div id="add_item_inventory_container_empty_message" className={"" + (this.state.selectedCategory[0] ? 'hidden' : 'show')}>
               Select A Category To Render Sizing Field
             </div>
 
-            <ArtSizingField
+            <ArtInventoryField
               selectedCategory={this.state.selectedCategory}
-              handleSizingInputDropdownOpen={this.handleSizingInputDropdownOpen}
-              handleSizingUnitSelection={this.handleSizingUnitSelection}
-              handleSizingInputLowendChange={this.handleSizingInputLowendChange}
-              handleSizingInputHighendChange={this.handleSizingInputHighendChange}
-              handleSizingInputDropdownOpen={this.handleSizingInputDropdownOpen}
-              handleArtSizingInputAddition={this.handleArtSizingInputAddition}
 
-              artSizingUnitDropdownOpen={this.state.artSizingUnitDropdownOpen}
-              artSizingTracker={this.state.artSizingTracker}
-              artSizingInput={this.state.artSizingInput}
-              artSizingUnit={this.state.artSizingUnit}
+              handleInventoryUnitInputDropdownOpen={this.handleInventoryUnitInputDropdownOpen}
+							handleInventoryCurrencyInputDropdownOpen={this.handleInventoryCurrencyInputDropdownOpen}
+
+              handleInventoryUnitSelection={this.handleInventoryUnitSelection}
+							handleInventoryCurrencySelection={this.handleInventoryCurrencySelection}
+
+              handleInventoryInputLowendChange={this.handleInventoryInputLowendChange}
+              handleInventoryInputHighendChange={this.handleInventoryInputHighendChange}
+
+							handleInventoryQuantityChange={this.handleInventoryQuantityChange}
+
+							handleInventoryPriceChange={this.handleInventoryPriceChange}
+
+							handleInventorySalePriceChange={this.handleInventorySalePriceChange}
+
+							handleItemOnSaleSelection={this.handleItemOnSaleSelection}
+
+
+
+              handleArtInventoryInputAddition={this.handleArtInventoryInputAddition}
+
+
+
+              artInventoryUnitDropdownOpen={this.state.artInventoryUnitDropdownOpen}
+							artInventoryCurrencyDropdownOpen={this.state.artInventoryCurrencyDropdownOpen}
+							artInventoryUnit={this.state.artInventoryUnit}
+							artInventoryCurrency={this.state.artInventoryCurrency}
+							measurementUnits={measurement_units}
+							currencies={currencies}
+
+              artInventoryTracker={this.state.artInventoryTracker}
+              artInventoryInput={this.state.artInventoryInput}
+							artInventoryQuantity={this.state.artInventoryQuantity}
+							artInventoryPrice={this.state.artInventoryPrice}
+							artInventorySalePrice={this.state.artInventorySalePrice}
+							itemOnSaleTracker={this.state.itemOnSaleTracker}
+							itemOnSaleDeclarations={this.state.itemOnSaleDeclarations}
+
               />
 
             <ClothingSizingField

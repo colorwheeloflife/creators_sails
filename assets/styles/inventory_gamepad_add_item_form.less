@@ -475,9 +475,9 @@
 
 
 
-#add_item_article_sizing_container {
+#add_item_article_inventory_container {
   width: 90%;
-  min-height: 175px;
+  min-height: 222px;
   margin: 100px 5% 40px 5%;
   float: left;
   border: 1px solid black;
@@ -487,7 +487,7 @@
   // padding: 50px;
 }
 
-#add_item_sizing_container_empty_message {
+#add_item_inventory_container_empty_message {
   width: 40%;
   margin: 20% 30% 20% 30%;
   text-align: center;
@@ -495,7 +495,34 @@
   // border: 1px solid black;
 }
 
-.add_item_art_sizing_input_group {
+#add_item_art_inventory_column_inventory_titlehead {
+  float: left;
+  margin: 0 1%;
+  // font-size: 18px;
+  font-weight: bold;
+}
+
+#add_item_art_inventory_column_sizing_title {
+  margin: 4% 2% 0 2%;
+}
+
+#add_item_art_inventory_column_pricing_title {
+  margin: 4% 2% 0 15%;
+}
+
+#add_item_art_inventory_column_quantity_title {
+  float: right;
+  margin: 4% 10.5% 0 2%;
+}
+
+.add_item_art_inventory_column_title {
+  float: left;
+  width: 8%;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.add_item_art_inventory_input_group {
   width: 96%;
   min-height: 90%;
   float: left;
@@ -505,20 +532,30 @@
   // border: 1px solid black;
 }
 
-.add_item_art_sizing_input_container {
-  width: 164px;
+.add_item_art_inventory_card {
+  width: 93%;
   height: 60px;
   float: left;
-  margin: 1%;
-  padding: 10px;
+  margin: 0 3% 0 1%;
+  background-color: grey;
   border: 1px solid black;
 }
 
-.add_item_art_sizing_input {
-  width: 56px;
+.add_item_art_inventory_sizing_inputs_container {
+  float: left;
+  width: 25%;
+  height: 50px;
+  margin: 4px 1%;
+  background-color: lightgray;
+
+  border: 1px solid black;
+}
+
+.add_item_art_inventory_input {
+  width: 37%;
   height: 36px;
   float: left;
-  margin: 1%;
+  margin: 6px 5%;
   font-size: 13px;
   text-align: center;
   color: grey;
@@ -526,11 +563,11 @@
   border: 1px solid black;
 }
 
-.add_item_art_sizing_lowend_input {
+.add_item_art_inventory_lowend_input {
   margin-right: 2%;
 }
 
-.add_item_art_sizing_highend_input {
+.add_item_art_inventory_highend_input {
   margin-left: 2%;
 }
 
@@ -540,7 +577,108 @@
   font-size: 12px;
 }
 
-#add_item_art_sizing_measurement_unit_dropdown {
+
+.add_item_art_inventory_price_container {
+  float: left;
+  width: 50%;
+  height: 50px;
+  margin: 4px 1%;
+  background-color: lightgray;
+
+  border: 1px solid black;
+}
+
+.add_item_art_inventory_price_input {
+  width: 36%;
+  height: 36px;
+  float: left;
+  margin: 6px 2% 6px 3%;
+  padding-left: 7px;
+  font-size: 13px;
+  color: grey;
+
+  border: 1px solid black;
+}
+
+.add_item_art_inventory_sale_price_input {
+  margin: 6px 3%;
+}
+
+.add_item_art_inventory_on_sale_checkbox_label {
+  float: left;
+  width: 11%;
+  font-size: 9px;
+  margin-top: 7.5%;
+
+  // border: 1px solid black;
+}
+
+.add_item_art_inventory_on_sale_checkbox_container {
+  float: left;
+  margin: 1%;
+  margin-top: 6%;
+
+  // border: 1px solid black;
+}
+
+.add_item_art_inventory_on_sale_checkbox_checkbox {
+  float: left;
+
+  // border: 1px solid black;
+}
+
+.add_item_art_inventory_quantity_input_container {
+  float: right;
+  width: 90px;
+  height: 50px;
+  margin: 4px 1%;
+  background-color: lightgray;
+
+  border: 1px solid black;
+}
+
+.add_item_art_inventory_quantity_input {
+  width: 65px;
+  height: 36px;
+  float: left;
+  margin: 6px 12%;
+  font-size: 13px;
+  text-align: center;
+  color: grey;
+
+  border: 1px solid black;
+}
+
+
+
+#add_item_art_inventory_measurement_unit_dropdown {
+  min-width: 45px;
+  min-height: 30px;
+  position: absolute;
+  top: 5px;
+  right: 50px;
+  padding: 3px 5px;
+  text-align: center;
+  background-color: white;
+  z-index: 1;
+  border: 1px solid black;
+}
+
+#add_item_art_inventory_measurement_unit_dropdown_menu {
+  min-width: 101px;
+  min-height: 80px;
+  position: absolute;
+  top: 36px;
+  right: 50px;
+  padding: 2px 4px;
+  font-size: 14px;
+  text-align: right;
+  background-color: white;
+  z-index: 1;
+  border: 1px solid black;
+}
+
+#add_item_art_inventory_currency_unit_dropdown {
   min-width: 45px;
   min-height: 30px;
   position: absolute;
@@ -553,7 +691,7 @@
   border: 1px solid black;
 }
 
-#add_item_art_sizing_measurement_unit_dropdown_menu {
+#add_item_art_inventory_currency_unit_dropdown_menu {
   min-width: 101px;
   min-height: 80px;
   position: absolute;
@@ -567,18 +705,19 @@
   border: 1px solid black;
 }
 
-.add_item_art_sizing_measurement_unit_dropdown_list_item {
+.add_item_art_inventory_measurement_unit_dropdown_list_item {
   list-style-type: none;
   cursor: pointer;
 }
 
 
 
-#add_item_art_sizing_input_addition_btn {
+#add_item_art_inventory_input_addition_btn {
   width: 27px;
   height: 27px;
   float: left;
-  margin-top: 24px;
+  margin-top: 1.25%;
+  margin-left: 2%;
   border-radius: 25px;
   text-align: center;
   border: 1px solid black;
@@ -819,12 +958,7 @@
   float: left;
 }
 
-.add_item_item_on_sale_label {
-  float: right;
-  margin: 1%;
-  margin-top: 4.6%;
-  font-size: 12px;
-}
+
 
 
 
