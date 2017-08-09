@@ -8,15 +8,19 @@ const ArtInventoryField = (props) => (
 
 		<div id="add_item_art_inventory_measurement_unit_dropdown_menu" className={'' + (props.artInventoryUnitDropdownOpen ? 'show highlight': 'hidden')}>
 
-			{props.measurementUnits.map(function(measurement) {
-				<li className="add_item_art_inventory_measurement_unit_dropdown_list_item" onClick={props.handleInventoryUnitSelection}>measurement</li>
+			{props.measurementUnits.map(measurement => {
+				return (
+					<li key={measurement} className="add_item_art_inventory_dropdown_list_item" onClick={props.handleInventoryUnitSelection}>{measurement}</li>
+				);
 			})}
 
 		</div>
 		<div id="add_item_art_inventory_currency_unit_dropdown" onClick={props.handleInventoryCurrencyInputDropdownOpen}>{props.artInventoryCurrency}</div>
 		<div id="add_item_art_inventory_currency_unit_dropdown_menu" className={'' + (props.artInventoryCurrencyDropdownOpen ? 'show highlight' : 'hidden')}>
-			{props.currencies.map(function(currency) {
-				<li className="add_item_art_inventory_currency_unit_dropdown_list_item" onClick={props.handleInventoryCurrencySelection}>currency</li>
+			{props.currencies.map(currency => {
+				return (
+					<li key={currency} className="add_item_art_inventory_dropdown_list_item" onClick={props.handleInventoryCurrencySelection}>{currency}</li>
+				);
 			})}
 		</div>
 

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ClothingSizeInputGroup = (props) => (
+const ClothingSizingBar = (props) => (
 	<div id="clothing_size_input_group">
 		<div name="before" className={'clothing_sizing_field_addition_btn ' + (props.options.indexOf('XXS') === -1 ? 'show' : 'hidden')} onClick={props.handleClothingSizingInputAddition}> + </div>
 		{props.options.map(option => {
@@ -19,7 +19,7 @@ const ClothingSizeInputGroup = (props) => (
 	</div>
 );
 
-export default ClothingSizeInputGroup;
+export default ClothingSizingBar;
 
 
 /*

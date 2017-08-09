@@ -105,6 +105,10 @@ class InventoryGamePadAddItemForm extends Component {
 			artInventoryPrice: ["$ _"],
 			artInventorySalePrice: ["$ _"],
 
+			itemOnSaleTracker: ["1"],
+      itemOnSaleCount: 1,
+      itemOnSaleDeclarations: ["0"],
+
       clothingSizingTracker: ["1", "2", "3", "4", "5"],
       clothingSizingCount: 5,
       clothingSizingInput: [0, 0, 0, 0, 0],
@@ -112,15 +116,15 @@ class InventoryGamePadAddItemForm extends Component {
       clothingSizingCounts: [0, 0, 0, 0, 0],
       clothingInputGroupClass: "clothing_size_input_5_group",
 
+			clothingInventoryPrice: "$ _",
+			clothingInventorySalePrice: "$ _",
+			clothingItemOnSaleDeclarations: false,
+
       jewelrySizingTracker: ["1"],
       jewelrySizingCount: 1,
       jewelrySizingInput: [["in mm"]],
       jewelrySizingUnitDropdownOpen: false,
       jewelrySizingUnit: "mm",
-
-      itemOnSaleTracker: ["1"],
-      itemOnSaleCount: 1,
-      itemOnSaleDeclarations: ["0"],
 
       shippingOriginSelections: "",
       shippingProcessingTimeSelections: "",
@@ -824,6 +828,42 @@ class InventoryGamePadAddItemForm extends Component {
   }
 
 
+	handleInventoryClothingPriceChange = (e) => {
+	  var value = e.target.value;
+	  var token = e.target.name;
+
+	  var clothingInventoryPrice = this.state.clothingInventoryPrice;
+	  var clothingInventoryTracker = this.state.clothingInventoryTracker;
+	  var index = clothingInventoryTracker.indexOf(token);
+
+	  clothingInventoryPrice[index] = value;
+
+	  this.setState({ clothingInventoryPrice });
+	}
+
+	handleInventoryClothingSalePriceChange = (e) => {
+	  var value = e.target.value;
+	  var token = e.target.name;
+
+	  var clothingInventorySalePrice = this.state.clothingInventorySalePrice;
+	  var clothingInventoryTracker = this.state.clothingInventoryTracker;
+	  var index = clothingInventoryTracker.indexOf(token);
+
+	  clothingInventorySalePrice[index] = value;
+
+	  this.setState({ clothingInventorySalePrice });
+	}
+
+
+	handleClothingItemOnSaleSelection = (e) => {
+    const target = e.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
+		this.setState({ clothingItemOnSaleDeclarations: value });
+  }
+
+
 
   handleJewelrySizingInputChange = (e) => {
     var value = e.target.value;
@@ -1488,9 +1528,15 @@ class InventoryGamePadAddItemForm extends Component {
             <ClothingSizingField
               selectedCategory={this.state.selectedCategory}
               clothingSizingOptions={this.state.clothingSizingOptions}
-              handleClothingSizeCountChange={this.handleClothingSizeCountChange}
-              handleClothingSizingInputAddition={this.handleClothingSizingInputAddition}
-              clothingInputGroupClass={this.state.clothingInputGroupClass}
+							clothingInputGroupClass={this.state.clothingInputGroupClass}
+
+							clothingInventoryPrice={this.state.clothingInventoryPrice}
+							clothingInventorySalePrice={this.state.clothingInventorySalePrice}
+							clothingItemOnSaleDeclarations={this.state.clothingItemOnSaleDeclarations}
+
+							handleInventoryClothingPriceChange={this.handleInventoryClothingPriceChange}
+							handleClothingInventorySalePriceChange={this.handleInventorySalePriceChange}
+							handleClothingItemOnSaleSelection={this.handleClothingItemOnSaleSelection}
               />
 
             <JewelrySizingField
