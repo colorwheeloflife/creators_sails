@@ -67,7 +67,7 @@ const ArtInventoryCardGroup = (props) => (
 
 				);
 			})}
-			<div id="add_item_art_inventory_input_addition_btn" onClick={props.handleInventoryInputAddition}> + </div>
+			<div id="add_item_art_inventory_input_addition_btn" onClick={props.handleArtInventoryCardAddition}> + </div>
 		</div>
 );
 

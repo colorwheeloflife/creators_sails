@@ -42,7 +42,7 @@ const ArtInventoryField = (props) => (
 			handleInventorySalePriceChange={props.handleInventorySalePriceChange}
 			handleItemOnSaleSelection={props.handleItemOnSaleSelection}
 
-			handleInventoryInputAddition={props.handleInventoryInputAddition}
+			handleArtInventoryCardAddition={props.handleArtInventoryCardAddition}
 			/>
 
 

@@ -736,17 +736,39 @@ class InventoryGamePadAddItemForm extends Component {
 	}
 
 
-	handleArtInventoryInputAddition = (e) => {
+	handleArtInventoryCardAddition = (e) => {
 	  var count = `${this.state.artInventoryCount + 1}`;
 	  var artInventoryTracker = this.state.artInventoryTracker;
+		artInventoryTracker.push(count);
+
 	  var artInventoryInput = this.state.artInventoryInput;
-	  artInventoryTracker.push(count);
 	  artInventoryInput.push(["height", "width"]);
 
-	  this.setState({ artInventoryTracker });
-	  this.setState({ artInventoryInput });
-	  this.setState({ artInventoryCount: parseInt(count)});
+		var artInventoryPrice = this.state.artInventoryPrice;
+	  artInventoryPrice.push(["$ _"]);
+
+		var artInventorySalePrice = this.state.artInventorySalePrice;
+	  artInventorySalePrice.push(["$ _"]);
+
+		var artInventoryQuantity = this.state.artInventoryQuantity;
+	  artInventoryQuantity.push(["#"]);
+
+	  this.setState({
+			artInventoryTracker,
+			artInventoryCount: parseInt(count),
+			artInventoryInput,
+			artInventoryPrice,
+			artInventorySalePrice,
+			artInventoryQuantity
+		});
 	}
+
+
+
+
+
+
+
 
 
   handleClothingSizeCountChange = (e) => {
@@ -1458,6 +1480,8 @@ class InventoryGamePadAddItemForm extends Component {
 							artInventorySalePrice={this.state.artInventorySalePrice}
 							itemOnSaleTracker={this.state.itemOnSaleTracker}
 							itemOnSaleDeclarations={this.state.itemOnSaleDeclarations}
+
+							handleArtInventoryCardAddition={this.handleArtInventoryCardAddition}
 
               />
 
