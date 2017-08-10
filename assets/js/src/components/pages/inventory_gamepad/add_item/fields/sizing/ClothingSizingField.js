@@ -1,7 +1,7 @@
 import React from 'react'
 
 import ClothingSizingBar from './pieces/ClothingSizingBar';
-import CheckboxOrRadioWithoutOptionDisplay from '../../../../../reusables/CheckboxOrRadioWithOptionDisplay';
+import CheckboxOrRadioWithoutOptionDisplay from '../../../../../reusables/CheckboxOrRadioWithoutOptionDisplay';
 
 const ClothingSizingField = (props) => (
 		<div id="clothing_sizing_field" className={'' + (props.selectedCategory.indexOf('Clothing') > -1 ? 'show' : 'hidden')}>
@@ -30,6 +30,9 @@ const ClothingSizingField = (props) => (
 							controlFunc={props.handleClothingItemOnSaleSelection}
 							type={'checkbox'}
 							selectedOption={props.clothingItemOnSaleDeclarations} />
+
+
+
 					<input
 						className={"add_item_clothing_inventory_price_input add_item_clothing_inventory_sale_price_input " + (props.clothingItemOnSaleDeclarations ? 'show' : 'hidden')}
 						type="text"
@@ -42,3 +45,21 @@ const ClothingSizingField = (props) => (
 );
 
 export default ClothingSizingField;
+
+
+
+/*
+
+
+<CheckboxOrRadioGroup
+		id="add_item_use_as_description_checkbox"
+		divClassName="checkbox-group add_item_clothing_inventory_on_sale_checkbox_container"
+		labelClassName="form-label capitalize"
+		inputClassName="form-checkbox add_item_clothing_inventory_on_sale_checkbox"
+		controlFunc={this.handleClothingItemOnSaleSelection}
+		type={'checkbox'}
+		options={props.falseness}
+		selectedOptions={this.state.clothingItemOnSaleDeclarations} />
+
+
+*/

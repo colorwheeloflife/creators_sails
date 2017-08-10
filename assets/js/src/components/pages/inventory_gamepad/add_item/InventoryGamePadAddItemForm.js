@@ -17,6 +17,7 @@ import ShippingCardTableRowGroup from './fields/shipping/shippingCardTableRowGro
 
 
 var trueness = [true];
+var falseness = [false];
 var CATEGORIES = ['Visual Art', 'Clothing', 'Accessories', 'Jewelry', 'Instruments', 'Totems'];
 var CLOTHING_ARTICLE_TYPES = ['Tops', 'Bottoms', 'Vests', 'Tutus'];
 var JEWELRY_ARTICLE_TYPES = ['Bracelet', 'Earring', 'Necklace', 'Nose Ring', 'Ring'];
@@ -1481,38 +1482,13 @@ class InventoryGamePadAddItemForm extends Component {
             </div>
 
             <ArtInventoryField
-              selectedCategory={this.state.selectedCategory}
-
-              handleInventoryUnitInputDropdownOpen={this.handleInventoryUnitInputDropdownOpen}
-							handleInventoryCurrencyInputDropdownOpen={this.handleInventoryCurrencyInputDropdownOpen}
-
-              handleInventoryUnitSelection={this.handleInventoryUnitSelection}
-							handleInventoryCurrencySelection={this.handleInventoryCurrencySelection}
-
-              handleInventoryInputLowendChange={this.handleInventoryInputLowendChange}
-              handleInventoryInputHighendChange={this.handleInventoryInputHighendChange}
-
-							handleInventoryQuantityChange={this.handleInventoryQuantityChange}
-
-							handleInventoryPriceChange={this.handleInventoryPriceChange}
-
-							handleInventorySalePriceChange={this.handleInventorySalePriceChange}
-
-							handleItemOnSaleSelection={this.handleItemOnSaleSelection}
-
-
-
-              handleArtInventoryInputAddition={this.handleArtInventoryInputAddition}
-
-
-
-              artInventoryUnitDropdownOpen={this.state.artInventoryUnitDropdownOpen}
+							selectedCategory={this.state.selectedCategory}
+							artInventoryUnitDropdownOpen={this.state.artInventoryUnitDropdownOpen}
 							artInventoryCurrencyDropdownOpen={this.state.artInventoryCurrencyDropdownOpen}
 							artInventoryUnit={this.state.artInventoryUnit}
 							artInventoryCurrency={this.state.artInventoryCurrency}
 							measurementUnits={measurement_units}
 							currencies={currencies}
-
               artInventoryTracker={this.state.artInventoryTracker}
               artInventoryInput={this.state.artInventoryInput}
 							artInventoryQuantity={this.state.artInventoryQuantity}
@@ -1521,18 +1497,28 @@ class InventoryGamePadAddItemForm extends Component {
 							itemOnSaleTracker={this.state.itemOnSaleTracker}
 							itemOnSaleDeclarations={this.state.itemOnSaleDeclarations}
 
+              handleInventoryUnitInputDropdownOpen={this.handleInventoryUnitInputDropdownOpen}
+							handleInventoryCurrencyInputDropdownOpen={this.handleInventoryCurrencyInputDropdownOpen}
+              handleInventoryUnitSelection={this.handleInventoryUnitSelection}
+							handleInventoryCurrencySelection={this.handleInventoryCurrencySelection}
+              handleInventoryInputLowendChange={this.handleInventoryInputLowendChange}
+              handleInventoryInputHighendChange={this.handleInventoryInputHighendChange}
+							handleInventoryQuantityChange={this.handleInventoryQuantityChange}
+							handleInventoryPriceChange={this.handleInventoryPriceChange}
+							handleInventorySalePriceChange={this.handleInventorySalePriceChange}
+							handleItemOnSaleSelection={this.handleItemOnSaleSelection}
+              handleArtInventoryInputAddition={this.handleArtInventoryInputAddition}
 							handleArtInventoryCardAddition={this.handleArtInventoryCardAddition}
-
               />
 
             <ClothingSizingField
               selectedCategory={this.state.selectedCategory}
               clothingSizingOptions={this.state.clothingSizingOptions}
 							clothingInputGroupClass={this.state.clothingInputGroupClass}
-
 							clothingInventoryPrice={this.state.clothingInventoryPrice}
 							clothingInventorySalePrice={this.state.clothingInventorySalePrice}
 							clothingItemOnSaleDeclarations={this.state.clothingItemOnSaleDeclarations}
+							falseness={falseness}
 
 							handleInventoryClothingPriceChange={this.handleInventoryClothingPriceChange}
 							handleClothingInventorySalePriceChange={this.handleInventorySalePriceChange}
@@ -1549,37 +1535,6 @@ class InventoryGamePadAddItemForm extends Component {
               handleJewelrySizingInputAddition={this.handleJewelrySizingInputAddition}
             />
           </div>
-
-          <div id="add_item_article_pricing_container">
-
-            <div className="add_item_price_input_card">
-              <label className="add_item_price_entry_title" htmlFor="price">Price:</label>
-              <Field className="add_item_price_entry_input form-control" name="price" component="input" type="text" />
-
-              <label className="add_item_sale_price_entry_title" htmlFor="price">When on sale:</label>
-              <Field className="add_item_sale_price_entry_input form-control" name="sale_price" component="input" type="text" />
-
-
-                <div className="add_item_on_sale_checkbox_container">
-                    <CheckboxOrRadioWithoutOptionDisplay
-                        id="add_item_on_sale_checkbox"
-                        divClassName="checkbox-group no_label_checkbox"
-                        labelClassName="form-label capitalize"
-                        inputClassName="form-checkbox"
-                        controlFunc={this.handleItemOnSaleSelection}
-                        type={'checkbox'}
-                        options={this.state.itemOnSaleTracker}
-                        selectedOptions={this.state.itemOnSaleDeclarations} />
-                      <label className="add_item_item_on_sale_label" htmlFor="item_on_sale">On Sale?</label>
-                </div>
-
-            </div>
-
-          </div>
-
-
-
-
 
 
           <div id="add_item_article_shipping_container">
@@ -1634,11 +1589,6 @@ class InventoryGamePadAddItemForm extends Component {
             />
           </div>
 
-
-          <div id="add_item_article_placement_container"> Placement </div>
-
-
-
           <button type="submit" id="add_item_submission_btn" className="btn btn-primary"> Submit </button>
 
         </form>
@@ -1668,6 +1618,6 @@ export default InventoryGamePadAddItemForm;
 
 
 
-
+<div id="add_item_article_placement_container"> Placement </div>
 
 */

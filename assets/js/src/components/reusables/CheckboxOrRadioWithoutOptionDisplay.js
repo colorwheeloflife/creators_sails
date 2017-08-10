@@ -8,8 +8,8 @@ const CheckboxOrRadioWithoutOptionDisplay = (props) => {
 					className={props.inputClassName}
 					name={props.options}
 					onChange={props.controlFunc}
-					value={props.options}
-					checked={props.selectedOptions.indexOf(props.options) > -1}
+					value={props.selectedOptions}
+					checked={props.selectedOptions}
 					type={props.type} />
 	    </div>
 		);
