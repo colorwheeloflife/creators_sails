@@ -1,4 +1,5 @@
 import React from 'react'
+import CurrencyInput from 'react-currency-input';
 import ClothingSizingBar from './pieces/ClothingSizingBar';
 import CheckboxOrRadioWithoutOptionDisplay from '../../../../../reusables/CheckboxOrRadioWithoutOptionDisplay';
 
@@ -18,7 +19,7 @@ const ClothingSizingField = (props) => (
 					<input
 						className="add_item_clothing_inventory_price_input"
 						type="text"
-						value={props.clothingInventoryPrice}
+						value={"$ " + props.clothingInventoryPrice}
 						onChange={props.handleInventoryClothingPriceChange} />
 					<label className="add_item_clothing_inventory_on_sale_checkbox_label" htmlFor="item_on_sale">On Sale?</label>
 					<CheckboxOrRadioWithoutOptionDisplay
@@ -28,7 +29,8 @@ const ClothingSizingField = (props) => (
 							controlFunc={props.handleClothingItemOnSaleSelection}
 							type={'checkbox'}
 							selectedOption={props.clothingItemOnSaleDeclarations} />
-					<input
+					<CurrencyInput
+						prefix="$"
 						className={"add_item_clothing_inventory_price_input add_item_clothing_inventory_sale_price_input " + (props.clothingItemOnSaleDeclarations ? 'show' : 'hidden')}
 						type="text"
 						value={props.clothingInventorySalePrice}

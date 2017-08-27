@@ -66,7 +66,7 @@ class InventoryGamePadAddItemForm extends Component {
 			intentionStatement: "",
 			useAsDescription: [true],
 			description: "",
-			selectedCategory: [],
+			selectedCategory: "",
 			selectedClothingArticleTypes: [],
       selectedJewelryArticleTypes: [],
 
@@ -98,17 +98,17 @@ class InventoryGamePadAddItemForm extends Component {
 			standardTagInputValue: "",
 			standardTagSelections: [],
 
-			artInventoryUnitDropdownOpen: false,
-			artInventoryCurrencyDropdownOpen: false,
-			artInventoryUnit: "Unit",
-			artInventoryCurrency: "CUR",
+			inventoryUnitDropdownOpen: false,
+			inventoryCurrencyDropdownOpen: false,
+			inventoryUnit: "Unit",
+			inventoryCurrency: "CUR",
 
 			artInventoryTracker: ["1"],
 			artInventoryCount: 1,
-			artInventoryInput: [["height", "width"]],
+			artInventoryInput: [["", ""]],
 			artInventoryQuantity: ["#"],
-			artInventoryPrice: ["$ _"],
-			artInventorySalePrice: ["$ _"],
+			artInventoryPrice: ["0.00"],
+			artInventorySalePrice: ["0.00"],
 			itemOnSaleTracker: ["1"],
       itemOnSaleCount: 1,
       itemOnSaleDeclarations: ["0"],
@@ -120,8 +120,8 @@ class InventoryGamePadAddItemForm extends Component {
       clothingSizingCounts: [0, 0, 0, 0, 0],
       clothingInputGroupClass: "clothing_size_input_5_group",
 
-			clothingInventoryPrice: "$ _",
-			clothingInventorySalePrice: "$ _",
+			clothingInventoryPrice: "0.00",
+			clothingInventorySalePrice: "",
 			clothingItemOnSaleDeclarations: false,
 
       jewelrySizingTracker: ["1"],
@@ -164,8 +164,8 @@ class InventoryGamePadAddItemForm extends Component {
 		var sizes;
 		var inventory;
 
-		var measurment_unit = this.state.artInventoryUnit; // **
-		var currency = this.state.artInventoryCurrency;
+		var measurment_unit = this.state.inventoryUnit; // **
+		var currency = this.state.inventoryCurrency;
 		var prices;
 		var on_sale_declarations;
 		var sale_prices;
@@ -355,10 +355,8 @@ class InventoryGamePadAddItemForm extends Component {
   }
 
   handleTimeLogPrecisionSelection = (e) => {
-		console.log(e);
     var target = e.target;
     var name = e.target.name;
-		console.log(name);
 
     this.setState({ timeLogPrecisionSelection: [name] });
   }
@@ -747,7 +745,6 @@ class InventoryGamePadAddItemForm extends Component {
 	  artInventoryInput[index][0] = value;
 
 	  this.setState({ artInventoryInput });
-	  // console.log(this.state.artInventoryInput);
 	}
 
 
@@ -777,26 +774,27 @@ class InventoryGamePadAddItemForm extends Component {
 	  this.setState({ artInventoryQuantity });
 	}
 
-	handleInventoryPriceChange = (e) => {
-	  var value = e.target.value;
+	handleInventoryPriceChange = (e, maskedvalue, floatvalue) => {
 	  var token = e.target.name;
 
 	  var artInventoryPrice = this.state.artInventoryPrice;
 	  var artInventoryTracker = this.state.artInventoryTracker;
 	  var index = artInventoryTracker.indexOf(token);
 
-	  artInventoryPrice[index] = value;
+	  artInventoryPrice[index] = maskedvalue;
 
 	  this.setState({ artInventoryPrice });
 	}
 
-	handleInventorySalePriceChange = (e) => {
+	handleInventorySalePriceChange = (e, maskedvalue, floatvalue) => {
 	  var value = e.target.value;
 	  var token = e.target.name;
 
 	  var artInventorySalePrice = this.state.artInventorySalePrice;
 	  var artInventoryTracker = this.state.artInventoryTracker;
 	  var index = artInventoryTracker.indexOf(token);
+
+		console.log(value);
 
 	  artInventorySalePrice[index] = value;
 
@@ -836,69 +834,92 @@ class InventoryGamePadAddItemForm extends Component {
 
 
 	handleInventoryUnitInputDropdownOpen = (e) => {
-	  var artInventoryUnitDropdownOpen = this.state.artInventoryUnitDropdownOpen;
-	  if (artInventoryUnitDropdownOpen) {
-	    artInventoryUnitDropdownOpen = false;
+	  var inventoryUnitDropdownOpen = this.state.inventoryUnitDropdownOpen;
+	  if (inventoryUnitDropdownOpen) {
+	    inventoryUnitDropdownOpen = false;
 	  } else {
-	    artInventoryUnitDropdownOpen = true;
+	    inventoryUnitDropdownOpen = true;
 	  }
 
-	  this.setState({ artInventoryUnitDropdownOpen });
+	  this.setState({ inventoryUnitDropdownOpen });
 	}
 
 	handleInventoryCurrencyInputDropdownOpen = (e) => {
-	  var artInventoryCurrencyDropdownOpen = this.state.artInventoryCurrencyDropdownOpen;
-	  if (artInventoryCurrencyDropdownOpen) {
-	    artInventoryCurrencyDropdownOpen = false;
+	  var inventoryCurrencyDropdownOpen = this.state.inventoryCurrencyDropdownOpen;
+	  if (inventoryCurrencyDropdownOpen) {
+	    inventoryCurrencyDropdownOpen = false;
 	  } else {
-	    artInventoryCurrencyDropdownOpen = true;
+	    inventoryCurrencyDropdownOpen = true;
 	  }
 
-		console.log(this.state.artInventoryCurrencyDropdownOpen);
+		console.log(this.state.inventoryCurrencyDropdownOpen);
 
-	  this.setState({ artInventoryCurrencyDropdownOpen });
+	  this.setState({ inventoryCurrencyDropdownOpen });
 	}
 
 
 
 	handleInventoryUnitSelection = (e) => {
-	  var artInventoryUnit = e.target.innerHTML;
-	  this.setState({ artInventoryUnit });
-	  this.setState({ artInventoryUnitDropdownOpen: false });
+	  var inventoryUnit = e.target.innerHTML;
+	  this.setState({ inventoryUnit });
+	  this.setState({ inventoryUnitDropdownOpen: false });
+	}
+
+	handleInventoryCurrencySelection = (e) => {
+	  var inventoryCurrency = e.target.innerHTML;
+	  this.setState({ inventoryCurrency });
+	  this.setState({ inventoryCurrencyDropdownOpen: false });
 	}
 
 
-	handleArtInventoryCardAddition = (e) => {
-	  var count = `${this.state.artInventoryCount + 1}`;
-	  var artInventoryTracker = this.state.artInventoryTracker;
-		artInventoryTracker.push(count);
+	handleArtInventoryCardAdditionOrDeletion = (e) => {
+		var task = e.target.innerHTML;
+		const target = e.target;
+		const name = target.name;
 
-	  var artInventoryInput = this.state.artInventoryInput;
-	  artInventoryInput.push(["height", "width"]);
-
+		var artInventoryTracker = this.state.artInventoryTracker;
+		var artInventoryInput = this.state.artInventoryInput;
 		var artInventoryPrice = this.state.artInventoryPrice;
-	  artInventoryPrice.push(["$ _"]);
-
 		var artInventorySalePrice = this.state.artInventorySalePrice;
-	  artInventorySalePrice.push(["$ _"]);
-
 		var artInventoryQuantity = this.state.artInventoryQuantity;
-	  artInventoryQuantity.push(["#"]);
 
-	  this.setState({
-			artInventoryTracker,
-			artInventoryCount: parseInt(count),
-			artInventoryInput,
-			artInventoryPrice,
-			artInventorySalePrice,
-			artInventoryQuantity
-		});
+		if (task === '+') {
+			var count = `${this.state.artInventoryCount + 1}`;
+			artInventoryTracker.push(count);
+		  artInventoryInput.push(["", ""]);
+		  artInventoryPrice.push([""]);
+		  artInventorySalePrice.push([""]);
+		  artInventoryQuantity.push(["#"]);
+
+			this.setState({
+				artInventoryTracker,
+				artInventoryCount: parseInt(count),
+				artInventoryInput,
+				artInventoryPrice,
+				artInventorySalePrice,
+				artInventoryQuantity
+			});
+		}
+
+		if (task === '-' && artInventoryTracker[1]) {
+			var index = artInventoryTracker.indexOf(name);
+			var count = `${this.state.artInventoryCount - 1}`;
+			artInventoryTracker.splice(index, 1);
+		  artInventoryInput.splice(index, 1);
+		  artInventoryPrice.splice(index, 1);
+		  artInventorySalePrice.splice(index, 1);
+		  artInventoryQuantity.splice(index, 1);
+
+			this.setState({
+				artInventoryTracker,
+				artInventoryCount: parseInt(count),
+				artInventoryInput,
+				artInventoryPrice,
+				artInventorySalePrice,
+				artInventoryQuantity
+			});
+		}
 	}
-
-
-
-
-
 
 
 
@@ -1205,8 +1226,6 @@ class InventoryGamePadAddItemForm extends Component {
                     selectedOptions={this.state.selectedJewelryArticleTypes} />
               </div>
             </div>
-
-
 
             <div id="add_item_article_time_log_container">
               <label id="add_item_time_log_label_hours" className="add_item_time_log_label"> Hours: </label>
@@ -1593,14 +1612,40 @@ class InventoryGamePadAddItemForm extends Component {
               Select A Category To Render Sizing Field
             </div>
 
+						<div
+							id="add_item_inventory_measurement_unit_dropdown"
+							className={"" + ((this.state.selectedCategory.indexOf('Visual Art') > -1 || this.state.selectedCategory.indexOf('Jewelry') > -1) ? 'show' : 'hidden')}
+							onClick={this.handleInventoryUnitInputDropdownOpen} >
+							{this.state.inventoryUnit}
+						</div>
+						<div id="add_item_inventory_measurement_unit_dropdown_menu" className={'' + (this.state.inventoryUnitDropdownOpen ? 'show highlight': 'hidden')}>
+							{measurement_units.map(measurement => {
+								return (
+									<li key={measurement} className="add_item_art_inventory_dropdown_list_item" onClick={this.handleInventoryUnitSelection}>{measurement}</li>
+								);
+							})}
+						</div>
+
+						<div
+							id="add_item_art_inventory_currency_unit_dropdown"
+							className={"" + (this.state.selectedCategory[0] ? 'show' : 'hidden')}
+							onClick={this.handleInventoryCurrencyInputDropdownOpen} >
+							{this.state.inventoryCurrency}
+						</div>
+						<div id="add_item_art_inventory_currency_unit_dropdown_menu" className={'' + (this.state.inventoryCurrencyDropdownOpen ? 'show highlight' : 'hidden')}>
+							{currencies.map(currency => {
+								return (
+									<li key={currency} className="add_item_art_inventory_dropdown_list_item" onClick={this.handleInventoryCurrencySelection}>{currency}</li>
+								);
+							})}
+						</div>
+
             <ArtInventoryField
 							selectedCategory={this.state.selectedCategory}
 							artInventoryUnitDropdownOpen={this.state.artInventoryUnitDropdownOpen}
 							artInventoryCurrencyDropdownOpen={this.state.artInventoryCurrencyDropdownOpen}
-							artInventoryUnit={this.state.artInventoryUnit}
-							artInventoryCurrency={this.state.artInventoryCurrency}
-							measurementUnits={measurement_units}
-							currencies={currencies}
+							InventoryUnit={this.state.artInventoryUnit}
+							InventoryCurrency={this.state.artInventoryCurrency}
               artInventoryTracker={this.state.artInventoryTracker}
               artInventoryInput={this.state.artInventoryInput}
 							artInventoryQuantity={this.state.artInventoryQuantity}
@@ -1609,18 +1654,13 @@ class InventoryGamePadAddItemForm extends Component {
 							itemOnSaleTracker={this.state.itemOnSaleTracker}
 							itemOnSaleDeclarations={this.state.itemOnSaleDeclarations}
 
-              handleInventoryUnitInputDropdownOpen={this.handleInventoryUnitInputDropdownOpen}
-							handleInventoryCurrencyInputDropdownOpen={this.handleInventoryCurrencyInputDropdownOpen}
-              handleInventoryUnitSelection={this.handleInventoryUnitSelection}
-							handleInventoryCurrencySelection={this.handleInventoryCurrencySelection}
               handleInventoryInputLowendChange={this.handleInventoryInputLowendChange}
               handleInventoryInputHighendChange={this.handleInventoryInputHighendChange}
 							handleInventoryQuantityChange={this.handleInventoryQuantityChange}
 							handleInventoryPriceChange={this.handleInventoryPriceChange}
 							handleInventorySalePriceChange={this.handleInventorySalePriceChange}
 							handleItemOnSaleSelection={this.handleItemOnSaleSelection}
-              handleArtInventoryInputAddition={this.handleArtInventoryInputAddition}
-							handleArtInventoryCardAddition={this.handleArtInventoryCardAddition}
+							handleArtInventoryCardAdditionOrDeletion={this.handleArtInventoryCardAdditionOrDeletion}
               />
 
             <ClothingSizingField
