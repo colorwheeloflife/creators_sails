@@ -64,6 +64,7 @@ const ArtInventoryCardGroup = (props) => (
 		              className="add_item_art_inventory_quantity_input"
 		              name={option}
 		              type="text"
+									placeholder="#"
 		              value={props.quantityValue[ props.options.indexOf(option) ]}
 		              onChange={props.handleInventoryQuantityChange} />
 							</div>

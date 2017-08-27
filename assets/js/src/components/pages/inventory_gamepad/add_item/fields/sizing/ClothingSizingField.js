@@ -5,7 +5,8 @@ import CheckboxOrRadioWithoutOptionDisplay from '../../../../../reusables/Checkb
 
 const ClothingSizingField = (props) => (
 		<div id="clothing_sizing_field" className={'' + (props.selectedCategory.indexOf('Clothing') > -1 ? 'show' : 'hidden')}>
-			<div id="add_item_clothing_sizing_bar">
+
+			<div id="add_item_clothing_sizing_bar_container">
 				<ClothingSizingBar
 					options={props.clothingSizingOptions}
 					handleClothingSizeCountChange={props.handleClothingSizeCountChange}
