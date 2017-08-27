@@ -5,16 +5,14 @@ import ArtInventoryCardGroup from './pieces/ArtInventoryCardGroup';
 const ArtInventoryField = (props) => (
 	<div id="art_inventory_field" className={'' + (props.selectedCategory.indexOf('Visual Art') > -1 ? 'show' : 'hidden')}>
 		<div id="add_item_art_inventory_measurement_unit_dropdown" onClick={props.handleInventoryUnitInputDropdownOpen}>{props.artInventoryUnit}</div>
-
 		<div id="add_item_art_inventory_measurement_unit_dropdown_menu" className={'' + (props.artInventoryUnitDropdownOpen ? 'show highlight': 'hidden')}>
-
 			{props.measurementUnits.map(measurement => {
 				return (
 					<li key={measurement} className="add_item_art_inventory_dropdown_list_item" onClick={props.handleInventoryUnitSelection}>{measurement}</li>
 				);
 			})}
-
 		</div>
+
 		<div id="add_item_art_inventory_currency_unit_dropdown" onClick={props.handleInventoryCurrencyInputDropdownOpen}>{props.artInventoryCurrency}</div>
 		<div id="add_item_art_inventory_currency_unit_dropdown_menu" className={'' + (props.artInventoryCurrencyDropdownOpen ? 'show highlight' : 'hidden')}>
 			{props.currencies.map(currency => {
@@ -38,18 +36,14 @@ const ArtInventoryField = (props) => (
 			salePriceValue={props.artInventorySalePrice}
 			itemOnSaleTracker={props.itemOnSaleTracker}
 			itemOnSaleDeclarations={props.itemOnSaleDeclarations}
-
 			handleInventoryInputLowendChange={props.handleInventoryInputLowendChange}
 			handleInventoryInputHighendChange={props.handleInventoryInputHighendChange}
 			handleInventoryQuantityChange={props.handleInventoryQuantityChange}
 			handleInventoryPriceChange={props.handleInventoryPriceChange}
 			handleInventorySalePriceChange={props.handleInventorySalePriceChange}
 			handleItemOnSaleSelection={props.handleItemOnSaleSelection}
-
 			handleArtInventoryCardAddition={props.handleArtInventoryCardAddition}
 			/>
-
-
 	</div>
 );
 

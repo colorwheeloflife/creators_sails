@@ -8,6 +8,7 @@ import MultiSelectField from '../../../reusables/MultiSelectField';
 import CheckboxOrRadioGroup from '../../../reusables/CheckboxOrRadioGroup';
 import CheckboxOrRadioWithoutOptionDisplay from '../../../reusables/CheckboxOrRadioWithoutOptionDisplay';
 import CheckboxOrRadioWithOptionDisplay from '../../../reusables/CheckboxOrRadioWithOptionDisplay';
+import CheckboxOrRadioDuoWithOptionDisplay from '../../../reusables/CheckboxOrRadioDuoWithOptionDisplay';
 import TagGroup from '../../../reusables/TagGroup';
 
 import ArtInventoryField from './fields/sizing/ArtInventoryField';
@@ -60,15 +61,18 @@ class InventoryGamePadAddItemForm extends Component {
     super(props);
 
     this.state = {
+			itemName: "",
       files: [],
+			intentionStatement: "",
 			useAsDescription: [true],
+			description: "",
 			selectedCategory: [],
 			selectedClothingArticleTypes: [],
       selectedJewelryArticleTypes: [],
 
       timeLogHours: "",
       timeLogMinutes: "",
-      timeLogPrecisionSelection: [],
+      timeLogPrecisionSelection: "",
 
 			subCategoryDropdownOpen: false,
       subCategoryInputValue: "",
@@ -105,7 +109,6 @@ class InventoryGamePadAddItemForm extends Component {
 			artInventoryQuantity: ["#"],
 			artInventoryPrice: ["$ _"],
 			artInventorySalePrice: ["$ _"],
-
 			itemOnSaleTracker: ["1"],
       itemOnSaleCount: 1,
       itemOnSaleDeclarations: ["0"],
@@ -136,6 +139,126 @@ class InventoryGamePadAddItemForm extends Component {
   }
 
   componentDidMount() {}
+
+
+	handlePreSubmit = () => {
+		var name = this.state.itemName;
+		var images = this.state.files;
+		var intention_statement = this.state.intentionStatement;
+		var use_as_description = this.state.useAsDescription;
+		var description = this.state.description;
+		var category = this.state.selectedCategory;
+
+		var article_type;
+
+		var time_log_minutes = (parseFloat(this.state.timeLogHours) * 60) + parseFloat(this.state.timeLogMinutes);
+		var time_log_precision = this.state.timeLogPrecisionSelection
+
+		var subcategories = this.state.subCategoryTagSelections;
+		var vibes = this.state.vibeTagSelections
+		var materials = this.state.materialTagSelections
+		var colors = this.state.colorTagSelections
+		var techniques = this.state.techniqueTagSelections
+		var standard_tags = this.state.standardTagSelections
+
+		var sizes;
+		var inventory;
+
+		var measurment_unit = this.state.artInventoryUnit; // **
+		var currency = this.state.artInventoryCurrency;
+		var prices;
+		var on_sale_declarations;
+		var sale_prices;
+
+		var shipping_origin = this.state.shippingOriginSelections;
+		var processing_time = this.state.shippingProcessingTimeSelections;
+
+		var shipping_destinations = this.state.shippingDestinations;
+		var shipping_costs = this.state.shippingDestinationCosts;
+
+
+		switch(category) {  // **
+			case 'Visual Art':
+				sizes = this.state.artInventoryInput;
+				inventory = this.state.artInventoryQuantity;
+				prices = this.state.artInventoryPrice;
+				on_sale_declarations = this.state.itemOnSaleDeclarations;
+				sale_prices = this.state.artInventorySalePrice;
+				break;
+			case 'Clothing':
+				article_type = this.state.selectedClothingArticleTypes;
+				sizes = this.state.clothingSizingOptions;
+				inventory = this.state.clothingSizingCounts; // ** what is going on here?
+				prices = this.state.clothingInventoryPrice;
+				on_sale_declarations = this.state.clothingItemOnSaleDeclarations;
+				sale_prices = this.state.clothingInventorySalePrice;
+				break;
+			case 'Jewelry': // **
+				article_type = this.state.selectedJewelryArticleTypes;
+				// sizes =
+				// inventory =
+				break;
+			default:
+				console.log('no matching category selected.');
+		}
+
+
+
+		console.log('name: ', name);
+		console.log('images: ', images);
+		console.log('intention: ', intention_statement);
+		console.log('use for description: ', use_as_description);
+		console.log('description: ', description);
+		console.log('category: ', category);
+		console.log('article type: ', article_type);
+		console.log('time log minutes: ', time_log_minutes);
+		console.log('time log precision: ', time_log_precision); // single checkbox needs to be rebuilt, set this one to a double
+		console.log('subcategories: ', subcategories);
+		console.log('vibes: ', vibes);
+		console.log('materials: ', materials);
+		console.log('colors: ', colors);
+		console.log('techniques: ', techniques);
+		console.log('standard tags: ', standard_tags);
+		console.log('sizes: ', sizes);
+		console.log('inventory: ', inventory);
+		console.log('measurement units: ', measurment_unit);
+		console.log('currency: ', currency); // add to outside of art, nothing happens when clicked
+		console.log('prices: ', prices);
+		console.log('on sale?: ', on_sale_declarations);
+		console.log('sale prices: ', sale_prices);
+		console.log('shipping origin: ', shipping_origin);
+		console.log('processing time: ', processing_time);
+		console.log('shipping destinations: ', shipping_destinations);
+		console.log('shipping costs:', shipping_costs); // need to merge functions together
+
+
+    var values_obj = {};
+  }
+
+	handleItemNameChange = (e) => {
+		var target = e.target;
+		var value = target.value;
+		var name = target.name;
+
+		this.setState({ itemName: value });
+	}
+
+	handleIntentionStatementChange = (e) => {
+		var target = e.target;
+		var value = target.value;
+		var name = target.name;
+
+		this.setState({ intentionStatement: value });
+	}
+
+	handleDescriptionChange = (e) => {
+		var target = e.target;
+		var value = target.value;
+		var name = target.name;
+
+		this.setState({ description: value });
+	}
+
 
 
   onDrop = (acceptedFiles, rejectedFiles) => {
@@ -212,9 +335,11 @@ class InventoryGamePadAddItemForm extends Component {
     function updateSelection(container) {
       if (value) {
         container.push(name);
+				return container;
       } else {
         var index = container.indexOf(name);
         container.splice(index, 1);
+				return container;
       }
     }
 	}
@@ -230,8 +355,10 @@ class InventoryGamePadAddItemForm extends Component {
   }
 
   handleTimeLogPrecisionSelection = (e) => {
+		console.log(e);
     var target = e.target;
     var name = e.target.name;
+		console.log(name);
 
     this.setState({ timeLogPrecisionSelection: [name] });
   }
@@ -831,28 +958,25 @@ class InventoryGamePadAddItemForm extends Component {
 
 	handleInventoryClothingPriceChange = (e) => {
 	  var value = e.target.value;
-	  var token = e.target.name;
+	  // var token = e.target.name;
 
-	  var clothingInventoryPrice = this.state.clothingInventoryPrice;
-	  var clothingInventoryTracker = this.state.clothingInventoryTracker;
-	  var index = clothingInventoryTracker.indexOf(token);
+	  // var clothingInventoryPrice = this.state.clothingInventoryPrice;
+	  // var clothingInventoryTracker = this.state.clothingInventoryTracker;
+	  // var index = clothingInventoryTracker.indexOf(token);
 
-	  clothingInventoryPrice[index] = value;
+	  this.setState({ clothingInventoryPrice: value });
 
-	  this.setState({ clothingInventoryPrice });
 	}
 
 	handleInventoryClothingSalePriceChange = (e) => {
 	  var value = e.target.value;
-	  var token = e.target.name;
+	  // var token = e.target.name;
 
-	  var clothingInventorySalePrice = this.state.clothingInventorySalePrice;
-	  var clothingInventoryTracker = this.state.clothingInventoryTracker;
-	  var index = clothingInventoryTracker.indexOf(token);
+	  // var clothingInventorySalePrice = this.state.clothingInventorySalePrice;
+	  // var clothingInventoryTracker = this.state.clothingInventoryTracker;
+	  // var index = clothingInventoryTracker.indexOf(token);
 
-	  clothingInventorySalePrice[index] = value;
-
-	  this.setState({ clothingInventorySalePrice });
+	  this.setState({ clothingInventorySalePrice: value });
 	}
 
 
@@ -933,8 +1057,17 @@ class InventoryGamePadAddItemForm extends Component {
     this.setState({ shippingDestinationCosts });
   }
 
-  handleAdditionalItemsShippingCost = (e) => {
+  handleEachAdditionalItemShippingCost = (e) => {
+		var value = e.target.value;
+    var name = e.target.name;
 
+    var shippingDestinations = this.state.shippingDestinations;
+    var index = shippingDestinations.indexOf(name);
+    var shippingDestinationCosts = this.state.shippingDestinationCosts;
+
+    shippingDestinationCosts[index][1] = value;
+
+    this.setState({ shippingDestinationCosts });
   }
 
   handleAdditionalShippingDestination = (e) => {
@@ -942,9 +1075,7 @@ class InventoryGamePadAddItemForm extends Component {
   }
 
 
-  handlePreSubmit = () => {
-    var values_obj = {};
-  }
+
 
 
   render() {
@@ -955,13 +1086,19 @@ class InventoryGamePadAddItemForm extends Component {
 
 
         <form className="inventory_gamepad_add_item_form" onSubmit={ this.props.handleSubmit }>
-          <h1 className="inventory_gamepad_content_window_title"> Add Item </h1>
+
+          <h1 className="inventory_gamepad_content_window_title"> Add A New Item </h1>
 
           <div id="add_item_name_entry_container" className="form-group">
             <label id="add_item_name_entry_title" htmlFor="name">Name:</label>
-            <Field id="add_item_name_entry_input" className="form-control" name="name" component="input" type="text" />
+            <Field
+							id="add_item_name_entry_input"
+							className="form-control"
+							name="name"
+							component="input"
+							onChange={this.handleItemNameChange}
+							type="text" />
           </div>
-
 
           <div id="add_item_picture_reel_container">
             <div id="add_item_picture_dropzone_upload">
@@ -969,7 +1106,7 @@ class InventoryGamePadAddItemForm extends Component {
                 <div>Try dropping some files here, or click to select files to upload.</div>
               </Dropzone>
               <button type="button" id="add_item_dropzone_btn" className="btn btn-primary" onClick={this.onDropzoneOpenClick}>
-                  Open Dropzone
+                  Open From Files
               </button>
             </div>
             {this.state.files ? <div id="add_item_picture_previews_container">
@@ -985,36 +1122,40 @@ class InventoryGamePadAddItemForm extends Component {
             </div> : null}
           </div>
 
-
           <div id="add_item_intention_statement_container" className="form-group">
             <label id="add_item_intention_statement_entry_title" htmlFor="intention_statement">Intention Statement:</label>
-            <div id="add_item_intention_statement_entry_gist">
-              Gist gist gist gist gist gist gist gist gist gist gist gist gist gist gist gist gist gist gist gist gist gist gist gist gist gist
-            </div>
-            <Field id="add_item_intention_statement_entry_input" className="form-control" name="intention_statement" component="textarea" type="text" />
+            <Field
+							id="add_item_intention_statement_entry_input"
+							className="form-control"
+							name="intention_statement"
+							component="textarea"
+							onChange={this.handleIntentionStatementChange}
+							type="text" />
           </div>
-
 
           <div id="add_item_use_as_description_container">
-              <CheckboxOrRadioGroup
-                  id="add_item_use_as_description_checkbox"
-                  divClassName="checkbox-group no_label_checkbox"
-                  labelClassName="form-label capitalize"
-                  inputClassName="form-checkbox"
-                  controlFunc={this.handleUseAsDescriptionSelection}
-                  type={'checkbox'}
-                  options={trueness}
-                  selectedOptions={this.state.useAsDescription} />
-              <label id="add_item_use_as_description_label" htmlFor="use_as_description">Use as description?</label>
+            <CheckboxOrRadioGroup
+                id="add_item_use_as_description_checkbox"
+                divClassName="checkbox-group no_label_checkbox"
+                labelClassName="form-label capitalize"
+                inputClassName="form-checkbox"
+                controlFunc={this.handleUseAsDescriptionSelection}
+                type={'checkbox'}
+                options={trueness}
+                selectedOptions={this.state.useAsDescription} />
+            <label id="add_item_use_as_description_label" htmlFor="use_as_description">Use as description?</label>
           </div>
-
 
           <div id="add_item_description_container" className={"form-group " + (this.state.useAsDescription[0] ? 'hidden' : 'show')}>
             <label id="add_item_description_entry_title" htmlFor="description">Description:</label>
-            <Field id="add_item_description_entry_input" className="form-control" name="description" component="textarea" type="text" />
+            <Field
+							id="add_item_description_entry_input"
+							className="form-control"
+							name="description"
+							component="textarea"
+							onChange={this.handleDescriptionChange}
+							type="text" />
           </div>
-
-
 
 
 
@@ -1035,9 +1176,7 @@ class InventoryGamePadAddItemForm extends Component {
             </div>
 
             <div id="add_item_article_type_container" className={'' + (this.handleArticleTypeShowValidation(this.state.selectedCategory) === true ? 'show' : 'hidden')}>
-
               <label id="add_item_article_type_selection_label" className="form_field_title_label">Article Type Selection:</label>
-
               <div className={"" + (this.state.selectedCategory.indexOf('Clothing') > -1 ? 'show' : 'hidden')}>
                 <CheckboxOrRadioGroup
                     id="add_item_clothing_article_type_selection_radio_group"
@@ -1070,9 +1209,7 @@ class InventoryGamePadAddItemForm extends Component {
 
 
             <div id="add_item_article_time_log_container">
-
               <label id="add_item_time_log_label_hours" className="add_item_time_log_label"> Hours: </label>
-
               <input
                 id="add_item_time_log_input_hours"
                 className="add_item_time_log_input"
@@ -1080,9 +1217,7 @@ class InventoryGamePadAddItemForm extends Component {
                 type="text"
                 value={this.state.timeLogHours}
                 onChange={this.handleTimeLogHoursInputChange} />
-
               <label id="add_item_time_log_label_minutes" className="add_item_time_log_label"> Minutes: </label>
-
               <input
                 id="add_item_time_log_input_minutes"
                 className="add_item_time_log_input"
@@ -1091,33 +1226,17 @@ class InventoryGamePadAddItemForm extends Component {
                 value={this.state.timeLogMinutes}
                 onChange={this.handleTimeLogMinutesInputChange} />
 
-              <CheckboxOrRadioWithOptionDisplay
-                id="add_item_time_log_exact_time_radio"
-                divClassName="checkbox-group add_item_time_log_precision_container"
-                inputClassName="form-checkbox"
-                controlFunc={this.handleTimeLogPrecisionSelection}
-                type={'radio'}
-                options="exact"
-                selectedOptions={this.state.timeLogPrecisionSelection}
-              />
-
-              <CheckboxOrRadioWithOptionDisplay
-                id="add_item_time_log_approx_time_radio"
-                divClassName="checkbox-group add_item_time_log_precision_container"
-                inputClassName="form-checkbox"
-                controlFunc={this.handleTimeLogPrecisionSelection}
-                type={'radio'}
-                options="approximate"
-                selectedOptions={this.state.timeLogPrecisionSelection}
-              />
-
-
-
+							<CheckboxOrRadioDuoWithOptionDisplay
+								id="add_item_time_log_precision_radio_duo"
+								divClassName="checkbox-group add_item_time_log_precision_container"
+								inputClassName="form-checkbox"
+								controlFunc={this.handleTimeLogPrecisionSelection}
+								type={'radio'}
+								options={["exact", "approximate"]}
+								selectedOptions={this.state.timeLogPrecisionSelection}
+							/>
             </div>
-
           </div>
-
-
 
 
 
@@ -1180,7 +1299,6 @@ class InventoryGamePadAddItemForm extends Component {
               </div>
             </div>
 
-
             <div id="add_item_article_vibe_tagging_container">
 							<div className="add_item_tagging_titlehead_label">Vibe Tagging</div>
 							<div className="add_item_tagging_input_container">
@@ -1237,7 +1355,6 @@ class InventoryGamePadAddItemForm extends Component {
 								</Scrollbars>
 							</div>
 						</div>
-
 
             <div id="add_item_article_material_tagging_container">
 							<div className="add_item_tagging_titlehead_label">Material Tagging</div>
@@ -1296,7 +1413,6 @@ class InventoryGamePadAddItemForm extends Component {
 							</div>
 						</div>
 
-
 	          <div id="add_item_article_color_tagging_container">
 							<div className="add_item_tagging_titlehead_label">Color Tagging</div>
 							<div className="add_item_tagging_input_container">
@@ -1354,7 +1470,6 @@ class InventoryGamePadAddItemForm extends Component {
 							</div>
 						</div>
 
-
             <div id="add_item_article_technique_tagging_container">
 							<div className="add_item_tagging_titlehead_label">Technique Tagging</div>
 							<div className="add_item_tagging_input_container">
@@ -1411,7 +1526,6 @@ class InventoryGamePadAddItemForm extends Component {
 								</Scrollbars>
 							</div>
 						</div>
-
 
             <div id="add_item_article_tag_tagging_container">
 							<div className="add_item_tagging_titlehead_label">Standard Tagging</div>
@@ -1474,8 +1588,6 @@ class InventoryGamePadAddItemForm extends Component {
 
 
 
-
-
           <div id="add_item_article_inventory_container">
             <div id="add_item_inventory_container_empty_message" className={"" + (this.state.selectedCategory[0] ? 'hidden' : 'show')}>
               Select A Category To Render Sizing Field
@@ -1520,8 +1632,9 @@ class InventoryGamePadAddItemForm extends Component {
 							clothingItemOnSaleDeclarations={this.state.clothingItemOnSaleDeclarations}
 							falseness={falseness}
 
+							handleClothingSizeCountChange={this.handleClothingSizeCountChange}
 							handleInventoryClothingPriceChange={this.handleInventoryClothingPriceChange}
-							handleClothingInventorySalePriceChange={this.handleInventorySalePriceChange}
+							handleInventoryClothingSalePriceChange={this.handleInventoryClothingSalePriceChange}
 							handleClothingItemOnSaleSelection={this.handleClothingItemOnSaleSelection}
               />
 
@@ -1538,7 +1651,6 @@ class InventoryGamePadAddItemForm extends Component {
 
 
           <div id="add_item_article_shipping_container">
-
             <div id="add_item_shipping_origin_selection_container">
               <div id="add_item_shipping_origin_col_1">
                 <label id="add_item_shipping_origin_selection_label" className="add_item_shipping_origin_label"> Shipping Origin </label>
@@ -1578,9 +1690,7 @@ class InventoryGamePadAddItemForm extends Component {
               tbodyID="add_item_shipping_body"
               inputOneItemClassName="add_item_article_shipping_input add_item_article_shipping_input_one_item"
               inputAdditionalItemsClassName="add_item_article_shipping_input add_item_article_shipping_additional_items"
-
               headerOptions={['Destination', 'One Item', 'Each Additional Item']}
-
               bodyOptions={this.state.shippingDestinations}
               value={this.state.shippingDestinationCosts}
               handleOneItemShippingCost={this.handleOneItemShippingCost}
@@ -1589,7 +1699,13 @@ class InventoryGamePadAddItemForm extends Component {
             />
           </div>
 
-          <button type="submit" id="add_item_submission_btn" className="btn btn-primary"> Submit </button>
+          <button
+						type="submit"
+						id="add_item_submission_btn"
+						className="btn btn-primary"
+						onClick={this.handlePreSubmit}>
+						Submit
+					</button>
 
         </form>
       </div>
@@ -1607,15 +1723,6 @@ export default InventoryGamePadAddItemForm;
 
 
 /*
-
-
-
-
-
-
-
-
-
 
 
 <div id="add_item_article_placement_container"> Placement </div>

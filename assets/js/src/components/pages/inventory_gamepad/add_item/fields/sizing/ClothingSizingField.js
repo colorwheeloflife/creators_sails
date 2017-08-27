@@ -1,11 +1,9 @@
 import React from 'react'
-
 import ClothingSizingBar from './pieces/ClothingSizingBar';
 import CheckboxOrRadioWithoutOptionDisplay from '../../../../../reusables/CheckboxOrRadioWithoutOptionDisplay';
 
 const ClothingSizingField = (props) => (
 		<div id="clothing_sizing_field" className={'' + (props.selectedCategory.indexOf('Clothing') > -1 ? 'show' : 'hidden')}>
-
 			<div id="add_item_clothing_sizing_bar">
 				<ClothingSizingBar
 					options={props.clothingSizingOptions}
@@ -21,7 +19,7 @@ const ClothingSizingField = (props) => (
 						className="add_item_clothing_inventory_price_input"
 						type="text"
 						value={props.clothingInventoryPrice}
-						onChange={props.handleInventoryPriceChange} />
+						onChange={props.handleInventoryClothingPriceChange} />
 					<label className="add_item_clothing_inventory_on_sale_checkbox_label" htmlFor="item_on_sale">On Sale?</label>
 					<CheckboxOrRadioWithoutOptionDisplay
 							id=""
@@ -30,9 +28,6 @@ const ClothingSizingField = (props) => (
 							controlFunc={props.handleClothingItemOnSaleSelection}
 							type={'checkbox'}
 							selectedOption={props.clothingItemOnSaleDeclarations} />
-
-
-
 					<input
 						className={"add_item_clothing_inventory_price_input add_item_clothing_inventory_sale_price_input " + (props.clothingItemOnSaleDeclarations ? 'show' : 'hidden')}
 						type="text"
@@ -40,7 +35,6 @@ const ClothingSizingField = (props) => (
 						onChange={props.handleInventoryClothingSalePriceChange} />
 				</div>
 			</div>
-
     </div>
 );
 

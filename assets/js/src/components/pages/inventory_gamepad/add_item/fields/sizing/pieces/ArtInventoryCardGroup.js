@@ -1,6 +1,5 @@
 import React from 'react'
-
-import CheckboxOrRadioWithoutOptionDisplay from '../../../../../../reusables/CheckboxOrRadioWithOptionDisplay';
+import CheckboxOrRadioWithoutOptionDisplay from '../../../../../../reusables/CheckboxOrRadioWithoutOptionDisplay';
 
 const ArtInventoryCardGroup = (props) => (
 		<div className={props.groupClassName}>
@@ -10,9 +9,7 @@ const ArtInventoryCardGroup = (props) => (
 			<span id="add_item_art_inventory_column_quantity_title" className="add_item_art_inventory_column_title">Quantity</span>
 			{props.options.map(option => {
 				return (
-
           <div className={props.cardClassName} key={option}>
-
 						<div className="add_item_art_inventory_sizing_inputs_container">
 							<input
 	              className={props.inputLowendClassName}
@@ -28,6 +25,7 @@ const ArtInventoryCardGroup = (props) => (
 	              value={props.sizingValue[ props.options.indexOf(option) ][1]}
 	              onChange={props.handleInventoryInputHighendChange} />
 						</div>
+
 						<div className="add_item_art_inventory_price_container">
 							<input
 	              className="add_item_art_inventory_price_input"
@@ -60,11 +58,7 @@ const ArtInventoryCardGroup = (props) => (
 	              value={props.quantityValue[ props.options.indexOf(option) ]}
 	              onChange={props.handleInventoryQuantityChange} />
 						</div>
-
-
-
           </div>
-
 				);
 			})}
 			<div id="add_item_art_inventory_input_addition_btn" onClick={props.handleArtInventoryCardAddition}> + </div>
