@@ -21,22 +21,9 @@ module.exports = {
       type: 'string'
     },
 
-    price: {
-      type: 'number'
-    },
-
-    sale_price: {
-      type: 'number'
-    },
-
-    on_sale: {
-      type: 'boolean'
-    },
-
     publishing_status: {
       type: 'string'
     },
-
 
 
     shop: {

@@ -9,6 +9,18 @@ module.exports = {
 
   attributes: {
 
+    price: {
+      type: 'number'
+    },
+
+    sale_price: {
+      type: 'number'
+    },
+
+    on_sale: {
+      type: 'boolean'
+    },
+
     quantity: {
       type: 'number'
     },
