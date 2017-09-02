@@ -164,7 +164,7 @@ class InventoryGamePadAddItemForm extends Component {
 		var sizes;
 		var inventory;
 
-		var measurment_unit = this.state.inventoryUnit; // **
+		var measurement_unit = this.state.inventoryUnit; // **
 		var currency = this.state.inventoryCurrency;
 		var prices;
 		var on_sale_declarations;
@@ -204,35 +204,122 @@ class InventoryGamePadAddItemForm extends Component {
 
 
 
-		console.log('name: ', name);
-		console.log('images: ', images);
-		console.log('intention: ', intention_statement);
-		console.log('use for description: ', use_as_description);
-		console.log('description: ', description);
-		console.log('category: ', category);
-		console.log('article type: ', article_type);
-		console.log('time log minutes: ', time_log_minutes);
-		console.log('time log precision: ', time_log_precision); // single checkbox needs to be rebuilt, set this one to a double
-		console.log('subcategories: ', subcategories);
-		console.log('vibes: ', vibes);
-		console.log('materials: ', materials);
-		console.log('colors: ', colors);
-		console.log('techniques: ', techniques);
-		console.log('standard tags: ', standard_tags);
-		console.log('sizes: ', sizes);
-		console.log('inventory: ', inventory);
-		console.log('measurement units: ', measurment_unit);
-		console.log('currency: ', currency); // add to outside of art, nothing happens when clicked
-		console.log('prices: ', prices);
-		console.log('on sale?: ', on_sale_declarations);
-		console.log('sale prices: ', sale_prices);
-		console.log('shipping origin: ', shipping_origin);
-		console.log('processing time: ', processing_time);
-		console.log('shipping destinations: ', shipping_destinations);
-		console.log('shipping costs:', shipping_costs); // need to merge functions together
+		// console.log('name: ', name);
+		// console.log('images: ', images);
+		// console.log('intention: ', intention_statement);
+		// console.log('use for description: ', use_as_description);
+		// console.log('description: ', description);
+		// console.log('category: ', category);
+		// console.log('article type: ', article_type);
+		// console.log('time log minutes: ', time_log_minutes);
+		// console.log('time log precision: ', time_log_precision); // single checkbox needs to be rebuilt, set this one to a double
+		// console.log('subcategories: ', subcategories);
+		// console.log('vibes: ', vibes);
+		// console.log('materials: ', materials);
+		// console.log('colors: ', colors);
+		// console.log('techniques: ', techniques);
+		// console.log('standard tags: ', standard_tags);
+		// console.log('sizes: ', sizes);
+		// console.log('inventory: ', inventory);
+		// console.log('measurement units: ', measurment_unit);
+		// console.log('currency: ', currency); // add to outside of art, nothing happens when clicked
+		// console.log('prices: ', prices);
+		// console.log('on sale?: ', on_sale_declarations);
+		// console.log('sale prices: ', sale_prices);
+		// console.log('shipping origin: ', shipping_origin);
+		// console.log('processing time: ', processing_time);
+		// console.log('shipping destinations: ', shipping_destinations);
+		// console.log('shipping costs:', shipping_costs); // need to merge functions together
 
 
-    var values_obj = {};
+    var submission = {
+			name: name,
+			category: category,
+			currency: currency,
+			prices: prices
+		};
+
+		if (images) {
+			submission.images = images;
+		}
+
+		if (intention_statement) {
+			submission.intention = intention_statement;
+		}
+
+		if (description) {
+			submission.description = description;
+		}
+
+		if (article_type) {
+			submission.article_type = article_type;
+		}
+
+		if (time_log_minutes) {
+			submission.time_log = time_log_minutes;
+		}
+
+		if (time_log_precision) {
+			submission.time_log_precision = time_log_precision;
+		}
+
+		if (subcategories[0]) {
+			submission.subcategories = subcategories;
+		}
+
+		if (vibes[0]) {
+			submission.vibes = vibes;
+		}
+
+		if (materials[0]) {
+			submission.materials = materials;
+		}
+
+		if (colors[0]) {
+			submission.colors = colors;
+		}
+
+		if (techniques[0]) {
+			submission.techniques = techniques;
+		}
+
+		if (standard_tags[0]) {
+			submission.standard_tags = standard_tags;
+		}
+
+		if (sizes) {
+			submission.sizes = sizes;
+		}
+
+		if (inventory) {
+			submission.inventory = inventory;
+		}
+
+		if (measurement_unit) {
+			submission.measurement_unit = measurement_unit;
+		}
+
+		if (on_sale_declarations) {
+			submission.on_sale_declarations = on_sale_declarations;
+			submission.sale_prices = sale_prices;
+		}
+
+		if (shipping_origin) {
+			submission.shipping_origin = shipping_origin;
+		}
+
+		if (processing_time) {
+			submission.processing_time = processing_time;
+		}
+
+		if (shipping_destinations) {
+			submission.shipping_destinations = shipping_destinations;
+		}
+		if (shipping_costs) {
+			submission.shipping_costs = shipping_costs;
+		}
+
+		console.log(submission);
   }
 
 	handleItemNameChange = (e) => {

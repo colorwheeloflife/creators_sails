@@ -1,5 +1,5 @@
 /**
- * Item.js
+ * Address.js
  *
  * @description :: TODO: You might write a short summary of how this model works and what it represents here.
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
@@ -9,47 +9,36 @@ module.exports = {
 
   attributes: {
 
-    name: {
+    street_address: {
       type: 'string'
     },
 
-    description: {
+    city: {
       type: 'string'
     },
 
-    intention: {
+    province: {
       type: 'string'
     },
 
-    price: {
-      type: 'number'
+    state: {
+      type: 'string'
     },
 
-    sale_price: {
-      type: 'number'
+    country: {
+      type: 'string'
     },
 
-    on_sale: {
+    postal_code: {
+      type: 'string'
+    },
+
+    preferred_address: {
       type: 'boolean'
     },
 
-    publishing_status: {
-      type: 'string'
-    },
-
-
-
-    shop: {
-      model: 'shop'
-    },
-
-    category: {
-      model: 'category'
-    },
-
-    tags: {
-      collection: 'tag',
-      via: 'items'
+    owner: {
+      model: 'user'
     }
 
   }

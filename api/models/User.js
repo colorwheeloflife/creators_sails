@@ -1,5 +1,5 @@
 /**
- * Item.js
+ * User.js
  *
  * @description :: TODO: You might write a short summary of how this model works and what it represents here.
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
@@ -9,47 +9,47 @@ module.exports = {
 
   attributes: {
 
-    name: {
+    first_name: {
       type: 'string'
     },
 
-    description: {
+    last_name: {
       type: 'string'
     },
 
-    intention: {
+    username: {
       type: 'string'
     },
 
-    price: {
-      type: 'number'
+    dob: {
+      type: 'date'
     },
 
-    sale_price: {
-      type: 'number'
+    origin_location: {
+      type: 'string'
     },
 
-    on_sale: {
+    current_location: {
+      type: 'string'
+    },
+
+    admin: {
       type: 'boolean'
     },
 
-    publishing_status: {
-      type: 'string'
+    super_admin: {
+      type: 'boolean'
     },
 
-
-
-    shop: {
-      model: 'shop'
+    addresses: {
+      collection: 'address',
+      via: 'owner'
     },
 
-    category: {
-      model: 'category'
-    },
-
-    tags: {
-      collection: 'tag',
-      via: 'items'
+    shops: {
+      collection: 'shop',
+      via: 'owners',
+      dominant: true
     }
 
   }

@@ -1,5 +1,5 @@
 /**
- * Shop.js
+ * Size.js
  *
  * @description :: TODO: You might write a short summary of how this model works and what it represents here.
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
@@ -13,32 +13,18 @@ module.exports = {
       type: 'string'
     },
 
-    location: {
+    dimensions: {
       type: 'string'
     },
 
-    description: {
+    unit: {
       type: 'string'
     },
 
-    intention: {
-      type: 'string'
-    },
-
-    tagline: {
-      type: 'string'
-    },
-
-
-    owners: {
-      collection: 'user',
-      via: 'shops'
-    },
-
-    items: {
-      collection: 'item',
-      via: 'shop'
+    inventory: {
+      collection: 'inventory',
+      via: 'size'
     }
-
+    
   }
 };
