@@ -1222,8 +1222,6 @@ class InventoryGamePadAddItemForm extends Component {
 
     return (
       <div id="add_item_container" className={ this.props.isShowing ? "" : "hidden" }>
-
-
         <form className="inventory_gamepad_add_item_form" onSubmit={ this.props.handleSubmit }>
 
           <h1 className="inventory_gamepad_content_window_title"> Add A New Item </h1>
