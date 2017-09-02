@@ -1,5 +1,5 @@
 /**
- * Item.js
+ * Shop.js
  *
  * @description :: TODO: You might write a short summary of how this model works and what it represents here.
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
@@ -13,6 +13,10 @@ module.exports = {
       type: 'string'
     },
 
+    location: {
+      type: 'string'
+    },
+
     description: {
       type: 'string'
     },
@@ -21,36 +25,22 @@ module.exports = {
       type: 'string'
     },
 
-    price: {
-      type: 'number'
-    },
-
-    sale_price: {
-      type: 'number'
-    },
-
-    on_sale: {
-      type: 'boolean'
-    },
-
-    publishing_status: {
+    tagline: {
       type: 'string'
+    },
+
+
+    owners: {
+      collection: 'user',
+      via: 'shops'
+    }
+
+    items: {
+      collection: 'item',
+      via: 'shop'
     }
 
 
-
-    shop: {
-      collection: 'shop'
-    }
-
-    category: {
-      collection: 'category'
-    }
-
-    tags: {
-      collection: 'tag',
-      via: 'items'
-    }
 
   }
 };
