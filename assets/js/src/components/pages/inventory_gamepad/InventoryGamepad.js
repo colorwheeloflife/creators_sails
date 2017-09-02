@@ -60,6 +60,7 @@ class InventoryGamePad extends Component {
 
 	componentDidMount = () => {
 		// this.props.actions.fetchItems();
+		console.log('gamepad props', this.props);
 	}
 
 	onAddItemClick = () => {
@@ -78,10 +79,7 @@ class InventoryGamePad extends Component {
 	  });
 	}
 
-	submit = (values) => {
-		console.log(values);
-
-  }
+	submit = (values) => {}
 
   render() {
     return (
@@ -143,7 +141,8 @@ class InventoryGamePad extends Component {
 							isShowing={this.state.windowExplorer} />
 						<InventoryGamePadAddItemForm
 							isShowing={this.state.windowAddItem}
-							onSubmit={this.submit} />
+							onSubmit={this.submit}
+							addItem={this.props.actions.addItem} />
 					</div>
 
         </div>

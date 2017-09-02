@@ -51,3 +51,33 @@ export function fetchItems() {
       });
   }
 }
+
+
+
+
+export function addItem(values, callback) {
+
+  console.log('before dispatch');
+  console.log(values);
+
+  // return (dispatch) => {
+  //   console.log('pre-actions');
+  //   axios.post(`${ROOT_URL}/item`, {
+  //     name: values.name,
+  //     description: values.description
+  //   })
+  //     .then(response => {
+  //       console.log('actions');
+  //       console.log(response);
+  //       dispatch({
+  //         type: BASIC_ADD_ITEM,
+  //         payload: response.data
+  //       });
+  //       browserHistory.push('/feature');
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //       // dispatch(authError(response.data.error));
+  //     });
+  // }
+}

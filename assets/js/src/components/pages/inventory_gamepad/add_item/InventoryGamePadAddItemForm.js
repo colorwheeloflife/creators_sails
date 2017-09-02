@@ -136,9 +136,13 @@ class InventoryGamePadAddItemForm extends Component {
       shippingDestinations: ['Canada', 'USA', 'Everywhere Else'],
       shippingDestinationCosts: [["", ""], ["", ""], ["", ""]]
 		}
+
+
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+		console.log('form props', this.props);
+	}
 
 
 	handlePreSubmit = () => {
@@ -320,6 +324,8 @@ class InventoryGamePadAddItemForm extends Component {
 		}
 
 		console.log(submission);
+
+		this.props.addItem(submission);
   }
 
 	handleItemNameChange = (e) => {
