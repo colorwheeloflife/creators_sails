@@ -21,7 +21,7 @@ class InventoryAddItem extends Component {
 
     const files = this.state.files.map((file) => <img key={file.name} src={file.preview} className="picture_preview"/>)
 
-    const addItemClass = Styler(
+    const manageItemClass = Styler(
       isShowing ? "" : "hidden"
     );
 
@@ -97,7 +97,7 @@ class InventoryAddItem extends Component {
     }
 
     return (
-      <div id="inventory_add_item" className={ addItemClass }>
+      <div id="inventory_manage_item" className={ manageItemClass }>
         <div className="title">Add New Item</div>
 
         <div className="name_field_container">
@@ -243,6 +243,7 @@ class InventoryAddItem extends Component {
         </div>
 
         <Button
+          className="form_submit"
           onClick={this.handleSubmit}
           type="submit">
           Submit

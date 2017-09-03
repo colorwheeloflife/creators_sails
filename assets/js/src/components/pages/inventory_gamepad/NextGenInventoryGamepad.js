@@ -54,9 +54,9 @@ class InventoryGamepad extends Component {
           </button>
         </div>
 
-        <div id="side_panel"></div>
+        <div className="side_panel"></div>
 
-        <div id="content_window">
+        <div className="content_window">
           <InventoryExplorer
             isShowing={this.state.windowExplorer}/>
           <InventoryAddItem
