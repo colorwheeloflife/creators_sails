@@ -1,4 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
+
+import CommaJoin from '../../../lib/CommaJoin';
+
+import VibeBadge from '../../reusables/VibeBadge';
 
 const ShopProfile = (props) => {
   const { profile } = props;
@@ -26,6 +30,37 @@ const ShopProfile = (props) => {
       </div>
     );
   });
+
+  const vibe_badges = profile.tags.map((tag, index) => {
+    if ( tag.type === 'vibe' && tag.badge === true ) {
+      return (
+        <VibeBadge
+          key={ tag.name }
+          tag={ tag } />
+      );
+    }
+  });
+
+  const standard_tags_list = () => {
+    const tags = [];
+
+    const standard_tags = profile.tags.map((tag, index ) => {
+      if ( tag.badge !== true ) {
+        tags.push(tag.name);
+      }
+    });
+
+    const tags_alphabetized = tags.sort();
+    const tags_list = CommaJoin(tags)
+
+    return (
+      <div className='standard_tags'>
+        { tags_list }
+      </div>
+    );
+  }
+
+
 
   return (
     <div className='shop_profile'>
@@ -62,6 +97,13 @@ const ShopProfile = (props) => {
       </div>
 
       <div className='tag_container'>
+        <div className='vibes_badge_container'>
+          { vibe_badges }
+        </div>
+        <div className='standard_tags_container'>
+          <div className='standard_tags_label'>tags:&nbsp;</div>
+          { standard_tags_list() }
+        </div>
       </div>
     </div>
   );
@@ -72,12 +114,6 @@ export default ShopProfile;
 
 /*
 
-const vibe_badges = profile.tags.map((tag, index) {
-  if ( tag.type === 'vibe' && tag.badge === true ) {
-    return (
-      <VibeBadge tag={ tag } />
-    );
-  }
-});
+
 
 */
