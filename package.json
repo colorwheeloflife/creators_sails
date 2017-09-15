@@ -47,6 +47,7 @@
     "react-present": "^0.2.0",
     "react-redux": "^5.0.5",
     "react-router": "^2.0.1",
+    "react-router-dom": "^4.2.2",
     "react-select": "^1.0.0-rc.5",
     "redux": "^3.7.1",
     "redux-form": "^7.0.1",

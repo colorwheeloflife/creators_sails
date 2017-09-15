@@ -9,6 +9,7 @@ import Popup from 'react-popup';
 import App from './components/app';
 import BasicAddItemPage from './components/pages/add_item/BasicAddItemPage';
 import InventoryGamePad from './components/pages/inventory_gamepad/InventoryGamePad';
+import Shop from './components/pages/shop/Shop';
 import Feature from './components/feature';
 import Welcome from './components/welcome';
 import reducers from './reducers';
@@ -23,6 +24,7 @@ ReactDOM.render(
         <IndexRoute component={Welcome} />
         <Route path="basicadditem" component={BasicAddItemPage} />
         <Route path="inventory" component={InventoryGamePad} />
+        <Route path="shop" component={Shop} />
         <Route path="feature" component={Feature} />
       </Route>
     </Router>

@@ -1,5 +1,14 @@
 import React, { Component } from 'react';
-import ItemSnapshotCard from '../../../reusables/ItemSnapshotCard';
+import ItemCard from '../../../reusables/ItemCard';
+
+const properties = {
+  item: {
+    name: 'Spirit Tree',
+    artist: 'TheSpiritNectar',
+    price: 280,
+    currency: 'CA'
+  }
+};
 
 class InventoryGamePadExplorer extends Component {
   constructor(props) {
@@ -10,7 +19,7 @@ class InventoryGamePadExplorer extends Component {
     return (
       <div className={ this.props.isShowing ? "" : "hidden" }>
         <h1 className="inventory_gamepad_content_window_title"> Explorer </h1>
-
+        <ItemCard { ...properties }/>
       </div>
 		);
   }
