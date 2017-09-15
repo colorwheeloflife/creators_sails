@@ -3,6 +3,25 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import * as actions from '../../../actions';
 
+import ShopProfile from './ShopProfile';
+
+const shop_example = {
+	name: 'Sew Much Love Clothing',
+	tagline: 'Clothing Made From The Heart',
+	categories: [{
+		id: 3,
+		name: 'Clothing Design'
+	}],
+	subcategories: [{
+		name: 'Yoga-Wear',
+		category_id: 3
+	}],
+	location: 'California',
+	origin: 'California'
+
+}
+
+
 class Shop extends Component {
 	constructor(props) {
 		super(props);
@@ -19,9 +38,8 @@ class Shop extends Component {
 				<div className='banner'>
 				</div>
 
-				<div className='profile'>
-
-				</div>
+				<ShopProfile
+					profile={ shop_example }/>
 
 				<div className='shelf feature'>
 				</div>
@@ -61,33 +79,7 @@ export default Shop;
 
 /*
 
-<div className='shop_profile_picture'>
-</div>
 
-<div className='title'>
-	Sew Much Love Clothing
-</div>
-
-<div className='tagline'>
-	Clothing Made From The Heart
-</div>
-
-<div className='category_row'>
-	<div className='categories'>
-		Clothing Design
-	</div>
-	<div className='sub_categories'>
-		Yoga-Wear
-	</div>
-</div>
-
-<div className='location'>
-	lives in: California
-</div>
-
-<div className='origin'>
-	| from: California
-</div>
 
 
 */
