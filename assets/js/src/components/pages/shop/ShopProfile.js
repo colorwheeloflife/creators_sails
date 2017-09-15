@@ -118,8 +118,6 @@ export default class ShopProfile extends Component {
       );
     }
 
-
-
     return (
       <div className={ shopProfileClass }>
 
@@ -186,7 +184,6 @@ export default class ShopProfile extends Component {
         <div className={ creatorsAboutClass }>
 
         </div>
-
       </div>
     );
   }
