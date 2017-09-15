@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import * as actions from '../../../actions';
 
 import ShopProfile from './ShopProfile';
+import Shelf from './ShopShelf';
 
 const shop_example = {
 	name: 'Sew Much Love Clothing',
@@ -37,8 +38,39 @@ const shop_example = {
 		name: 'Comfy',
 		type: 'standard'
 	}]
-
 }
+
+const items_example = [{
+		name: 'Spirit Tree',
+		artist: 'TheSpiritNectar',
+		price: 280,
+		currency: 'CA'
+	},
+	{
+		name: 'Spirit Tree',
+		artist: 'TheSpiritNectar',
+		price: 280,
+		currency: 'CA'
+	},
+	{
+		name: 'Spirit Tree',
+		artist: 'TheSpiritNectar',
+		price: 280,
+		currency: 'CA'
+	},
+	{
+		name: 'Spirit Tree',
+		artist: 'TheSpiritNectar',
+		price: 280,
+		currency: 'CA'
+	},
+	{
+		name: 'Spirit Tree',
+		artist: 'TheSpiritNectar',
+		price: 280,
+		currency: 'CA'
+	}
+];
 
 
 class Shop extends Component {
@@ -49,8 +81,6 @@ class Shop extends Component {
 		}
 	}
 
-
-
   render() {
     return (
       <div id='shop'>
@@ -60,14 +90,18 @@ class Shop extends Component {
 				<ShopProfile
 					profile={ shop_example }/>
 
-				<div className='shelf feature'>
-				</div>
+				<Shelf
+					title='Featured'
+					items= { items_example }
+					feature={ true }/>
 
-				<div className='shelf'>
-				</div>
+				<Shelf
+					title='Sexyness'
+					items= { items_example }/>
 
-				<div className='shelf'>
-				</div>
+				<Shelf
+					title='Swag'
+					items= { items_example }/>
 
 				<div className='catologue'>
 				</div>
