@@ -3,6 +3,30 @@ import React, { Component } from 'react';
 const ShopProfile = (props) => {
   const { profile } = props;
 
+  const categories = profile.categories.map((category, index) => {
+    const subcategories = profile.subcategories.map((subcategory, index) => {
+      if ( subcategory.category_id === category.id ) {
+        return (
+          <div key={ subcategory.name } className='subcategory'>
+             &nbsp;| { subcategory.name }
+          </div>
+        );
+      }
+    });
+
+    return (
+      <div key={ category.name } className='category_row'>
+        <div className='category'>
+          { category.name }
+        </div>
+
+        <div className='subcategories'>
+          { subcategories }
+        </div>
+      </div>
+    );
+  });
+
   return (
     <div className='shop_profile'>
       <div className='shop_profile_picture'>
@@ -18,7 +42,7 @@ const ShopProfile = (props) => {
         </div>
 
         <div className='category_container'>
-
+          { categories }
         </div>
 
         <div className='location_container'>
@@ -31,12 +55,15 @@ const ShopProfile = (props) => {
           </div>
         </div>
 
+        <div className='description'>
+          { profile.description }
+        </div>
+
       </div>
 
       <div className='tag_container'>
-
       </div>
-    <div>
+    </div>
   );
 }
 
@@ -45,28 +72,12 @@ export default ShopProfile;
 
 /*
 
-const categories = profile.categories.map((category, index) {
-  const subcategories = profile.subcategories.map((subcategory, index) {
-    if ( subcategory.category_id === category.id ) {
-      return (
-        <div className='subcategory'>
-          | { subcategory.name }
-        </div>
-      );
-    }
-  });
-
-  return (
-    <div className='category_row'>
-      <div className='category'>
-        { category }
-      </div>
-
-      <div className='subcategories'>
-        { subcategories }
-      </div>
-    </div>
-  );
+const vibe_badges = profile.tags.map((tag, index) {
+  if ( tag.type === 'vibe' && tag.badge === true ) {
+    return (
+      <VibeBadge tag={ tag } />
+    );
+  }
 });
 
 */

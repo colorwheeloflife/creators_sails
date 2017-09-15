@@ -16,8 +16,27 @@ const shop_example = {
 		name: 'Yoga-Wear',
 		category_id: 3
 	}],
-	location: 'California',
-	origin: 'California'
+	location: 'Lake Tahoe, California',
+	origin: 'California',
+	description: 'Sew Much Love is a clothing company that believes in fashion and function, with every purchase a dollar will be donated to a non-profit here in Lake Tahoe.',
+	tags: [{
+		name: 'Sacred Nomad',
+		type: 'vibe',
+		badge: true
+	},{
+		name: 'Sexyness',
+		type: 'vibe',
+		badge: true
+	},{
+		name: 'Gypsy',
+		type: 'standard'
+	},{
+		name: 'Pretty',
+		type: 'standard'
+	},{
+		name: 'Comfy',
+		type: 'standard'
+	}]
 
 }
 
