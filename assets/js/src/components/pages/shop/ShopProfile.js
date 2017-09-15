@@ -64,8 +64,22 @@ const ShopProfile = (props) => {
 
   return (
     <div className='shop_profile'>
-      <div className='shop_profile_picture'>
+
+      <div className='shop_profile_col_1'>
+        <div className='shop_profile_picture'>
+        </div>
+
+        <div className='about_button_container'>
+          <div className='about_btn shop'>
+            About Shop
+          </div>
+          <div className='about_btn creators'>
+            About Creators
+          </div>
+        </div>
       </div>
+
+
 
       <div className='shop_info'>
         <div className='title'>
@@ -93,7 +107,6 @@ const ShopProfile = (props) => {
         <div className='description'>
           { profile.description }
         </div>
-
       </div>
 
       <div className='tag_container'>
