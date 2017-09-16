@@ -5,6 +5,7 @@ import * as actions from '../../../actions';
 
 import ShopProfile from './ShopProfile';
 import Shelf from './ShopShelf';
+import Catalog from './Catalog';
 
 const shop_example = {
 	name: 'Sew Much Love Clothing',
@@ -103,8 +104,8 @@ class Shop extends Component {
 					title='Swag'
 					items= { items_example }/>
 
-				<div className='catologue'>
-				</div>
+				<Catalog
+					items={ items_example }/>
 
       </div>
     );
