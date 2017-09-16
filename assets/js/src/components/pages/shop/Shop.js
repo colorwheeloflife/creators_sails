@@ -70,6 +70,36 @@ const items_example = [{
 		artist: 'TheSpiritNectar',
 		price: 280,
 		currency: 'CA'
+	},
+	{
+		name: 'Spirit Tree',
+		artist: 'TheSpiritNectar',
+		price: 280,
+		currency: 'CA'
+	},
+	{
+		name: 'Spirit Tree',
+		artist: 'TheSpiritNectar',
+		price: 280,
+		currency: 'CA'
+	},
+	{
+		name: 'Spirit Tree',
+		artist: 'TheSpiritNectar',
+		price: 280,
+		currency: 'CA'
+	},
+	{
+		name: 'Spirit Tree',
+		artist: 'TheSpiritNectar',
+		price: 280,
+		currency: 'CA'
+	},
+	{
+		name: 'Spirit Tree',
+		artist: 'TheSpiritNectar',
+		price: 280,
+		currency: 'CA'
 	}
 ];
 

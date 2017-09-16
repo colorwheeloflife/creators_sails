@@ -2,6 +2,23 @@ import React, { Component } from 'react';
 
 import Styler from '../../../lib/Styler';
 
+import CatalogTagFilter from './CatalogTagFilter';
+import ItemCard from '../../reusables/ItemCard';
+
+const tags_example = [{
+    name: 'gypsy'
+  },
+  {
+    name: 'pretty'
+  },
+  {
+    name: 'comfy'
+  },
+  {
+    name: 'sexyness'
+  }
+];
+
 export default class Catalog extends Component {
   constructor(props) {
     super(props);
@@ -16,6 +33,16 @@ export default class Catalog extends Component {
     const {  } = this.state;
     const { items } = this.props;
 
+    const catalogItems = items.map((item, index) => {
+      const properties = {
+        item
+      };
+
+      return (
+        <ItemCard key={ index } { ...properties } />
+      );
+    });
+
     return (
       <div className='catalog'>
 
@@ -29,6 +56,21 @@ export default class Catalog extends Component {
 
 
           <div className='catalog_menu'>
+            <div className='filter_title'>
+              Create a filter to find items
+            </div>
+
+            <CatalogTagFilter
+              context= { 'Category' }
+              tags={ tags_example }/>
+
+            <CatalogTagFilter
+              context= { 'Subcategory' }
+              tags={ tags_example }/>
+
+            <CatalogTagFilter
+              context= { 'Vibe' }
+              tags={ tags_example }/>
 
           </div>
         </div>
@@ -49,7 +91,7 @@ export default class Catalog extends Component {
           </div>
 
           <div className='catalog_content'>
-
+            { catalogItems }
           </div>
         </div>
 
