@@ -3,7 +3,9 @@ import React, { Component } from 'react';
 import Styler from '../../../lib/Styler';
 
 import CatalogTagFilter from './CatalogTagFilter';
+import Dropdown from '../../reusables/Dropdown';
 import ItemCard from '../../reusables/ItemCard';
+import Searchbar from '../../reusables/Searchbar';
 
 const tags_example = [{
     name: 'gypsy'
@@ -16,6 +18,31 @@ const tags_example = [{
   },
   {
     name: 'sexyness'
+  }
+];
+
+
+
+const sort_by_options = [{
+    name: 'relevance'
+  },
+  {
+    name: 'most recent'
+  }, 
+  {
+    name: 'highest rated'
+  },
+  {
+    name: 'lowest price'
+  },
+  {
+    name: 'highest price'
+  },
+  {
+    name: 'a => z'
+  },
+  {
+    name: 'z => a'
   }
 ];
 
@@ -87,6 +114,15 @@ export default class Catalog extends Component {
             </div>
             <div className='catalog_button'>
               Something
+            </div>
+
+            <div className='catalog_searchbar_container'>
+              <Searchbar />
+            </div>
+
+            <div className='sort_by_dropdown_container'>
+              <Dropdown
+                items={ sort_by_options }/>
             </div>
           </div>
 
